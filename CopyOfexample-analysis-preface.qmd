@@ -14,8 +14,7 @@ Du findest auf YouTube in der Playlist [Spielweise in R (Level 3)](https://www.y
 
 Worum geht es in diesem Kapitel? Ich rechne hier fröhlich Dinge und präsentiere dann die Ergebnisse. Das heißt, du findest hier beispielhafte Auswertungen, die eventuell auch deine Problemstellung betreffen. Da *ich selber* meist keine Ahnung von der Biologie hinter den Experimenten habe, musst du mir nachsehen, dass ich hier nie zu einem echten biologischen Schluss oder Auswertung komme.
 
--   In @sec-app-example-iso schauen wir uns einmal die Erstellung eines Isoplethendiagramms für Münster & Osnabrück aus den frei verfügbaren Daten des Deutschen Wetterdienstes an.
--   In @sec-app-example-number-groups rechnen wir einmal ein simples Beispiel für Zähldaten in zwei Gruppen. Wir haben hier nicht wiederholt gezählt, sondern nur jeweils einmal an einer Stelle.
+
 -   In @sec-app-example-anova-inter rechnen wir nochmal eine zweifaktorielle ANOVA mit Interaktionsterm durch. Wir kriegen dann unser *Compact letter display* wie auch die Konfidenzintervalle wieder.
 -   In @sec-mult-map-ght rechnen wir einen Games Howell Test für normalverteilte Daten mit Varianzheterogenität. Hier hauen wir ein wenig auf die Pauke und rechnen alles in wenigen Zeilen mit der Funktion `map()`. War eine spaßige Auswerung für mich, da ich hier mal wieder programmieren üben konnte.
 -   In @sec-root-quality schauen wir uns ein größeres Beispiel für die Analyse von Wurzelbonituren an. Im Prinzip geht das natürlich auch alles für jede andere Bonitur. Wenn du eine andere Bonitur hast, kannst du natürlich auch den Weg der Analyse gehen.

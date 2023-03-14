@@ -19,6 +19,7 @@ book:
     - part: example-analysis-preface.qmd
       chapters:
       - example-analysis-01.qmd
+      - example-analysis-02.qmd
 
 
 

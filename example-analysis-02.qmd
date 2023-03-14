@@ -1,3 +1,16 @@
+# Analyse von Anzahlen in zwei Gruppen {#sec-app-example-number-groups}
+
+*Version vom `r format(Sys.time(), '%B %d, %Y um %H:%M:%S')`*
+
+Wir wollen folgende R Pakete in diesem Kapitel nutzen.
+
+```{r echo = TRUE}
+#| message: false
+pacman::p_load(tidyverse, magrittr, effectsize, see)
+```
+
+
+
 In dieser sehr simplen Analyse haben wir zwei Gruppen vorliegen. Die Gruppe 1 ist hat zwei Level oder Behandlungen abgekürzt mit I und II. Die Gruppe 2 hat insgesamt vier Level oder eben Behandlungen, die wir mit A, B, C und D bezeichnen. Wir haben jetzt für die jeweiligen Kombinationen auf dem Feld etwas *gezählt*. Wir haben also für jede dieser Kombinationen nur eine Zahl. Es ergbit sich somit die folgende Matrix an Zahlen.
 
 ```{r}
