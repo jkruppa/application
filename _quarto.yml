@@ -1,0 +1,36 @@
+project:
+  type: book
+  output-dir: docs
+
+crossref:
+  fig-prefix: Abbildung
+  tbl-prefix: Tabelle
+  fig-title: Abbildung    
+  tbl-title: Tabelle 
+  title-delim: —     # (default is ":")
+
+book:
+  title: "Beispielhafte Auswertungen"
+  author: "Prof. Dr. Jochen Kruppa"
+  date: "14. March 2023"
+  cover-image: cover.png
+  chapters:
+    - index.qmd
+#    - literature.qmd
+#    - preface.qmd
+#    - part: geometry-preface.qmd
+#      chapters:
+#      - geometry-unit.qmd
+#      - geometry-area.qmd
+
+
+bibliography: references.bib
+lang: de 
+
+format:
+  html:
+    theme: cosmo
+#  pdf:
+#    documentclass: scrreprt
+
+
