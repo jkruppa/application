@@ -1,8 +1,24 @@
+## Wachstum nach Rückschnitt mit Messwiederholung {#sec-cutting}
+
+*Version vom `r format(Sys.time(), '%B %d, %Y um %H:%M:%S')`*
+
 ::: callout-tip
 ## Beispielhafte Auswertungen per Video
 
 Du findest auf YouTube [Spielewiese in R - Teil 04.0 - Messwiederholungen einlesen und Outcomes korrelieren](https://youtu.be/-KdhG_mntRc) die Auswertung einmal als Video. Ich werde zwar alles nochmal hier als Text aufschreiben, aber manchmal ist das Sehen und Hören dann einfacher.
 :::
+
+Wir wollen folgende R Pakete in diesem Kapitel nutzen.
+
+```{r echo = TRUE}
+#| message: false
+pacman::p_load(tidyverse, magrittr, readxl, see, janitor,
+               psych, parameters, effectsize, emmeans,
+               multcomp, conflicted)
+## resolve some conflicts with same function naming
+conflict_prefer("select", "dplyr")
+conflict_prefer("filter", "dplyr")
+```
 
 In diesem Beispiel haben vier Outcomes mit `shoot`, `flower`, `leaf` und `fruit` gemessen. Wir nehmen hier an, dass wir es bei dem Outcome `shoot` mit einer Pflanzenhöhe zu tun haben und bei den drei anderen Outcomes jeweils mit einer Anzahl. Wir haben jeweils drei Pflanzen in zwei Blöcken randomisiert. Darüber hinaus haben wir vier Behandlungen. Einmal schauen wir uns eine Kontrolle an sowie drei Arten von Rückschnitten. Die Fragestellung ist nun, wie sich die Behandlung durch die Rückschnitte auf die Outcomes auswirkt.
 
@@ -308,7 +324,7 @@ flowers_fit %>%
   model_parameters()
 ```
 
-Im Prinzip das gleiche Ergebnis wie schon bei der Trieblänge. Wir haben einen signifikanten Effekt der Behandlung auf die Blütenanzahl und keine signifkante Interaktion. Wir rechnen also mit dem Modell jetzt weiter. Wiederum nutzen wir das R Paket `emmeans`. Wichtig ist hier, dass wir als Typ dann die `response` angeben. Sonst erhalten wir alle Effektschätzer auf der Link-Scale und die Link-Scale können wir dann nicht interpretieren.
+Im Prinzip das gleiche Ergebnis wie schon bei der Trieblänge. Wir haben einen signifikanten Effekt der Behandlung auf die Blütenanzahl und keine signifikante Interaktion. Wir rechnen also mit dem Modell jetzt weiter. Wiederum nutzen wir das R Paket `emmeans`. Wichtig ist hier, dass wir als Typ dann die `response` angeben. Sonst erhalten wir alle Effektschätzer auf der Link-Scale und die Link-Scale können wir dann nicht interpretieren.
 
 ```{r}
 #| message: false

@@ -12,7 +12,7 @@ crossref:
 book:
   title: "Beispielhafte Auswertungen"
   author: "Prof. Dr. Jochen Kruppa"
-  date: "14. March 2023"
+  date: "16. March 2023"
   cover-image: cover.png
   chapters:
     - index.qmd
@@ -22,7 +22,9 @@ book:
       - example-analysis-02.qmd
       - example-analysis-03.qmd
       - example-analysis-04.qmd
-
+      - example-analysis-05.qmd
+      - example-analysis-06.qmd
+      
 bibliography: references.bib
 lang: de 
 

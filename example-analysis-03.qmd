@@ -219,7 +219,7 @@ cld_obj <- fit_1 %>%
 cld_obj
 ```
 
-Wir sehen wieder, dass wir nur in dem `3rd` Layer Buchstabenunterschiede haben. Daher haben wir auch nur im `3rd` Layer signifikante Ergebnisse. Wichtig ist, dass wir die Buchstaben nur pro Level des Layers vergleichen können, aber auf keinen Fall über die Layer hinweg. Das geht dann leider nicht. Die Ausgabe der Funktion `emmeans()` schlägt noch andere Darstellungsformen für die Vergleiche vor, du kannst gerne einmal die Funktionen `pairs()`, `pwpp()` oder `pwpm()` ausprobieren und schauen, ob dir die Visualisierung mehr sagt. Im @sec-posthoc-emmeans gehe ich nochmal auf die verschiedene Darstellungsformen in `emmeans` ein.
+Wir sehen wieder, dass wir nur in dem `3rd` Layer Buchstabenunterschiede haben. Daher haben wir auch nur im `3rd` Layer signifikante Ergebnisse. Wichtig ist, dass wir die Buchstaben nur pro Level des Layers vergleichen können, aber auf keinen Fall über die Layer hinweg. Das geht dann leider nicht. Die Ausgabe der Funktion `emmeans()` schlägt noch andere Darstellungsformen für die Vergleiche vor, du kannst gerne einmal die Funktionen `pairs()`, `pwpp()` oder `pwpm()` ausprobieren und schauen, ob dir die Visualisierung mehr sagt. Im [Kapitel 31 - Multiple Vergleiche oder Post-hoc Tests](https://jkruppa.github.io/stat-tests-posthoc.html) gehe ich nochmal auf die verschiedene Darstellungsformen in `emmeans` ein.
 
 Wenn wir das *compact letter display* mit deinem Barplot verbinden wollen, müssen wir uns etwas strecken. Zuerst sortieren wir die Ausgabe von `cld_obj` wieder in die korrekte Reihenfolge der Faktorenlevel. Dann können wir die Spalte `.group` direkt in `ggplot()` verwenden.
 

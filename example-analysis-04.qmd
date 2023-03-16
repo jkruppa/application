@@ -75,4 +75,4 @@ soil_lst %>%
   bind_rows(.id = "outcome") 
 ```
 
-Wie du dann mit dem *compact letter display* weiterarbeitest und interpretierst, findest du dann im @sec-compact-letter über das *compact letter display* für den Games Howell Test. Hier ist erstmal Schluss, sonst wird hier alles sehr wiederholend.
+Wie du dann mit dem *compact letter display* weiterarbeitest und interpretierst, findest du dann im [Kapitel 31 - Multiple Vergleiche oder Post-hoc Tests](https://jkruppa.github.io/stat-tests-posthoc.html) über das *compact letter display* für den Games Howell Test. Hier ist erstmal Schluss, sonst wird hier alles sehr wiederholend.

@@ -1,3 +1,18 @@
+# Wurzelqualität in einem zweifaktoriellen Design {#sec-root-quality}
+
+*Version vom `r format(Sys.time(), '%B %d, %Y um %H:%M:%S')`*
+
+Wir wollen folgende R Pakete in diesem Kapitel nutzen.
+
+```{r echo = TRUE}
+#| message: false
+pacman::p_load(tidyverse, magrittr, readxl, see,
+               ordinal, parameters, emmeans, multcomp,
+               conflicted)
+## resolve some conflicts with same function naming
+conflict_prefer("select", "dplyr")
+```
+
 Sehr häufig haben wir es auch in den Agrarwissenschaften mit Boniturnoten auf der Likert-Skala zu tun. Das heißt wir haben ein Outcome $y$ mit Noten zwischen 1 und 9. Die ganzen Beobachtungen haben wir dann meist noch irgendwie in einem Block wiederholt. Neben den Problemen eine gute und richtige Bonitur *praktisch* durchzuführen, ist natürlich die Normalverteilung für das Outcome der Noten nicht gegeben. Wir könnten hier zum einen mit einem paarweisen Wilcoxon Rangsummentest ran oder aber wir nutzen die Funktion `clm()` aus dem R Paket `ordnial` für die Schätzung der Gruppenunterschiede. Wir nehmen hier mal die Funktion `clm()` da wir auch den Block mit ins Modell nehmen können.
 
 Zuerst laden wir wieder die Daten. Dabei müssen wir dann noch die Notenspalte `grade` einmal als numerisch lassen und einmal in einen Faktor mutieren. Wir brauchen ein Faktor für die Funktion `clm()` aber eine numerische Variable für die Funktion `ggplot()`. Deshalb eben die Noten in einer doppelten Spalte.

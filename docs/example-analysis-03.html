@@ -93,6 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./example-analysis-04.html" rel="next">
 <link href="./example-analysis-02.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -187,6 +188,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./example-analysis-03.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Auswertung zweifaktorielle ANOVA mit Interaktion</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-04.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Multiples Testen mit Games Howell Test</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-05.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wurzelqualität in einem zweifaktoriellen Design</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-06.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Wachstum nach Rückschnitt mit Messwiederholung</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -216,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p><em>Version vom March 16, 2023 um 08:47:52</em></p>
+<p><em>Version vom March 16, 2023 um 09:09:50</em></p>
 <p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, see, readxl, knitr,</span>
@@ -677,7 +693,7 @@ NOTE: If two or more means share the same grouping symbol,
       But we also did not show them to be the same. </code></pre>
 </div>
 </div>
-<p>Wir sehen wieder, dass wir nur in dem <code>3rd</code> Layer Buchstabenunterschiede haben. Daher haben wir auch nur im <code>3rd</code> Layer signifikante Ergebnisse. Wichtig ist, dass wir die Buchstaben nur pro Level des Layers vergleichen können, aber auf keinen Fall über die Layer hinweg. Das geht dann leider nicht. Die Ausgabe der Funktion <code>emmeans()</code> schlägt noch andere Darstellungsformen für die Vergleiche vor, du kannst gerne einmal die Funktionen <code>pairs()</code>, <code>pwpp()</code> oder <code>pwpm()</code> ausprobieren und schauen, ob dir die Visualisierung mehr sagt. Im <span class="quarto-unresolved-ref">?sec-posthoc-emmeans</span> gehe ich nochmal auf die verschiedene Darstellungsformen in <code>emmeans</code> ein.</p>
+<p>Wir sehen wieder, dass wir nur in dem <code>3rd</code> Layer Buchstabenunterschiede haben. Daher haben wir auch nur im <code>3rd</code> Layer signifikante Ergebnisse. Wichtig ist, dass wir die Buchstaben nur pro Level des Layers vergleichen können, aber auf keinen Fall über die Layer hinweg. Das geht dann leider nicht. Die Ausgabe der Funktion <code>emmeans()</code> schlägt noch andere Darstellungsformen für die Vergleiche vor, du kannst gerne einmal die Funktionen <code>pairs()</code>, <code>pwpp()</code> oder <code>pwpm()</code> ausprobieren und schauen, ob dir die Visualisierung mehr sagt. Im <a href="https://jkruppa.github.io/stat-tests-posthoc.html">Kapitel 31 - Multiple Vergleiche oder Post-hoc Tests</a> gehe ich nochmal auf die verschiedene Darstellungsformen in <code>emmeans</code> ein.</p>
 <p>Wenn wir das <em>compact letter display</em> mit deinem Barplot verbinden wollen, müssen wir uns etwas strecken. Zuerst sortieren wir die Ausgabe von <code>cld_obj</code> wieder in die korrekte Reihenfolge der Faktorenlevel. Dann können wir die Spalte <code>.group</code> direkt in <code>ggplot()</code> verwenden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cld_sort_obj <span class="ot">&lt;-</span> cld_obj <span class="sc">%&gt;%</span> </span>
@@ -857,6 +873,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./example-analysis-04.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Multiples Testen mit Games Howell Test</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

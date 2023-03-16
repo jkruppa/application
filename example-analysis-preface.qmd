@@ -12,9 +12,29 @@ pacman::p_load(tidyverse, readxl, knitr, kableExtra, openxlsx)
 Du findest auf YouTube in der Playlist [Spielweise in R (Level 3)](https://www.youtube.com/playlist?list=PLe51bCp9JvEFZeYClBKad6yurjUzc8jXp) viele der Analysen hier einmal als Video. Ich werde zwar alles nochmal hier als Text aufschreiben, aber manchmal ist das Sehen und Hören dann einfacher.
 :::
 
-Worum geht es in diesem Kapitel? Ich rechne hier fröhlich Dinge und präsentiere dann die Ergebnisse. Das heißt, du findest hier beispielhafte Auswertungen, die eventuell auch deine Problemstellung betreffen. Da *ich selber* meist keine Ahnung von der Biologie hinter den Experimenten habe, musst du mir nachsehen, dass ich hier nie zu einem echten biologischen Schluss oder Auswertung komme.
+Wir wollen folgende R Pakete in diesem Skript nutzen.
+
+```{r echo = TRUE}
+#| message: false
+pacman::p_load(tidyverse, magrittr, readxl, janitor,
+               broom, multcomp, emmeans, effectsize, report,
+               see, metR, parameters, multcompView,
+               modelsummary, rstatix, corrplot, psych,
+               ordinal, rcompanion, lme4, performance,
+               scales, lubridate,
+               conflicted)
+## resolve some conflicts with same function naming
+conflict_prefer("select", "dplyr")
+conflict_prefer("filter", "dplyr")
+conflict_prefer("chisq.test", "stats")
+conflict_prefer("%+%", "ggplot2")
+conflict_prefer("eta_squared", "effectsize")
+```
+
+Worum geht es in diesen Kapiteln? Ich rechne hier fröhlich Dinge und präsentiere dann die Ergebnisse. Das heißt, du findest hier beispielhafte Auswertungen, die eventuell auch deine Problemstellung betreffen. Da *ich selber* meist keine Ahnung von der Biologie hinter den Experimenten habe, musst du mir nachsehen, dass ich hier nie zu einem echten biologischen Schluss oder Auswertung komme.
 
 -   In @sec-app-example-iso schauen wir uns einmal die Erstellung eines Isoplethendiagramms für Münster & Osnabrück aus den frei verfügbaren Daten des Deutschen Wetterdienstes an.
 -   In @sec-app-example-number-groups rechnen wir einmal ein simples Beispiel für Zähldaten in zwei Gruppen. Wir haben hier nicht wiederholt gezählt, sondern nur jeweils einmal an einer Stelle.
 -   In @sec-app-example-anova-inter rechnen wir nochmal eine zweifaktorielle ANOVA mit Interaktionsterm durch. Wir kriegen dann unser *Compact letter display* wie auch die Konfidenzintervalle wieder.
 -   In @sec-mult-map-ght rechnen wir einen Games Howell Test für normalverteilte Daten mit Varianzheterogenität. Hier hauen wir ein wenig auf die Pauke und rechnen alles in wenigen Zeilen mit der Funktion `map()`. War eine spaßige Auswerung für mich, da ich hier mal wieder programmieren üben konnte.
+-   In @sec-root-quality schauen wir uns ein größeres Beispiel für die Analyse von Wurzelbonituren an. Im Prinzip geht das natürlich auch alles für jede andere Bonitur. Wenn du eine andere Bonitur hast, kannst du natürlich auch den Weg der Analyse gehen.
