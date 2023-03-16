@@ -1,3 +1,21 @@
+# Pilze auf dem Rasen {#sec-app-golf-green}
+
+*Version vom `r format(Sys.time(), '%B %d, %Y um %H:%M:%S')`*
+
+Wir wollen folgende R Pakete in diesem Kapitel nutzen.
+
+```{r echo = TRUE}
+#| message: false
+pacman::p_load(tidyverse, magrittr, readxl, janitor,
+               psych, effectsize, parameters,
+               multcomp, emmeans, 
+               conflicted)
+## resolve some conflicts with same function naming
+conflict_prefer("select", "dplyr")
+conflict_prefer("filter", "dplyr")
+```
+
+
 Im Folgenden wollen wir uns einen Datensatz mit einem etwas missglückten Design anschauen. In der @fig-app-exp-golf sehen wir das Design einmal aus der Vogelperspektive. Wir haben auf zwei Grüns jweils zwei Blöcke angelegt. Leider finden wir nur Block I und II auf dem Grün 1 sowie die Blöcke III und IV auf dem Grün 2. Zwar haben wir dann unsere fünfzehn Behandlungen sauber auf jedem der beiden Grüns randomisiert, aber die ungüntige Blockeinteilung wird uns noch etwas Kopfzerbrechen bereiten.
 
 ![Vogelperspektive für unseren Versuch mit Pilzbefall. Leider finden wir nur den Block I und II auf dem Grün 1 sowie die Blöcke III und IV auf dem Grün 2.](images/app_golf_green.png){#fig-app-exp-golf fig-align="center" width="80%"}

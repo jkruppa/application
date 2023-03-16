@@ -1,3 +1,15 @@
+# Daten eines automatischen Loggers {#sec-app-logger}
+
+*Version vom `r format(Sys.time(), '%B %d, %Y um %H:%M:%S')`*
+
+Wir wollen folgende R Pakete in diesem Kapitel nutzen.
+
+```{r echo = TRUE}
+#| message: false
+pacman::p_load(tidyverse, magrittr, readxl,
+               lubridate)
+```
+
 Die Daten des Loggers liegen in einer Exceldatei ab. Wir haben jede Minute die Konzentration von CO$_2$, die Temperatur und die relative Feuchte messen lassen. Da wir das Datum in einem ungünstigen Format vorliegen haben, müssen wir der Funktion `as_date()` die Tage, Monate und das Jahr als Format mitgeben. Wir schreiben `'%d.%m.%Y'` und meinen damit, dass erst der Tag, dann der Monat und dann das Jahr angeben ist. Getrennt sind die Tage, Monate und Jahre durch einen Punkt. Dann verbinden wir noch die Spalte des Datums mit der Spalte des Uhrzeit und bauen uns daraus eine `date_time` Spalte. Die `date_time` Spalte brauchen wir um später für jeden Zeitpunkt die gemessenen Werte darstellen zu können.
 
 ```{r}
@@ -112,6 +124,5 @@ ggplot(log_plot_filter_tbl, aes(date, rsp, color = time)) +
   facet_wrap(~ outcome, scales = "free_y", nrow = 3) +
   scale_x_date(date_labels = "%b %d", date_breaks = "3 day",
                date_minor_breaks = "1 day") +
-  ##theme(legend.position = "none") +
   labs(x = "Datum", y = "")
 ```

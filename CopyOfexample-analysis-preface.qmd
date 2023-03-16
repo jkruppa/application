@@ -14,17 +14,6 @@ Du findest auf YouTube in der Playlist [Spielweise in R (Level 3)](https://www.y
 
 Worum geht es in diesem Kapitel? Ich rechne hier fröhlich Dinge und präsentiere dann die Ergebnisse. Das heißt, du findest hier beispielhafte Auswertungen, die eventuell auch deine Problemstellung betreffen. Da *ich selber* meist keine Ahnung von der Biologie hinter den Experimenten habe, musst du mir nachsehen, dass ich hier nie zu einem echten biologischen Schluss oder Auswertung komme.
 
-
-
-
-
-
-
-
-
-
--   In @sec-app-logger schauen wir uns die Daten eines automatischen Log-Gerätes einmal an. Wir haben die Daten von über 35000 Messungen in über knapp zwei Wochen erhoben. Wir wollen jetzt diese Daten auf verschiedene Art und Weise visualisieren und die Ergebnisse der Plots vergleichen.
--   In @sec-app-golf-green betrachten wir das Wachstum von Pilzen auf zwei Grasflächen und vier Blöcken. Insgesamt wurden fünfzehn Behandlungen auf den Rasen aufgebracht, was natürlich zu einer gewaltigen Anzahl an Vergleichen führt.
 -   In @sec-app-carrot-packages schauen wir uns die Eigenschaften von Karotten in unterschiedlichen Verpackungen an. Dabei vergleichen wir verschiedene Behandlungen und kommen dann leider auf eine sehr kleine Fallzahl am Ende der Messzeitpunkte.
 
 Je weiter du nach unten in diesem Kapitel kommst, desto weniger Text wirst du finden. Ich werde noch eine Zeit brauchen, bis ich alles wieder schon mit Text hier verarbeitet habe. Es wird aber immer mal wieder etwas *messy* aussehen. Hier wird eben auch gearbeitet. Der R Code wird dann aber immer funktionieren, nur die Beschreibungen sind dann eben manchmal nicht da.
@@ -52,23 +41,6 @@ conflict_prefer("eta_squared", "effectsize")
 
 Am Ende des Kapitels findest du nochmal den gesamten R Code in einem Rutsch zum selber durchführen oder aber kopieren.
 
-
-
-
-
-
-
-
-
-
-
-## Daten eines automatischen Loggers {#sec-app-logger}
-
-{{< include app-example-analysis/app-example-analysis-11.qmd >}}
-
-## Pilze auf dem Rasen {#sec-app-golf-green}
-
-{{< include app-example-analysis/app-example-analysis-12.qmd >}}
 
 ## Karotten in unterschiedlichen Packungen {#sec-app-carrot-packages}
 
