@@ -19,10 +19,10 @@ Worum geht es in diesem Kapitel? Ich rechne hier fröhlich Dinge und präsentier
 
 
 
--   In @sec-tukeyHSD schauen wir uns den Tukey Test für paaweise Vergleiche einmal an. Wir nutzen hier die schnelle Variante mit der Funktion `aov()`. Für das *Compact letter display* müssen wir uns dann ein wenig strecken, aber es geht dann auch.
--   In @sec-plowing-data haben wir nochmal ein schönes Beispiel für eine Analyse mit mehreren Faktoren und verschiedenen Outcomes. Wir haben also einen Blumenstrauß an Daten, die wir sortieren und auswerten müssen. Da ich selber keine Ahnung vom Pflügen habe, gehen wir die Sache distanziert durch.
--   In @sec-app-mixed-cutting schauen wir uns ein lineares gemischtes Modell an. Das heißt, wir wollen einen Gruppenvergleich rechnen und dabei die verschiedenen Zeitpunkte mit berücksichtigen. Anstatt also jeden Zeitpunkt einzeln, rechnen wir alle Zeitpunkte zusammen.
--   In @sec-app-spinach-metal wollen wir uns die Konzentration von drei Spurenelementen als Outcome in Blättern und Stielen der Spinatpflanze anschauen. Wir haben hierfür dann die Konzentration von Fe, Cd und Zn gemessen. Insgesamt gab es sieben verschiedene Behandlungsformen.
+
+
+
+
 -   In @sec-app-logger schauen wir uns die Daten eines automatischen Log-Gerätes einmal an. Wir haben die Daten von über 35000 Messungen in über knapp zwei Wochen erhoben. Wir wollen jetzt diese Daten auf verschiedene Art und Weise visualisieren und die Ergebnisse der Plots vergleichen.
 -   In @sec-app-golf-green betrachten wir das Wachstum von Pilzen auf zwei Grasflächen und vier Blöcken. Insgesamt wurden fünfzehn Behandlungen auf den Rasen aufgebracht, was natürlich zu einer gewaltigen Anzahl an Vergleichen führt.
 -   In @sec-app-carrot-packages schauen wir uns die Eigenschaften von Karotten in unterschiedlichen Verpackungen an. Dabei vergleichen wir verschiedene Behandlungen und kommen dann leider auf eine sehr kleine Fallzahl am Ende der Messzeitpunkte.
@@ -58,25 +58,9 @@ Am Ende des Kapitels findest du nochmal den gesamten R Code in einem Rutsch zum 
 
 
 
-## Wachstum nach Rückschnitt mit Messwiederholung {#sec-cutting}
 
-{{< include app-example-analysis/app-example-analysis-06.qmd >}}
 
-## Einen TukeyHSD Test rechnen {#sec-tukeyHSD}
 
-{{< include app-example-analysis/app-example-analysis-07.qmd >}}
-
-## Auswertung von Pflugdaten mit `ggplot` Templates {#sec-plowing-data}
-
-{{< include app-example-analysis/app-example-analysis-08.qmd >}}
-
-## Auswertung mit Messwiederholungen {#sec-app-mixed-cutting}
-
-{{< include app-example-analysis/app-example-analysis-09.qmd >}}
-
-## Spurenelemente in Spinatblättern und Stielen {#sec-app-spinach-metal}
-
-{{< include app-example-analysis/app-example-analysis-10.qmd >}}
 
 ## Daten eines automatischen Loggers {#sec-app-logger}
 
