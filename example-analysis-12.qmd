@@ -40,7 +40,7 @@ Schauen wir uns einmal die Korrelation zwischen den AUDPC-Werten für die beiden
 #| fig-align: center
 #| fig-height: 5
 #| fig-width: 5
-#| fig-cap: "foo."
+#| fig-cap: "Korrelation zwischen den beiden Jahren der Messung."
 
 golf_tbl %>% 
   select(audpc_2020, audpc_2021) %>% 
