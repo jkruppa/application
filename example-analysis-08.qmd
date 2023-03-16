@@ -1,3 +1,14 @@
+# Auswertung von Pflugdaten mit `ggplot` Templates {#sec-plowing-data}
+
+*Version vom `r format(Sys.time(), '%B %d, %Y um %H:%M:%S')`*
+
+Wir wollen folgende R Pakete in diesem Kapitel nutzen.
+
+```{r echo = TRUE}
+#| message: false
+pacman::p_load(tidyverse, magrittr, readxl, see)
+```
+
 In diesem Beispiel wollen wir eine Exceldatei mit mehreren Tabellenblättern in eine Liste einlesen. Dann werden wir noch das Template in `ggplot` kennen lernen. Wir können nämlich auf Daten mit den gleichen Spaltennamen auch immer wieder den gleichen Plot anwenden. Das macht es natürlich recht einfach, denn wir müssen nicht immer den gleichen R Code tippen und Kopieren.
 
 Fangen wir also alle Tabellenblätter einer Exceldatei einzulesen. Wir brauchen dafür den Pfad zu der Datei. Hier bei mit ist es recht einfach, aber bei dir mag es etwas komplizierter sein. Du kannst auch einfach die Datei einmal über das RStudio einlesen und dann den Pfad kopieren.

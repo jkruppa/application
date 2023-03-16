@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Beispielhafte Auswertungen - Beispielhafte Auswertungen</title>
+<title>Beispielhafte Auswertungen - 7&nbsp; Einen TukeyHSD Test rechnen</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,8 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./example-analysis-01.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./example-analysis-06.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -124,6 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Beispielhafte Auswertungen</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Einen TukeyHSD Test rechnen</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -163,7 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./example-analysis-preface.html" class="sidebar-item-text sidebar-link active">Beispielhafte Auswertungen</a>
+            <a href="./example-analysis-preface.html" class="sidebar-item-text sidebar-link">Beispielhafte Auswertungen</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -201,12 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example-analysis-07.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Einen TukeyHSD Test rechnen</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-08.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Auswertung von Pflugdaten mit <code>ggplot</code> Templates</span></a>
+  <a href="./example-analysis-07.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Einen TukeyHSD Test rechnen</span></a>
   </div>
 </li>
       </ul>
@@ -223,7 +218,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-beispiel-auswertung" class="quarto-section-identifier d-none d-lg-block">Beispielhafte Auswertungen</span></h1>
+<h1 class="title"><span id="sec-tukeyHSD" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Einen TukeyHSD Test rechnen</span></span></h1>
 </div>
 
 
@@ -238,10 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell">
-
-</div>
-<p><em>Version vom March 16, 2023 um 09:21:43</em></p>
+<p><em>Version vom March 16, 2023 um 09:18:24</em></p>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -252,36 +244,43 @@ Beispielhafte Auswertungen per Video
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Du findest auf YouTube in der Playlist <a href="https://www.youtube.com/playlist?list=PLe51bCp9JvEFZeYClBKad6yurjUzc8jXp">Spielweise in R (Level 3)</a> viele der Analysen hier einmal als Video. Ich werde zwar alles nochmal hier als Text aufschreiben, aber manchmal ist das Sehen und Hören dann einfacher.</p>
+<p>Du findest auf YouTube <a href="https://youtu.be/3X38OlrDyQo">Spielewiese in R - Teil 03.0 - ANOVA zusammen mit TukeyHSD</a> die Auswertung einmal als Video. Ich werde zwar alles nochmal hier als Text aufschreiben, aber manchmal ist das Sehen und Hören dann einfacher.</p>
 </div>
 </div>
-<p>Wir wollen folgende R Pakete in diesem Skript nutzen.</p>
+<p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, readxl, janitor,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               broom, multcomp, emmeans, effectsize, report,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               see, metR, parameters, multcompView,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               modelsummary, rstatix, corrplot, psych,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               ordinal, rcompanion, lme4, performance,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               scales, lubridate,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               conflicted)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## resolve some conflicts with same function naming</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"select"</span>, <span class="st">"dplyr"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"filter"</span>, <span class="st">"dplyr"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"chisq.test"</span>, <span class="st">"stats"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"%+%"</span>, <span class="st">"ggplot2"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"eta_squared"</span>, <span class="st">"effectsize"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, readxl, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               multcompView)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Worum geht es in diesen Kapiteln? Ich rechne hier fröhlich Dinge und präsentiere dann die Ergebnisse. Das heißt, du findest hier beispielhafte Auswertungen, die eventuell auch deine Problemstellung betreffen. Da <em>ich selber</em> meist keine Ahnung von der Biologie hinter den Experimenten habe, musst du mir nachsehen, dass ich hier nie zu einem echten biologischen Schluss oder Auswertung komme.</p>
-<ul>
-<li>In <a href="example-analysis-01.html"><span>Kapitel&nbsp;1</span></a> schauen wir uns einmal die Erstellung eines Isoplethendiagramms für Münster &amp; Osnabrück aus den frei verfügbaren Daten des Deutschen Wetterdienstes an.</li>
-<li>In <a href="example-analysis-02.html"><span>Kapitel&nbsp;2</span></a> rechnen wir einmal ein simples Beispiel für Zähldaten in zwei Gruppen. Wir haben hier nicht wiederholt gezählt, sondern nur jeweils einmal an einer Stelle.</li>
-<li>In <a href="example-analysis-03.html"><span>Kapitel&nbsp;3</span></a> rechnen wir nochmal eine zweifaktorielle ANOVA mit Interaktionsterm durch. Wir kriegen dann unser <em>Compact letter display</em> wie auch die Konfidenzintervalle wieder.</li>
-<li>In <a href="example-analysis-04.html"><span>Kapitel&nbsp;4</span></a> rechnen wir einen Games Howell Test für normalverteilte Daten mit Varianzheterogenität. Hier hauen wir ein wenig auf die Pauke und rechnen alles in wenigen Zeilen mit der Funktion <code>map()</code>. War eine spaßige Auswerung für mich, da ich hier mal wieder programmieren üben konnte.</li>
-<li>In <a href="example-analysis-05.html"><span>Kapitel&nbsp;5</span></a> schauen wir uns ein größeres Beispiel für die Analyse von Wurzelbonituren an. Im Prinzip geht das natürlich auch alles für jede andere Bonitur. Wenn du eine andere Bonitur hast, kannst du natürlich auch den Weg der Analyse gehen.</li>
-<li>In <a href="example-analysis-06.html"><span>Kapitel&nbsp;6</span></a> haben wir ein etwas komplexeres Beispiel für vier Outcomes, die an acht Terminen gemessen wurden. Wir sehen hier einmal, wie die Daten eingelesen werden und ein Korrelationsplot über die vier Outcomes erstellt wird.</li>
-<li>In <a href="example-analysis-07.html"><span>Kapitel&nbsp;7</span></a> schauen wir uns den Tukey Test für paaweise Vergleiche einmal an. Wir nutzen hier die schnelle Variante mit der Funktion <code>aov()</code>. Für das <em>Compact letter display</em> müssen wir uns dann ein wenig strecken, aber es geht dann auch.</li>
-<li>In <a href="example-analysis-08.html"><span>Kapitel&nbsp;8</span></a> haben wir nochmal ein schönes Beispiel für eine Analyse mit mehreren Faktoren und verschiedenen Outcomes. Wir haben also einen Blumenstrauß an Daten, die wir sortieren und auswerten müssen. Da ich selber keine Ahnung vom Pflügen habe, gehen wir die Sache distanziert durch.</li>
-</ul>
+<p>In diesem sehr kurzen Beispiel wollen wir uns einem den Tukey Test anschauen. Eigentlich ist es der Tukey HSD Test für <em>Tukey Honest Significant Differences</em>. Die von dieser Funktion zurückgegebenen <span class="math inline">\(p\)</span>-Werte und 95% Konfidenzintervalle basieren auf der t-Test Verteilung. Wir nehmen also ein normalverteiltes Outcome <span class="math inline">\(y\)</span> sowie eine homogene Varianz an.</p>
+<p>Die auf diese Weise konstruierten 95% Konfidenzintervalle gelten nur für balancierte Designs, bei denen in jedem Level des Faktors die gleiche Anzahl von Beobachtungen gemacht wird. Die Funktion <code>TukeyHSD()</code> enthält eine Anpassung für den Stichprobenumfang, die sinnvolle 95% Konfidenzintervalle für leicht unbalancierte Designs erzeugt. Ja, und da geht es schon wieder los. Was heißt sinnvoll? Oder andersherum, was ist eine leichte Abweichung? Deshalb mag ich persönlich nicht die Funktion <code>TukeyHSD()</code> und ziehe das R Paket <code>emmeans</code> vor. Du siehst auch in den anderen Beispielen immer die Anwendung von <code>emmeans</code>.</p>
+<p>Aber gut, hier soll es ja um den Tukey Test gehen. Also wir nehmen uns einmal ein simples Beispiel mit verschiedenen Bodenarten und dann wollen wir als Outcome <span class="math inline">\(y\)</span> die Pflanzenhöhe miteinander vergleichen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>soil_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/soil_1fac_data.xlsx"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variante =</span> <span class="fu">as_factor</span>(variante)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variante, height)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die Funktion <code>TukeyHSD()</code> ist alt. Deshalb kann die Funktion nur den Modellfit aus der Funktion <code>aov()</code> verarbeiten. Die Funktion <code>aov()</code> wiederum ist eigentlich nur eine Funktion, die die beiden Funktionen <code>anova()</code> und <code>lm()</code> in ungünstiger Art und Weise kombiniert. Aber gut, geht eben nicht anders.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>aov_fit <span class="ot">&lt;-</span> <span class="fu">aov</span>(height <span class="sc">~</span> variante, <span class="at">data =</span> soil_tbl)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann können wir den Modellfit in die Funktion <code>TukeyHSD()</code> stecken und benutzen. Wir kriegen eine etwas seltsame Ausgabe, aber wir wollen auch hier dann weiter zu dem <em>compact letter display</em>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tukey_obj <span class="ot">&lt;-</span> aov_fit <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">TukeyHSD</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das <em>compact letter display</em> können wir über die Funktion <code>multcompLetters()</code> erstellen. Wir müssen dafür die <span class="math inline">\(p\)</span>-Werte extrahieren und dann an die Funktion weiterleiten. Hier ist wichtig, dass wir nur adjustierte <span class="math inline">\(p\)</span>-Werte wiederbekommen. Wenn du unadjustierte <span class="math inline">\(p\)</span>-Werte möchtest, dann musst du nochmal in die Funktion <code>emmeans()</code> schauen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tukey_obj <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"variante"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  magrittr<span class="sc">::</span><span class="fu">extract</span>( , <span class="st">"p adj"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multcompLetters</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Torf Kompostiertes  Gehäckseltes Aufgefasertes    Holzfasern 
+         "ab"          "ab"           "a"          "ab"           "b" </code></pre>
+</div>
+</div>
+<p>Mehr zum <em>compact letter display</em> und der Interpretation kannst du im Kapitel zu <a href="#sec-posthoc">Multiple Vergleiche oder Post-hoc Tests</a> nachlesen. Dort findest du auch eine Alternative zu dem Tukey Test.</p>
 
 
 
@@ -421,14 +420,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Willkommen</span>
+      <a href="./example-analysis-06.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Wachstum nach Rückschnitt mit Messwiederholung</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./example-analysis-01.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Isoplethendiagramm für Münster &amp; Osnabrück</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

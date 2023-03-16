@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Beispielhafte Auswertungen - Beispielhafte Auswertungen</title>
+<title>Beispielhafte Auswertungen - 5&nbsp; Wurzelqualität in einem zweifaktoriellen Design</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,8 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./example-analysis-01.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./example-analysis-04.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -124,6 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Beispielhafte Auswertungen</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wurzelqualität in einem zweifaktoriellen Design</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -163,7 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./example-analysis-preface.html" class="sidebar-item-text sidebar-link active">Beispielhafte Auswertungen</a>
+            <a href="./example-analysis-preface.html" class="sidebar-item-text sidebar-link">Beispielhafte Auswertungen</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -191,22 +191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example-analysis-05.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wurzelqualität in einem zweifaktoriellen Design</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-06.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Wachstum nach Rückschnitt mit Messwiederholung</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-07.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Einen TukeyHSD Test rechnen</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-08.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Auswertung von Pflugdaten mit <code>ggplot</code> Templates</span></a>
+  <a href="./example-analysis-05.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wurzelqualität in einem zweifaktoriellen Design</span></a>
   </div>
 </li>
       </ul>
@@ -223,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-beispiel-auswertung" class="quarto-section-identifier d-none d-lg-block">Beispielhafte Auswertungen</span></h1>
+<h1 class="title"><span id="sec-root-quality" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wurzelqualität in einem zweifaktoriellen Design</span></span></h1>
 </div>
 
 
@@ -238,50 +223,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<p><em>Version vom March 16, 2023 um 09:00:56</em></p>
+<p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, readxl, see,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               ordinal, parameters, emmeans, multcomp,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               conflicted)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## resolve some conflicts with same function naming</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"select"</span>, <span class="st">"dplyr"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sehr häufig haben wir es auch in den Agrarwissenschaften mit Boniturnoten auf der Likert-Skala zu tun. Das heißt wir haben ein Outcome <span class="math inline">\(y\)</span> mit Noten zwischen 1 und 9. Die ganzen Beobachtungen haben wir dann meist noch irgendwie in einem Block wiederholt. Neben den Problemen eine gute und richtige Bonitur <em>praktisch</em> durchzuführen, ist natürlich die Normalverteilung für das Outcome der Noten nicht gegeben. Wir könnten hier zum einen mit einem paarweisen Wilcoxon Rangsummentest ran oder aber wir nutzen die Funktion <code>clm()</code> aus dem R Paket <code>ordnial</code> für die Schätzung der Gruppenunterschiede. Wir nehmen hier mal die Funktion <code>clm()</code> da wir auch den Block mit ins Modell nehmen können.</p>
+<p>Zuerst laden wir wieder die Daten. Dabei müssen wir dann noch die Notenspalte <code>grade</code> einmal als numerisch lassen und einmal in einen Faktor mutieren. Wir brauchen ein Faktor für die Funktion <code>clm()</code> aber eine numerische Variable für die Funktion <code>ggplot()</code>. Deshalb eben die Noten in einer doppelten Spalte.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>root_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/root_2fac_data.xlsx"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="fu">str_c</span>(treatment, <span class="st">"_"</span>, fert, <span class="st">"_"</span>, mixture)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(treatment, block, grade) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">grade_fctr =</span> <span class="fu">as_factor</span>(grade),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">block =</span> <span class="fu">as_factor</span>(block))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In <a href="#fig-app-example-root-1">Abbildung&nbsp;<span>5.1</span></a> sehen wir einmal die Abbildung der Noten. Wie immer sind über so viele Behandlungsstufen dann die Abbildungen sehr unübersichtlich. Ich nutze hier einen Dotplot, da du dann die einzelnen Beobachtungen besser sehen kannst. Wir sehen aber, dass es Effekte zwischen den Behandlungen gibt.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(root_tbl, <span class="fu">aes</span>(treatment, grade, <span class="at">fill =</span> block)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">binaxis =</span> <span class="st">"y"</span>, <span class="at">stackdir=</span><span class="st">'center'</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="fl">0.6</span>), <span class="at">dotsize =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">9</span>)) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_okabeito</span>() <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-app-example-root-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-05_files/figure-html/fig-app-example-root-1-1.png" class="img-fluid figure-img" width="768"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;5.1— Boniturnoten der Wurzel über alle Behandlungslevel.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Wir könnten jetzt einen Friedman Test rechen. Der Friedman Test ist das Äquivalent zur einer zweifaktorielle ANOVA. Wenn wir aber die Funktion <code>friedman.test()</code> durchführen sehen wir, dass wir kein <em>complete block design</em> vorliegen haben. Wir können hier also einen Friedman Test nicht rechnen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">friedman.test</span>(grade_fctr <span class="sc">~</span> treatment <span class="sc">|</span> block, root_tbl)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>Error in friedman.test: not an unreplicated complete block design</code></p>
+<p>Da es eben mit dem Friedman Test nicht geht, nutzen wir <em>Cumulative Link Models</em> mit der Funktion <code>clm()</code>. Die Modelle erlauben ein ordinales Outcome zusammen mit einem multiplen linearen Modell zu schätzen. Das ist was wir wollen, damit können wir den Block mit berücksichtigen. Dann geben wir mit <code>threshold = "symmetric"</code> noch an, dass die Abstände in unserem Outcome <span class="math inline">\(y\)</span> symmetrisch sind. Die Abstände zwischen den Notenstufen sind ja immer gleich groß.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>clm_fit <span class="ot">&lt;-</span> <span class="fu">clm</span>(grade_fctr <span class="sc">~</span> treatment <span class="sc">+</span> block, <span class="at">data =</span> root_tbl,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">threshold =</span> <span class="st">"symmetric"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Mit dem Fit des Modells können wir dann auch eine ANOVA rechnen, um zu schauen, ob wir überhaupt einen signifikanten Effekt unser Behandlung vorliegen haben. Das haben wir, zum einen ist die Behandlung signifikant und leider auch der Block. Das ist natürlich nicht so schön. Eine Interaktion können wir nicht rechnen, da wir zu wenig Fallzahl vorliegen haben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(clm_fit) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model_parameters</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter |  Chi2 | df |      p
+-------------------------------
+treatment | 54.46 | 13 | &lt; .001
+block     | 24.64 |  3 | &lt; .001
 
-</div>
-<p><em>Version vom March 16, 2023 um 09:21:43</em></p>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Beispielhafte Auswertungen per Video
+Anova Table (Type 1 tests)</code></pre>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>Du findest auf YouTube in der Playlist <a href="https://www.youtube.com/playlist?list=PLe51bCp9JvEFZeYClBKad6yurjUzc8jXp">Spielweise in R (Level 3)</a> viele der Analysen hier einmal als Video. Ich werde zwar alles nochmal hier als Text aufschreiben, aber manchmal ist das Sehen und Hören dann einfacher.</p>
-</div>
-</div>
-<p>Wir wollen folgende R Pakete in diesem Skript nutzen.</p>
+<p>Nun nutzen wir das Modell einmal um uns die <em>compact letters</em> wiedergeben zu lassen. Dafür nutzen wir wieder die Funktion <code>emmeans()</code> aus dem R Paket <code>emmeans</code>. Am Ende sortieren wir nochmal nach der Behandlung und dann lassen wir uns nur die Behandlung und die Buchstaben wiedergeben. Wenn du mehr möchtest, kannst du auch im Kapitel über die Posthoc Tests oder der ordinalen logistischen Regression mehr Optionen anlesen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, readxl, janitor,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               broom, multcomp, emmeans, effectsize, report,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               see, metR, parameters, multcompView,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               modelsummary, rstatix, corrplot, psych,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               ordinal, rcompanion, lme4, performance,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               scales, lubridate,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               conflicted)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## resolve some conflicts with same function naming</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"select"</span>, <span class="st">"dplyr"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"filter"</span>, <span class="st">"dplyr"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"chisq.test"</span>, <span class="st">"stats"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"%+%"</span>, <span class="st">"ggplot2"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"eta_squared"</span>, <span class="st">"effectsize"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>clm_fit <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(<span class="sc">~</span> treatment) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cld</span>(<span class="at">Letters =</span> letters) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(treatment) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(treatment, .group)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          treatment .group
+1     CRTL_high_100    cde
+2   CRTL_normal_100   bcde
+3    WF0_high_30-70      e
+4    WF0_high_60-40  abcd 
+5  WF0_normal_30-70    cde
+6  WF0_normal_60-40  ab   
+7    WF1_high_30-70   bcde
+8    WF1_high_60-40  abcde
+9  WF1_normal_30-70  abc  
+10 WF1_normal_60-40  abcde
+11   WF3_high_30-70  abcde
+12   WF3_high_60-40  a    
+13 WF3_normal_30-70     de
+14 WF3_normal_60-40   bcde</code></pre>
 </div>
-<p>Worum geht es in diesen Kapiteln? Ich rechne hier fröhlich Dinge und präsentiere dann die Ergebnisse. Das heißt, du findest hier beispielhafte Auswertungen, die eventuell auch deine Problemstellung betreffen. Da <em>ich selber</em> meist keine Ahnung von der Biologie hinter den Experimenten habe, musst du mir nachsehen, dass ich hier nie zu einem echten biologischen Schluss oder Auswertung komme.</p>
-<ul>
-<li>In <a href="example-analysis-01.html"><span>Kapitel&nbsp;1</span></a> schauen wir uns einmal die Erstellung eines Isoplethendiagramms für Münster &amp; Osnabrück aus den frei verfügbaren Daten des Deutschen Wetterdienstes an.</li>
-<li>In <a href="example-analysis-02.html"><span>Kapitel&nbsp;2</span></a> rechnen wir einmal ein simples Beispiel für Zähldaten in zwei Gruppen. Wir haben hier nicht wiederholt gezählt, sondern nur jeweils einmal an einer Stelle.</li>
-<li>In <a href="example-analysis-03.html"><span>Kapitel&nbsp;3</span></a> rechnen wir nochmal eine zweifaktorielle ANOVA mit Interaktionsterm durch. Wir kriegen dann unser <em>Compact letter display</em> wie auch die Konfidenzintervalle wieder.</li>
-<li>In <a href="example-analysis-04.html"><span>Kapitel&nbsp;4</span></a> rechnen wir einen Games Howell Test für normalverteilte Daten mit Varianzheterogenität. Hier hauen wir ein wenig auf die Pauke und rechnen alles in wenigen Zeilen mit der Funktion <code>map()</code>. War eine spaßige Auswerung für mich, da ich hier mal wieder programmieren üben konnte.</li>
-<li>In <a href="example-analysis-05.html"><span>Kapitel&nbsp;5</span></a> schauen wir uns ein größeres Beispiel für die Analyse von Wurzelbonituren an. Im Prinzip geht das natürlich auch alles für jede andere Bonitur. Wenn du eine andere Bonitur hast, kannst du natürlich auch den Weg der Analyse gehen.</li>
-<li>In <a href="example-analysis-06.html"><span>Kapitel&nbsp;6</span></a> haben wir ein etwas komplexeres Beispiel für vier Outcomes, die an acht Terminen gemessen wurden. Wir sehen hier einmal, wie die Daten eingelesen werden und ein Korrelationsplot über die vier Outcomes erstellt wird.</li>
-<li>In <a href="example-analysis-07.html"><span>Kapitel&nbsp;7</span></a> schauen wir uns den Tukey Test für paaweise Vergleiche einmal an. Wir nutzen hier die schnelle Variante mit der Funktion <code>aov()</code>. Für das <em>Compact letter display</em> müssen wir uns dann ein wenig strecken, aber es geht dann auch.</li>
-<li>In <a href="example-analysis-08.html"><span>Kapitel&nbsp;8</span></a> haben wir nochmal ein schönes Beispiel für eine Analyse mit mehreren Faktoren und verschiedenen Outcomes. Wir haben also einen Blumenstrauß an Daten, die wir sortieren und auswerten müssen. Da ich selber keine Ahnung vom Pflügen habe, gehen wir die Sache distanziert durch.</li>
-</ul>
+</div>
+<p>Wenn wir für den Block mit adjustieren wollen würden, können wir den Aufruf wie folgt ändern <code>emmeans(~ treatment | block)</code>. Leider erhalten wir dann in der <code>df</code> Spalte den Eintrag <code>Inf</code> für eng. <em>infinity</em> und das ist nie ein gutes Zeichen. Wir haben auch die sich immer gleich wiederholende Abfolge der <em>compact letters</em>. Also macht es mehr kaputt als heile und wir lassen das Modell so wie es ist. Wir nehmen den Block als reine Wiederholung mit in das Modell rein.</p>
 
 
 
@@ -421,14 +447,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Willkommen</span>
+      <a href="./example-analysis-04.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Multiples Testen mit Games Howell Test</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./example-analysis-01.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Isoplethendiagramm für Münster &amp; Osnabrück</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

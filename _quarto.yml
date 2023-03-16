@@ -24,6 +24,8 @@ book:
       - example-analysis-04.qmd
       - example-analysis-05.qmd
       - example-analysis-06.qmd
+      - example-analysis-07.qmd
+      - example-analysis-08.qmd
       
 bibliography: references.bib
 lang: de 
