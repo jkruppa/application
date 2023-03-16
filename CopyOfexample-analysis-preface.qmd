@@ -54,11 +54,7 @@ Am Ende des Kapitels findest du nochmal den gesamten R Code in einem Rutsch zum 
 
 
 
-## Analyse von Anzahlen in zwei Gruppen {#sec-app-example-number-groups}
 
-{{< include app-example-analysis/app-example-analysis-02.qmd >}}
-
-## Auswertung zweifaktorielle ANOVA mit Interaktion {#sec-app-example-anova-inter}
 
 {{< include app-example-analysis/app-example-analysis-03.qmd >}}
 

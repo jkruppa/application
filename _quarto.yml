@@ -20,8 +20,8 @@ book:
       chapters:
       - example-analysis-01.qmd
       - example-analysis-02.qmd
-
-
+      - example-analysis-03.qmd
+      - example-analysis-04.qmd
 
 bibliography: references.bib
 lang: de 
