@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Beispielhafte Auswertungen - 3&nbsp; Auswertung zweifaktorielle ANOVA mit Interaktion</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./example-analysis-04.html" rel="next">
+<link href="./example-analysis-02.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken"
+  }
+}</script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Auswertung zweifaktorielle ANOVA mit Interaktion</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Beispielhafte Auswertungen</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Willkommen</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./example-analysis-preface.html" class="sidebar-item-text sidebar-link">Beispielhafte Auswertungen</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Isoplethendiagramm für Münster &amp; Osnabrück</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-02.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analyse von Anzahlen in zwei Gruppen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-03.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Auswertung zweifaktorielle ANOVA mit Interaktion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-04.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Multiples Testen mit Games Howell Test</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-05.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wurzelqualität in einem zweifaktoriellen Design</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-06.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Wachstum nach Rückschnitt mit Messwiederholung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-07.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Einen TukeyHSD Test rechnen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-08.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Auswertung von Pflugdaten mit <code>ggplot</code> Templates</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-09.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Auswertung mit Messwiederholungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-10.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Spurenelemente in Spinatblättern und Stielen</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-app-example-anova-inter" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Auswertung zweifaktorielle ANOVA mit Interaktion</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p><em>Version vom March 16, 2023 um 09:30:42</em></p>
+<p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, see, readxl, knitr,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               modelsummary, parameters, multcomp,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               multcompView, emmeans, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               conflicted)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## resolve some conflicts with same function naming</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"select"</span>, <span class="st">"dplyr"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hier kommt jetzt ein schönes Beispiel für eine Auswertung von einem dreifaktoriellen Design mit einer ANOVA. Passenderweise haben wir auch einen Interaktionsterm vorliegen. Unser dreifaktoriellen Design ist auch kein echtes dreifaktorielles Design. Wir müssen uns hier entscheiden, welcher der zwei Blockfaktoren nun unsere Wiederholung sein soll. Aber schreiben wir erstmal unser Modell auf, bevor wir das Modell mit Inhalt füllen.</p>
+<p><span class="math display">\[
+y \sim  f_1 + b_1 + b_2
+\]</span></p>
+<p>In unserem Beispiel schauen wir uns das Pflanzenwachstum <code>growth</code> in einer Klimakammer mit verschiedenen Belichtungsstufen <code>light_intensity</code> sowie der Position der Pflanze in der Lichtkammer. Die Pflanze hat eine Position im <code>rack</code> und dann im <code>layer</code>. So ergibt sich dann für uns folgendes ausgeschriebenes Modell.</p>
+<p><span class="math display">\[
+growth \sim light\_intensity + layer + rack
+\]</span></p>
+<p>In dieser Form wird unser Modell aber leider nicht funktionieren. Wir hätten dann keine Wiederholungen mehr. Jede Pflanze würe dann exakt durch eine Faktorkombination beschrieben. Wir sehen gleich das Problem visualisiert. Vorher müssen wir uns aber einmal die Daten einlesen und eine Menge Faktoren erschaffen. Achtung, das Erschaffen der Faktoren ist hier sehr wichtig! Im Orginaldatensatz stehen nur Zahlen für die Faktoren. Wir kriegen dann ein echtes Problem.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>light_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/light_intensity_data.xlsx"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rack =</span> <span class="fu">factor</span>(rack, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"left"</span>, <span class="st">"middle"</span>, <span class="st">"right"</span>)),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">layer =</span> <span class="fu">factor</span>(layer, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"1st"</span>, <span class="st">"2nd"</span>, <span class="st">"3rd"</span>)),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">light_intensity =</span> <span class="fu">factor</span>(light_intensity, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"mid"</span>, <span class="st">"high"</span>)),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">growth =</span> <span class="fu">as.numeric</span>(growth))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In der <a href="#tbl-app-light">Tabelle&nbsp;<span>3.1</span></a> sehen wir nochmal einen Ausschnitt aus den Daten.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-app-light" class="anchored">
+<table class="table table-sm table-striped">
+<caption>Tabelle&nbsp;3.1— Auszug aus dem Daten zu der Lichtintensität.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">rack</th>
+<th style="text-align: center;">layer</th>
+<th style="text-align: center;">light_intensity</th>
+<th style="text-align: center;">growth</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">left</td>
+<td style="text-align: center;">1st</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">17.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">left</td>
+<td style="text-align: center;">1st</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">14.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">left</td>
+<td style="text-align: center;">1st</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">10.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">left</td>
+<td style="text-align: center;">1st</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">23.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">left</td>
+<td style="text-align: center;">1st</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">0.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">left</td>
+<td style="text-align: center;">1st</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">3.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">right</td>
+<td style="text-align: center;">3rd</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">19.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">right</td>
+<td style="text-align: center;">3rd</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">25.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">right</td>
+<td style="text-align: center;">3rd</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">35.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">right</td>
+<td style="text-align: center;">3rd</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">44.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">right</td>
+<td style="text-align: center;">3rd</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">10.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">right</td>
+<td style="text-align: center;">3rd</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">18.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Nachdem wir die Daten eingelesen haben, schauen wir uns den Sachverhalt einmal für die drei Faktoren über die Level der einzelnen Faktoren an. Wir nutzen dafür die Funktion <code>datasummary_crosstab()</code> aus dem R Paket <code>modelsummary</code>. Wir können uns hier die Anzahl der Beobachtungen je Faktorlevelkombination einmal anschauen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_crosstab</span>(light_intensity <span class="sc">~</span> layer <span class="sc">*</span> rack, <span class="at">data =</span> light_tbl,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">statistic =</span> <span class="cn">NULL</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">1st</div></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">2nd</div></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">3rd</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> light_intensity </th>
+   <th style="text-align:right;"> left </th>
+   <th style="text-align:right;"> middle </th>
+   <th style="text-align:right;"> right </th>
+   <th style="text-align:right;"> left </th>
+   <th style="text-align:right;"> middle </th>
+   <th style="text-align:right;"> right </th>
+   <th style="text-align:right;"> left </th>
+   <th style="text-align:right;"> middle </th>
+   <th style="text-align:right;"> right </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> low </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mid </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> high </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Wir sehen eine Menge Nullen. Das heißt, dass diese Faktorlevelkombinationen keine Beobachtungen haben. Dann können wir auch über diese Kombinationen keine Aussage treffen. Wenn wir <em>entweder</em> <code>rack</code> oder <code>layer</code> entfernen, sieht die Sache schon besser aus. Wir haben jetzt alle Faktorlevelkombinationen belegt. Wir müssen uns dann nur noch entscheiden, welchen Faktor wir ins Modell nehmen wollen.</p>
+<div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_crosstab</span>(light_intensity <span class="sc">~</span> layer, <span class="at">data =</span> light_tbl,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">statistic =</span> <span class="cn">NULL</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_crosstab</span>(light_intensity <span class="sc">~</span> rack, <span class="at">data =</span> light_tbl,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">statistic =</span> <span class="cn">NULL</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> light_intensity </th>
+   <th style="text-align:right;"> 1st </th>
+   <th style="text-align:right;"> 2nd </th>
+   <th style="text-align:right;"> 3rd </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> low </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mid </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> high </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> light_intensity </th>
+   <th style="text-align:right;"> left </th>
+   <th style="text-align:right;"> middle </th>
+   <th style="text-align:right;"> right </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> low </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mid </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> high </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Das R Paket <a href="https://vincentarelbundock.github.io/modelsummary/articles/datasummary.html">modelsummary</a> bietet hier eine sehr große Auswahl an tollen Funktionen an um seine Daten übersichtlich zu gestalten.</p>
+</div></div><p>Für die Entscheidung welcher der beiden Faktoren <code>rack</code> oder <code>layer</code> mit ins Modekll soll, schauen wir uns einmal die Boxplots für die jeweiligen Fakoten an. In <a href="#fig-app-anova-interaction-1">Abbildung&nbsp;<span>3.1</span></a> sehen wir einmal die Boxplots aufgeteilt nach <code>rack</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(light_tbl, <span class="fu">aes</span>(light_intensity, growth, <span class="at">fill =</span> rack)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_okabeito</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-app-anova-interaction-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-03_files/figure-html/fig-app-anova-interaction-1-1.png" class="img-fluid figure-img" width="576"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;3.1— Boxplots des Pflanzenwachstums aufgeteilt nach <code>rack</code>.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Und wir sehen schon, da stimmt was nicht. Die Annahme der ANOVA ist, dass sich der Trend im ersten Faktorlevel für alle im Faktor über die anderen Faktoren gleicht. Das liest sich kryptisch, aber verdeutlichen wir es mal. Im Level <code>low</code> steigen alle Level des Faktors <code>rack</code> an. Wenn <em>keine</em> Interaktion vorliegen würde, dann müssten dieses Muster in dem Level <code>mid</code> und <code>high</code> ebenfalls annährend zu beobachten sein. Tut es aber nicht. Wir haben eine Interaktion zwischen <code>light_intensity</code> und <code>rack</code> visuell bestätigt.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(light_tbl, <span class="fu">aes</span>(light_intensity, growth, <span class="at">fill =</span> layer)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()  <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_okabeito</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-app-anova-interaction-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-03_files/figure-html/fig-app-anova-interaction-2-1.png" class="img-fluid figure-img" width="576"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;3.2— Boxplots des Pflanzenwachstums aufgeteilt nach <code>layer</code>.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Dieses wirre Muster sehen wir dann auch in <a href="#fig-app-anova-interaction-2">Abbildung&nbsp;<span>3.2</span></a>. Hier passen die Trends des Faktors <code>layer</code> über die Faktorlevel <code>low</code>, <code>mid</code> und <code>high</code> auch wieder nicht. Schauen wir uns jetzt nochmal die ganze Sache aufgeteilt nach <code>rack</code> und <code>layer</code> an. Vielelicht werden wir dann etwas schlauer oder das Problem wird noch klarer.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(light_tbl, <span class="fu">aes</span>(light_intensity, growth, <span class="at">fill =</span> rack)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> layer)  <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_okabeito</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-app-anova-interaction-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-03_files/figure-html/fig-app-anova-interaction-3-1.png" class="img-fluid figure-img" width="576"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;3.3— Boxplots des Pflanzenwachstums aufgeteilt nach <code>rack</code> und <code>layer</code>.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Jetzt sehen wir etwas mehr. Im <code>1st</code> Level liegen alle <code>rack</code>-Level auf einer Ebene. Ebenso liegen alle <code>rack</code>-Level auf einer Ebene im <code>2n</code> Level. Das ganze Problem der Interaktion entsteht im <code>3rd</code> Level. Hier ging etwas drunter und drüber im Pflanzenwachstum. Wir wissen jetzt, dass das dritte Layer anscheinend defekt war oder irgendwas dort mit den Racks nicht gestimmt hat.</p>
+<p>Wir könnten jetzt das dritte Layer aus der Analyse werfen. Das wäre aber nur eine Möglichkeit. Wenn wir das tuen würden, dann würde wir auch die Interaktion los werden. Das wollen wir hier aber nicht, wir ziehen jetzt die Analyse einmal mit der Interaktion durch. Dafür bauen wir uns jetzt das lineare Modell und schauen uns einmal die ANOVA an.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(growth <span class="sc">~</span> light_intensity <span class="sc">+</span> layer <span class="sc">+</span> light_intensity<span class="sc">:</span>layer, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> light_tbl)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="sc">%&gt;%</span> <span class="fu">model_parameters</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter                            | Coefficient |   SE |           95% CI | t(45) |      p
+---------------------------------------------------------------------------------------------
+(Intercept)                          |       11.62 | 2.80 | [  5.97,  17.26] |  4.14 | &lt; .001
+light intensity [mid]                |        1.43 | 3.96 | [ -6.55,   9.42] |  0.36 | 0.719 
+light intensity [high]               |        3.70 | 3.96 | [ -4.28,  11.68] |  0.93 | 0.356 
+layer [2nd]                          |        5.68 | 3.96 | [ -2.30,  13.67] |  1.43 | 0.159 
+layer [3rd]                          |       14.05 | 3.96 | [  6.07,  22.03] |  3.54 | &lt; .001
+light intensity [mid] × layer [2nd]  |       -3.33 | 5.61 | [-14.62,   7.96] | -0.59 | 0.555 
+light intensity [high] × layer [2nd] |       -5.92 | 5.61 | [-17.21,   5.37] | -1.06 | 0.297 
+light intensity [mid] × layer [3rd]  |       -9.60 | 5.61 | [-20.89,   1.69] | -1.71 | 0.094 
+light intensity [high] × layer [3rd] |      -25.90 | 5.61 | [-37.19, -14.61] | -4.62 | &lt; .001</code></pre>
+</div>
+</div>
+<p>Erstmal sehen wir an den Modellparameters, dass hier wieder etwas nicht stimmt. Wir würden erwarten, dass der Effekt des Layers immer gleich ist. Hier ist der Effekt von dem <code>2nd</code> Layer zu dem <code>3rd</code> Layer fast dreimal so stark. Und eigentlich sollten die Layer den gleichen Effekt haben. Nämlich eigentlich keinen oder einen Effekt weit unter dem von der Lichtintensität. Das Layer ist eine technische Komponente.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="sc">%&gt;%</span> <span class="fu">anova</span>() <span class="sc">%&gt;%</span> <span class="fu">model_parameters</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter             | Sum_Squares | df | Mean_Square |    F |      p
+----------------------------------------------------------------------
+light_intensity       |      433.15 |  2 |      216.57 | 4.60 | 0.015 
+layer                 |       70.92 |  2 |       35.46 | 0.75 | 0.477 
+light_intensity:layer |     1138.80 |  4 |      284.70 | 6.04 | &lt; .001
+Residuals             |     2120.85 | 45 |       47.13 |      |       
+
+Anova Table (Type 1 tests)</code></pre>
+</div>
+</div>
+<p>Wir sehen die visuelle Interaktion auch in der ANOVA Ausgabe als hoch signifikanten Term <code>light_intensity:layer</code> mit dem <span class="math inline">\(p\)</span>-Wert <span class="math inline">\(&lt;0.001\)</span>. Im Anschluss rechnen wir jetzt die paarweisen Vergleiche mit der Funktion <code>emmeans()</code>. Mit dem <code>|</code> geben wir an, dass wir die paarweisen Vergleiche für die Level von <code>light_intensity</code> getrennt für die Level vom <code>layer</code> rechnen wollen. Wenn du <em>keine</em> Adjustierung des <span class="math inline">\(\alpha\)</span>-Niveaus für die multiplen Vergleiche möchtest, dann wähle einfach die Option <code>adjust = "none"</code>. Wir nutzen dann die Ausgabe nicht direkt sondern werden noch die Ausgabe etwas aufhübschen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>comp_1_obj <span class="ot">&lt;-</span> fit_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(<span class="at">specs =</span> <span class="sc">~</span> light_intensity <span class="sc">|</span> layer) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">contrast</span>(<span class="at">method =</span> <span class="st">"pairwise"</span>, <span class="at">adjust =</span> <span class="st">"bonferroni"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In dem Objekt <code>comp_1_obj</code> sind eine Menge Informationen enthalten. Ich kürze mir immer die Informationen und sortiere nochmal die Ergebnisse. Wir erhalten dann eine saubere Wiedergabe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>comp_1_obj <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  summary <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  as_tibble <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(contrast, layer, p.value) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">format.pval</span>(p.value, <span class="at">eps =</span> <span class="fl">0.001</span>, <span class="at">digits =</span> <span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+  contrast   layer p.value
+  &lt;fct&gt;      &lt;fct&gt; &lt;chr&gt;  
+1 low - mid  1st   1.0000 
+2 low - high 1st   1.0000 
+3 mid - high 1st   1.0000 
+4 low - mid  2nd   1.0000 
+5 low - high 2nd   1.0000 
+6 mid - high 2nd   1.0000 
+7 low - mid  3rd   0.1355 
+8 low - high 3rd   &lt;0.001 
+9 mid - high 3rd   0.0028 </code></pre>
+</div>
+</div>
+<p>Nach der Adjustierung für die multiplen Vergleiche haben wir nur noch einen Effekt in dem <code>3rd</code> Layer. Sonst haben die Lichtintensitäten keinen Einfluss auf die Wuchshöhe der Pflanzen. Da wir wissen, dass das <code>3rd</code> Layer auch das defekte Layer war, sehen wir hier schon, dass wir keinen wirklichen Effekt durch das Licht vorliegen haben. Alles was wir gefunden haben, ist eben ein defektes <code>3rd</code> Layer.</p>
+<p>Die 95% Konfidenzintervalle erhalten wir mit der Funktion <code>confint()</code>. Die Ergebnisse sind natürlich die gleichen. Wir sehen wieder keinen Unterschied zwischen den Lichtintensitäten außer in dem <code>3rd</code> Layer.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ci_obj <span class="ot">&lt;-</span> comp_1_obj <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">confint</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(contrast, layer, estimate, <span class="at">conf.low =</span> lower.CL, <span class="at">conf.high =</span> upper.CL) </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>ci_obj</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 5
+  contrast   layer estimate conf.low conf.high
+  &lt;fct&gt;      &lt;fct&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 low - mid  1st     -1.43    -11.3       8.42
+2 low - high 1st     -3.70    -13.6       6.16
+3 mid - high 1st     -2.27    -12.1       7.59
+4 low - mid  2nd      1.90     -7.96     11.8 
+5 low - high 2nd      2.22     -7.64     12.1 
+6 mid - high 2nd      0.317    -9.54     10.2 
+7 low - mid  3rd      8.17     -1.69     18.0 
+8 low - high 3rd     22.2      12.3      32.1 
+9 mid - high 3rd     14.0       4.18     23.9 </code></pre>
+</div>
+</div>
+<p>In der <a href="#fig-app-anova-interaction-4">Abbildung&nbsp;<span>3.4</span></a> sehen wir dann die berechneten 95% Konfidenzintervalle nochmal visualisiert. Wenn wir einen Effekt haben, dann im <code>3rd</code> Layer. In den restlichen 95% Konfidenzintervallen ist die Null mit enthalten, wir können also die Nullhypothese auf Gleichheit des Gruppenvergleiches nicht ablehnen.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ci_obj, <span class="fu">aes</span>(contrast, <span class="at">y=</span>estimate, <span class="at">ymin=</span>conf.low, <span class="at">ymax=</span>conf.high,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> layer, <span class="at">group =</span> layer)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="dv">0</span>, <span class="at">linetype=</span><span class="st">"11"</span>, <span class="at">colour=</span><span class="st">"grey60"</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">width=</span><span class="fl">0.1</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.5</span>)) <span class="sc">+</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_okabeito</span>() <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-app-anova-interaction-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-03_files/figure-html/fig-app-anova-interaction-4-1.png" class="img-fluid figure-img" width="576"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;3.4— Die 95% Konfidenzintervalle für die paarweisen Vergleiche aufgeteilt <code>layer</code>.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Neben der Darstellung mit 95% Konfidenzintervallen ist auch die Darstellung mit dem <em>compact letter display</em> sehr beliebt. Wir nutzen dafür dann die Funktion <code>cld()</code>. Wir adjustieren uns wieder die Vergleiche nach Bonferroni. Im Weiteren trenne wir die Vergleiche auch wieder nach den Leveln für den Faktor <code>layer</code> auf.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>cld_obj <span class="ot">&lt;-</span> fit_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(<span class="at">specs =</span> <span class="sc">~</span> light_intensity <span class="sc">|</span> layer)  <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cld</span>(<span class="at">Letters =</span> letters, <span class="at">adjust =</span> <span class="st">"bonferroni"</span>) </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>cld_obj</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>layer = 1st:
+ light_intensity emmean  SE df lower.CL upper.CL .group
+ low              11.62 2.8 45     4.65     18.6  a    
+ mid              13.05 2.8 45     6.08     20.0  a    
+ high             15.32 2.8 45     8.35     22.3  a    
+
+layer = 2nd:
+ light_intensity emmean  SE df lower.CL upper.CL .group
+ high             15.08 2.8 45     8.11     22.1  a    
+ mid              15.40 2.8 45     8.43     22.4  a    
+ low              17.30 2.8 45    10.33     24.3  a    
+
+layer = 3rd:
+ light_intensity emmean  SE df lower.CL upper.CL .group
+ high              3.47 2.8 45    -3.50     10.4  a    
+ mid              17.50 2.8 45    10.53     24.5   b   
+ low              25.67 2.8 45    18.70     32.6   b   
+
+Confidence level used: 0.95 
+Conf-level adjustment: bonferroni method for 3 estimates 
+P value adjustment: bonferroni method for 3 tests 
+significance level used: alpha = 0.05 
+NOTE: If two or more means share the same grouping symbol,
+      then we cannot show them to be different.
+      But we also did not show them to be the same. </code></pre>
+</div>
+</div>
+<p>Wir sehen wieder, dass wir nur in dem <code>3rd</code> Layer Buchstabenunterschiede haben. Daher haben wir auch nur im <code>3rd</code> Layer signifikante Ergebnisse. Wichtig ist, dass wir die Buchstaben nur pro Level des Layers vergleichen können, aber auf keinen Fall über die Layer hinweg. Das geht dann leider nicht. Die Ausgabe der Funktion <code>emmeans()</code> schlägt noch andere Darstellungsformen für die Vergleiche vor, du kannst gerne einmal die Funktionen <code>pairs()</code>, <code>pwpp()</code> oder <code>pwpm()</code> ausprobieren und schauen, ob dir die Visualisierung mehr sagt. Im <a href="https://jkruppa.github.io/stat-tests-posthoc.html">Kapitel 31 - Multiple Vergleiche oder Post-hoc Tests</a> gehe ich nochmal auf die verschiedene Darstellungsformen in <code>emmeans</code> ein.</p>
+<p>Wenn wir das <em>compact letter display</em> mit deinem Barplot verbinden wollen, müssen wir uns etwas strecken. Zuerst sortieren wir die Ausgabe von <code>cld_obj</code> wieder in die korrekte Reihenfolge der Faktorenlevel. Dann können wir die Spalte <code>.group</code> direkt in <code>ggplot()</code> verwenden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cld_sort_obj <span class="ot">&lt;-</span> cld_obj <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(light_intensity, layer, .group) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(layer, light_intensity)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In <a href="#fig-app-anova-interaction-5">Abbildung&nbsp;<span>3.5</span></a> sehen wir die Ausgabe des Barplots für die Daten und dann an die Balken geschrieben das <em>compact letter display</em>. Wichtig ist hier, dass die Buchstaben immer nur für <em>ein</em> Layer gelten. Wir können wegen der Interaktion nicht die Layer untereinander mit den Buchstaben vergleichen. Wir sehen wiederum, dass wir keine relevanten signifikanten Ergebnisse aus dem Experiment mitnehmen können.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>stat_tbl <span class="ot">&lt;-</span> light_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(light_intensity, layer) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(growth),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(growth))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(stat_tbl, <span class="fu">aes</span>(<span class="at">x =</span> layer, <span class="at">y =</span> mean, <span class="at">group =</span> light_intensity, </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">fill =</span> light_intensity)) <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean<span class="sc">-</span>sd, <span class="at">ymax =</span> mean<span class="sc">+</span>sd),</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.9</span>)) <span class="sc">+</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="dv">1</span>, <span class="fl">1.3</span>, <span class="fl">1.7</span>, <span class="dv">2</span>, <span class="fl">2.3</span>, <span class="fl">2.7</span>, <span class="dv">3</span>, <span class="fl">3.3</span>), </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">20</span>, <span class="dv">23</span>, <span class="dv">39</span>, <span class="dv">25</span>, <span class="dv">9</span>), </span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">pluck</span>(cld_sort_obj, <span class="st">".group"</span>)) <span class="sc">+</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Behandlung"</span>)  <span class="sc">+</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_okabeito</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-app-anova-interaction-5" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-03_files/figure-html/fig-app-anova-interaction-5-1.png" class="img-fluid figure-img" width="576"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;3.5— Barplots für die Mittelwerte mit den entsprechenden Standardabweichungen und dem <em>compact letter display</em> für die paarweisen Vergleiche. Achtung die <em>letter</em> gelten nur in einem Level des Layers.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./example-analysis-02.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analyse von Anzahlen in zwei Gruppen</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./example-analysis-04.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Multiples Testen mit Games Howell Test</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
