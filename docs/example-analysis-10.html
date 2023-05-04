@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -266,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p><em>Version vom March 16, 2023 um 09:40:09</em></p>
+<p><em>Version vom Mai 04, 2023 um 11:39:28</em></p>
 <p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, readxl, see, janitor,</span>
@@ -297,7 +297,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>spinach_plot_tbl <span class="sc">%&gt;%</span> </span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  head</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 5
+<pre><code># A tibble: 6 x 5
   trt   sample block outcome     rsp
   &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;     &lt;dbl&gt;
 1 1     leaf   1     fe      16.9   
@@ -493,16 +493,16 @@ NOTE: If two or more means share the same grouping symbol,
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>spinach_nest_tbl </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
+<pre><code># A tibble: 6 x 3
 # Groups:   sample, outcome [6]
   sample outcome data             
   &lt;fct&gt;  &lt;fct&gt;   &lt;list&gt;           
-1 leaf   fe      &lt;tibble [28 × 3]&gt;
-2 leaf   cd      &lt;tibble [28 × 3]&gt;
-3 leaf   zn      &lt;tibble [28 × 3]&gt;
-4 stem   fe      &lt;tibble [28 × 3]&gt;
-5 stem   cd      &lt;tibble [28 × 3]&gt;
-6 stem   zn      &lt;tibble [28 × 3]&gt;</code></pre>
+1 leaf   fe      &lt;tibble [28 x 3]&gt;
+2 leaf   cd      &lt;tibble [28 x 3]&gt;
+3 leaf   zn      &lt;tibble [28 x 3]&gt;
+4 stem   fe      &lt;tibble [28 x 3]&gt;
+5 stem   cd      &lt;tibble [28 x 3]&gt;
+6 stem   zn      &lt;tibble [28 x 3]&gt;</code></pre>
 </div>
 </div>
 <p>Wir können jetzt auf den Tibbles in der Spalte <code>data</code> weiter rechnen. Wir nutzen für das Weiterrechnen die Funktion <code>map()</code>, die in jeder Zeile der Spalte <code>.data</code> die gleiche Funktion ausführt. Unser Ergebnis speichern wir dann in einer neuen Spalte und dafür nutzen wir die Funktion <code>mutate()</code>.</p>
@@ -522,7 +522,7 @@ NOTE: If two or more means share the same grouping symbol,
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample, outcome, Parameter, p) <span class="sc">%&gt;%</span> </span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p =</span> <span class="fu">pvalue</span>(p))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12 × 4
+<pre><code># A tibble: 12 x 4
 # Groups:   sample, outcome [6]
    sample outcome Parameter p     
    &lt;fct&gt;  &lt;fct&gt;   &lt;chr&gt;     &lt;chr&gt; 
@@ -548,7 +548,7 @@ NOTE: If two or more means share the same grouping symbol,
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample, outcome, eta2_partial) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12 × 3
+<pre><code># A tibble: 12 x 3
 # Groups:   sample, outcome [6]
    sample outcome eta2_partial
    &lt;fct&gt;  &lt;fct&gt;          &lt;dbl&gt;
@@ -582,7 +582,7 @@ NOTE: If two or more means share the same grouping symbol,
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample, outcome, contrast, p.value) <span class="sc">%&gt;%</span> </span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">pvalue</span>(p.value))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 126 × 4
+<pre><code># A tibble: 126 x 4
 # Groups:   sample, outcome [6]
    sample outcome contrast    p.value
    &lt;fct&gt;  &lt;fct&gt;   &lt;chr&gt;       &lt;chr&gt;  
@@ -596,7 +596,7 @@ NOTE: If two or more means share the same grouping symbol,
  8 leaf   fe      trt2 - trt4 &lt;0.001 
  9 leaf   fe      trt2 - trt5 0.127  
 10 leaf   fe      trt2 - trt6 &lt;0.001 
-# … with 116 more rows</code></pre>
+# i 116 more rows</code></pre>
 </div>
 </div>
 <p>Nachdem wir uns die Kontraste für die paarweisen Vergleiche wiedergeben haben lassen, wollen wir jetzt noch die ganzen <em>Compact letter displays</em> haben. Auch hier nutzen wir dann die Funktion <code>unnest()</code> und wolle dann nicht alle Spalten haben.</p>
@@ -607,7 +607,7 @@ NOTE: If two or more means share the same grouping symbol,
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample, outcome, trt, .group) <span class="sc">%&gt;%</span> </span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">15</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 42 × 4
+<pre><code># A tibble: 42 x 4
 # Groups:   sample, outcome [6]
    sample outcome trt   .group
    &lt;fct&gt;  &lt;fct&gt;   &lt;fct&gt; &lt;chr&gt; 
@@ -626,7 +626,7 @@ NOTE: If two or more means share the same grouping symbol,
 13 leaf   cd      6     " abc"
 14 leaf   cd      7     "  bc"
 15 leaf   zn      1     " a"  
-# … with 27 more rows</code></pre>
+# i 27 more rows</code></pre>
 </div>
 </div>
 <p>Mit der Option <code>print(n = 15)</code> kannst du dir die ersten fünfzehn Zeilen ausgeben lassen. du musst also schauen, wie viele Zeilen dein Tibble hat und dann kannst du dir das ganze Tibble über die Funktion <code>print()</code> ausgeben lassen. Ich nutze immer diese Art der Ausgabe mit <code>print()</code> da es sicherer ist, als sich immer den ganzen Datensatz wiedergeben zu lassen. Mit sicherer meine ich, dass ich mir nicht die ganze R Console mit der Ausgabe zubaue.</p>

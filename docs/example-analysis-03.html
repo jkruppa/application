@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -262,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p><em>Version vom March 16, 2023 um 09:39:49</em></p>
+<p><em>Version vom Mai 04, 2023 um 11:38:46</em></p>
 <p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, see, readxl, knitr,</span>
@@ -416,39 +416,39 @@ growth \sim light\_intensity + layer + rack
 <tbody>
   <tr>
    <td style="text-align:left;"> low </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> mid </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> high </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
   </tr>
 </tbody>
 </table>
@@ -470,28 +470,28 @@ growth \sim light\_intensity + layer + rack
   <tr>
    <th style="text-align:left;"> light_intensity </th>
    <th style="text-align:right;"> 1st </th>
-   <th style="text-align:right;"> 2nd </th>
-   <th style="text-align:right;"> 3rd </th>
+   <th style="text-align:right;"> &nbsp;2nd </th>
+   <th style="text-align:right;"> &nbsp;3rd </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> low </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> mid </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> high </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
   </tr>
 </tbody>
 </table>
@@ -511,21 +511,21 @@ growth \sim light\_intensity + layer + rack
 <tbody>
   <tr>
    <td style="text-align:left;"> low </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> mid </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> high </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
+   <td style="text-align:right;"> 6.0 </td>
   </tr>
 </tbody>
 </table>
@@ -597,10 +597,10 @@ light intensity [mid]                |        1.43 | 3.96 | [ -6.55,   9.42] |  
 light intensity [high]               |        3.70 | 3.96 | [ -4.28,  11.68] |  0.93 | 0.356 
 layer [2nd]                          |        5.68 | 3.96 | [ -2.30,  13.67] |  1.43 | 0.159 
 layer [3rd]                          |       14.05 | 3.96 | [  6.07,  22.03] |  3.54 | &lt; .001
-light intensity [mid] × layer [2nd]  |       -3.33 | 5.61 | [-14.62,   7.96] | -0.59 | 0.555 
-light intensity [high] × layer [2nd] |       -5.92 | 5.61 | [-17.21,   5.37] | -1.06 | 0.297 
-light intensity [mid] × layer [3rd]  |       -9.60 | 5.61 | [-20.89,   1.69] | -1.71 | 0.094 
-light intensity [high] × layer [3rd] |      -25.90 | 5.61 | [-37.19, -14.61] | -4.62 | &lt; .001</code></pre>
+light intensity [mid] * layer [2nd]  |       -3.33 | 5.61 | [-14.62,   7.96] | -0.59 | 0.555 
+light intensity [high] * layer [2nd] |       -5.92 | 5.61 | [-17.21,   5.37] | -1.06 | 0.297 
+light intensity [mid] * layer [3rd]  |       -9.60 | 5.61 | [-20.89,   1.69] | -1.71 | 0.094 
+light intensity [high] * layer [3rd] |      -25.90 | 5.61 | [-37.19, -14.61] | -4.62 | &lt; .001</code></pre>
 </div>
 </div>
 <p>Erstmal sehen wir an den Modellparameters, dass hier wieder etwas nicht stimmt. Wir würden erwarten, dass der Effekt des Layers immer gleich ist. Hier ist der Effekt von dem <code>2nd</code> Layer zu dem <code>3rd</code> Layer fast dreimal so stark. Und eigentlich sollten die Layer den gleichen Effekt haben. Nämlich eigentlich keinen oder einen Effekt weit unter dem von der Lichtintensität. Das Layer ist eine technische Komponente.</p>
@@ -631,7 +631,7 @@ Anova Table (Type 1 tests)</code></pre>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(contrast, layer, p.value) <span class="sc">%&gt;%</span> </span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">format.pval</span>(p.value, <span class="at">eps =</span> <span class="fl">0.001</span>, <span class="at">digits =</span> <span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 9 × 3
+<pre><code># A tibble: 9 x 3
   contrast   layer p.value
   &lt;fct&gt;      &lt;fct&gt; &lt;chr&gt;  
 1 low - mid  1st   1.0000 
@@ -655,7 +655,7 @@ Anova Table (Type 1 tests)</code></pre>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>ci_obj</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 9 × 5
+<pre><code># A tibble: 9 x 5
   contrast   layer estimate conf.low conf.high
   &lt;fct&gt;      &lt;fct&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1 low - mid  1st     -1.43    -11.3       8.42

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -258,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p><em>Version vom March 16, 2023 um 09:39:53</em></p>
+<p><em>Version vom Mai 04, 2023 um 11:38:52</em></p>
 <p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, readxl, knitr,</span>
@@ -272,6 +272,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">variante =</span> <span class="fu">as_factor</span>(variante),</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>amount)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+i In argument: `across(where(is.numeric), round, 2)`.
+Caused by warning:
+! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+Supply arguments directly to `.fns` through an anonymous function instead.
+
+  # Previously
+  across(a:b, mean, na.rm = TRUE)
+
+  # Now
+  across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+</div>
 </div>
 <p>In der <a href="#tbl-app-soil">Tabelle&nbsp;<span>4.1</span></a> sehen wir nochmal einen Ausschnitt aus den Daten. Wir schmeißen <code>amount</code> aus den Daten, da die Spalte dann in der Variante aufgeht.</p>
 <div class="cell page-columns page-full">
@@ -474,74 +487,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a href="https://jennybc.github.io/purrr-tutorial/index.html">purrr tutorial</a> und die Zusammenfassung in <a href="https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_purrr.pdf">Apply functions with purrr::CHEAT SHEET</a>.</p>
 </div></div><p>Als erstes müssen wir aber unsere Daten in das Long-Format kriegen. Dann können wir die Daten nach dem Outcome in der Spalte <code>key</code> die Daten in neuen Listeneinträge aufspalten. Warum neun? Wir haben eben neun Outcomes. Dann haben wir auch neun Listeneinträge. In jedem Listeneintrag ist die Spalte <code>variante</code> und die Spalte <code>value</code>. Der Name des Listeneintrags enthält dann den Namen des Outcomes. Mit dem <code>.x</code> übergeben wir iterativ jeden Listeneintrag in die Funktion <code>select()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>soil_lst <span class="ot">&lt;-</span> soil_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(key, value, fe<span class="sc">:</span>height) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(.<span class="sc">$</span>key) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">select</span>(.x, <span class="sc">-</span>key))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>soil_lst <span class="ot">&lt;-</span> soil_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(key, value, fe<span class="sc">:</span>height) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(.<span class="sc">$</span>key) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">select</span>(.x, <span class="sc">-</span>key))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Schauen wir uns von jedem Listeneintrag einmal die ersten beiden Zeilen an. Das machen wir auch wieder mit <code>map()</code> indem wir die Funktion <code>head()</code> auf jedem Listeneintrag ausführen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>soil_lst <span class="sc">%&gt;%</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">head</span>(.x, <span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>soil_lst <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">head</span>(.x, <span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$ca
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  0.45
 2 Holzfasern_0  0.47
 
 $drymatter
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  11.2
 2 Holzfasern_0  11.5
 
 $fe
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  0.26
 2 Holzfasern_0  0.33
 
 $freshweight
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  95.3
 2 Holzfasern_0  86.2
 
 $height
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  22.2
 2 Holzfasern_0  23  
 
 $k
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  3.7 
 2 Holzfasern_0  3.66
 
 $mg
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  0.43
 2 Holzfasern_0  0.44
 
 $no3
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  3.28
 2 Holzfasern_0  3.24
 
 $no4
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  4.1 
@@ -550,29 +563,28 @@ $no4
 </div>
 <p>Jetzt geht kannst du einmal <code>map()</code> in seiner vollen Schönheit sehen. Wir rechnen auf jeden Listeneintrag einmal den Games Howell Test. Dann steht in jedem der Listeneinträge das Ergebnis des Games Howell Test. Wir müssen dann noch die Spalte <code>contrast</code> aus der Ausgabe des Games Howell Test abändern, damit wir das <em>compact letter display</em> über die Funktion <code>multcompLetters()</code> nutzen können. Dann brauchen wir die adjustierten p-Werte und den Kontrast. Beides schieben wir dann in die Funktion <code>multcompLetters()</code> und lassen uns nur die Buchstaben des <em>compact letter display</em> wiedergeben. Am Ende kleben wir noch alle Einträge der einzelnen Listen mit der Funktion <code>bind_rows()</code> zu einem Datensatz zusammen. Vermutlich musst du die einzelnen Funktion selber mal Schritt für Schritt ausführen. Aber das hier war ja auch jetzt mal fortgeschrittene Programmierung.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>soil_lst <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">games_howell_test</span>(value <span class="sc">~</span> variante, <span class="at">data =</span> .x)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">mutate</span>(.x, <span class="at">contrast =</span> <span class="fu">str_c</span>(.x<span class="sc">$</span>group1, <span class="st">"-"</span>, .x<span class="sc">$</span>group2))) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">pull</span>(.x, p.adj, contrast)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">multcompLetters</span>(.x)<span class="sc">$</span>Letters) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="at">.id =</span> <span class="st">"outcome"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>soil_lst <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">games_howell_test</span>(value <span class="sc">~</span> variante, <span class="at">data =</span> .x)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">mutate</span>(.x, <span class="at">contrast =</span> <span class="fu">str_c</span>(.x<span class="sc">$</span>group1, <span class="st">"-"</span>, .x<span class="sc">$</span>group2))) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">pull</span>(.x, p.adj, contrast)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">multcompLetters</span>(.x)<span class="sc">$</span>Letters) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="at">.id =</span> <span class="st">"outcome"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 9 × 12
-  outcome     Holzfase…¹ Torf_30 Kompo…² Kompo…³ Kompo…⁴ Gehäc…⁵ Gehäc…⁶ Gehäc…⁷
-  &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  
-1 ca          ab         ab      ab      cd      e       abc     a       b      
-2 drymatter   a          a       ab      ab      ab      ab      ab      b      
-3 fe          a          abc     ab      abc     bc      a       abc     abc    
-4 freshweight a          b       ac      abcdef  de      abc     bcd     f      
-5 height      abcde      abc     abcde   acd     ade     abcd    abcde   e      
-6 k           a          a       ab      ab      ab      ab      ab      ab     
-7 mg          ab         ab      a       a       a       ab      ab      b      
-8 no3         a          ab      ab      abcd    abc     a       abc     abc    
-9 no4         a          b       bcdef   c       d       ae      cf      c      
-# … with 3 more variables: Aufgefasertes_10 &lt;chr&gt;, Aufgefasertes_30 &lt;chr&gt;,
-#   Aufgefasertes_50 &lt;chr&gt;, and abbreviated variable names ¹​Holzfasern_0,
-#   ²​Kompostiertes_10, ³​Kompostiertes_30, ⁴​Kompostiertes_50, ⁵​Gehäckseltes_10,
-#   ⁶​Gehäckseltes_30, ⁷​Gehäckseltes_50</code></pre>
+<pre><code># A tibble: 9 x 12
+  outcome     Holzfasern_0 Torf_30 Kompostiertes_10 Kompostiertes_30
+  &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;            &lt;chr&gt;           
+1 ca          ab           ab      ab               cd              
+2 drymatter   a            a       ab               ab              
+3 fe          a            abc     ab               abc             
+4 freshweight a            b       ac               abcdef          
+5 height      abcde        abc     abcde            acd             
+6 k           a            a       ab               ab              
+7 mg          ab           ab      a                a               
+8 no3         a            ab      ab               abcd            
+9 no4         a            b       bcdef            c               
+# i 7 more variables: Kompostiertes_50 &lt;chr&gt;, Gehäckseltes_10 &lt;chr&gt;,
+#   Gehäckseltes_30 &lt;chr&gt;, Gehäckseltes_50 &lt;chr&gt;, Aufgefasertes_10 &lt;chr&gt;,
+#   Aufgefasertes_30 &lt;chr&gt;, Aufgefasertes_50 &lt;chr&gt;</code></pre>
 </div>
 </div>
 <p>Wie du dann mit dem <em>compact letter display</em> weiterarbeitest und interpretierst, findest du dann im <a href="https://jkruppa.github.io/stat-tests-posthoc.html">Kapitel 31 - Multiple Vergleiche oder Post-hoc Tests</a> über das <em>compact letter display</em> für den Games Howell Test. Hier ist erstmal Schluss, sonst wird hier alles sehr wiederholend.</p>

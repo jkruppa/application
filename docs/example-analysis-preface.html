@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -261,7 +261,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 
 </div>
-<p><em>Version vom March 16, 2023 um 09:39:40</em></p>
+<p><em>Version vom Mai 04, 2023 um 11:38:33</em></p>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -283,18 +283,45 @@ Beispielhafte Auswertungen per Video
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               modelsummary, rstatix, corrplot, psych,</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               ordinal, rcompanion, lme4, performance,</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               scales, lubridate,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               conflicted)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## resolve some conflicts with same function naming</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"select"</span>, <span class="st">"dplyr"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"filter"</span>, <span class="st">"dplyr"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"chisq.test"</span>, <span class="st">"stats"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"%+%"</span>, <span class="st">"ggplot2"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"eta_squared"</span>, <span class="st">"effectsize"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               conflicted)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: kann nicht auf den Index für das Repository http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.2 zugreifen:
+  kann URL 'http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.2/PACKAGES' nicht öffnen</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Paket 'wk' erfolgreich ausgepackt und MD5 Summen abgeglichen
+Paket 'operator.tools' erfolgreich ausgepackt und MD5 Summen abgeglichen
+Paket 's2' erfolgreich ausgepackt und MD5 Summen abgeglichen
+Paket 'units' erfolgreich ausgepackt und MD5 Summen abgeglichen
+Paket 'formula.tools' erfolgreich ausgepackt und MD5 Summen abgeglichen
+Paket 'sf' erfolgreich ausgepackt und MD5 Summen abgeglichen
+Paket 'metR' erfolgreich ausgepackt und MD5 Summen abgeglichen
+
+Die heruntergeladenen Binärpakete sind in 
+    C:\Users\jokruppa\AppData\Local\Temp\RtmpMJmvNf\downloaded_packages</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: kann nicht auf den Index für das Repository http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.2 zugreifen:
+  kann URL 'http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.2/PACKAGES' nicht öffnen</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Paket 'mnormt' erfolgreich ausgepackt und MD5 Summen abgeglichen
+Paket 'psych' erfolgreich ausgepackt und MD5 Summen abgeglichen
+
+Die heruntergeladenen Binärpakete sind in 
+    C:\Users\jokruppa\AppData\Local\Temp\RtmpMJmvNf\downloaded_packages</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## resolve some conflicts with same function naming</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"select"</span>, <span class="st">"dplyr"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"filter"</span>, <span class="st">"dplyr"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"chisq.test"</span>, <span class="st">"stats"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"%+%"</span>, <span class="st">"ggplot2"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"eta_squared"</span>, <span class="st">"effectsize"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Worum geht es in diesen Kapiteln? Ich rechne hier fröhlich Dinge und präsentiere dann die Ergebnisse. Das heißt, du findest hier beispielhafte Auswertungen, die eventuell auch deine Problemstellung betreffen. Da <em>ich selber</em> meist keine Ahnung von der Biologie hinter den Experimenten habe, musst du mir nachsehen, dass ich hier nie zu einem echten biologischen Schluss oder Auswertung komme.</p>
 <ul>
-<li>In <a href="example-analysis-01.html"><span>Kapitel&nbsp;1</span></a> schauen wir uns einmal die Erstellung eines Isoplethendiagramms für Münster &amp; Osnabrück aus den frei verfügbaren Daten des Deutschen Wetterdienstes an.</li>
-<li>In <a href="example-analysis-02.html"><span>Kapitel&nbsp;2</span></a> rechnen wir einmal ein simples Beispiel für Zähldaten in zwei Gruppen. Wir haben hier nicht wiederholt gezählt, sondern nur jeweils einmal an einer Stelle.</li>
+<li>In <span class="quarto-unresolved-ref">?sec-app-example-iso</span> schauen wir uns einmal die Erstellung eines Isoplethendiagramms für Münster &amp; Osnabrück aus den frei verfügbaren Daten des Deutschen Wetterdienstes an.</li>
+<li>In <span class="quarto-unresolved-ref">?sec-app-example-number-groups</span> rechnen wir einmal ein simples Beispiel für Zähldaten in zwei Gruppen. Wir haben hier nicht wiederholt gezählt, sondern nur jeweils einmal an einer Stelle.</li>
 <li>In <a href="example-analysis-03.html"><span>Kapitel&nbsp;3</span></a> rechnen wir nochmal eine zweifaktorielle ANOVA mit Interaktionsterm durch. Wir kriegen dann unser <em>Compact letter display</em> wie auch die Konfidenzintervalle wieder.</li>
 <li>In <a href="example-analysis-04.html"><span>Kapitel&nbsp;4</span></a> rechnen wir einen Games Howell Test für normalverteilte Daten mit Varianzheterogenität. Hier hauen wir ein wenig auf die Pauke und rechnen alles in wenigen Zeilen mit der Funktion <code>map()</code>. War eine spaßige Auswerung für mich, da ich hier mal wieder programmieren üben konnte.</li>
 <li>In <a href="example-analysis-05.html"><span>Kapitel&nbsp;5</span></a> schauen wir uns ein größeres Beispiel für die Analyse von Wurzelbonituren an. Im Prinzip geht das natürlich auch alles für jede andere Bonitur. Wenn du eine andere Bonitur hast, kannst du natürlich auch den Weg der Analyse gehen.</li>
