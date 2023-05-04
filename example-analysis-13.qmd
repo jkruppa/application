@@ -89,15 +89,32 @@ basi_tbl %$%
   extract2("p.value") %>% 
   fullPTable() %>% 
   multcompLetters()
-
+```
 
 ## Barplot mit compact letter display und abspeichern
+
+```{r}
+#| message: false
+#| warning: false
 
 stat_tbl <- basi_tbl %>% 
   group_by(versuchsgruppe) %>% 
   summarise(mean = mean(frischmasse),
             sd = sd(frischmasse),
             se = sd/sqrt(n()))
+```
+
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| label: fig-app-basi-01
+#| fig-align: center
+#| fig-height: 5
+#| fig-width: 5
+#| fig-cap: "Korrelation zwischen den beiden Jahren der Messung."
+
 
 ggplot(stat_tbl, aes(x = versuchsgruppe, y = mean, 
                      fill = versuchsgruppe)) + 
@@ -116,59 +133,22 @@ ggplot(stat_tbl, aes(x = versuchsgruppe, y = mean,
            label = "ANOVA = <0.001", size = 3)
 ggsave("img/barplot_frischmasse.png", 
        width = 5, height = 3)
-
-## Trockengewicht
-
-fit <- lm(trockenmasse ~ versuchsgruppe, data = basi_tbl)
-
-fit %>% 
-  anova() %>% 
-  parameters()
-
-fit %>% 
-  eta_squared()
-
-basi_tbl %$%
-  pairwise.t.test(trockenmasse, versuchsgruppe,
-                  pool.sd = FALSE, 
-                  p.adjust.method = "bonferroni") %>% 
-  extract2("p.value") %>% 
-  fullPTable() %>% 
-  multcompLetters()
-
-
-## Barplot mit compact letter display und abspeichern
-
-stat_tbl <- basi_tbl %>% 
-  group_by(versuchsgruppe) %>% 
-  summarise(mean = mean(trockenmasse),
-            sd = sd(trockenmasse),
-            se = sd/sqrt(n()))
-
-ggplot(stat_tbl, aes(x = versuchsgruppe, y = mean, 
-                     fill = versuchsgruppe)) + 
-  theme_bw() +
-  geom_bar(stat = "identity") +
-  geom_errorbar(aes(ymin = mean-sd, ymax = mean+sd),
-                width = 0.2) +
-  labs(x = "Versuchsgruppe", y = "Trockenmasse in [g]") +
-  theme(legend.position = "none") +
-  scale_fill_okabeito() +
-  annotate("text", 
-           x = 1:4, 
-           y = c(1.5, 2.2, 1.9, 2.7), 
-           label = c("a", "bc", "b", "c")) +
-  annotate("text", x = 1, y = 3,
-           label = "ANOVA = <0.001", size = 3)
-
-ggsave("img/barplot_trockenmasse.png", 
-       width = 5, height = 3)
-
-##
 ```
 
 
 ```{r}
+#| message: false
+#| warning: false
+#| eval: false
+ggsave("img/barplot_trockenmasse.png", 
+       width = 5, height = 3)
+
+```
+
+
+```{r}
+#| message: false
+#| warning: false
 basi_time_tbl <- basi_tbl %>% 
   select(versuchsgruppe, t1:t4) %>% 
   pivot_longer(cols = t1:t4,
@@ -176,11 +156,19 @@ basi_time_tbl <- basi_tbl %>%
                names_to = "timepoint") %>% 
   mutate(timepoint = as_factor(timepoint),
          time_num = as.numeric(timepoint))
+```
 
-ggplot(basi_time_tbl, aes(time_num, values, color = versuchsgruppe)) +
-  geom_point() +
-  stat_summary(fun = "mean", fun.min = "min", fun.max = "max", geom = "line") 
-  
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| label: fig-app-basi-02
+#| fig-align: center
+#| fig-height: 5
+#| fig-width: 5
+#| fig-cap: "Korrelation zwischen den beiden Jahren der Messung."
+
 ggplot(basi_time_tbl, aes(time_num, values, color = versuchsgruppe)) +
   theme_bw() +
   scale_color_okabeito() +
@@ -192,14 +180,24 @@ ggplot(basi_time_tbl, aes(time_num, values, color = versuchsgruppe)) +
   theme(legend.position = c(0.8, 0.2),
         legend.background = element_rect(color="black", 
                                          size=0.5, linetype="solid"))
-
-
-lm(values ~ versuchsgruppe + timepoint + versuchsgruppe:timepoint, basi_time_tbl) %>% 
-  anova()
- 
 ```
+
+
+
 ```{r}
-lm(values ~ versuchsgruppe + timepoint + versuchsgruppe:timepoint, basi_time_tbl) %>% 
+#| message: false
+#| warning: false
+
+basi_time_fit <- lm(values ~ versuchsgruppe + timepoint + versuchsgruppe:timepoint, basi_time_tbl)
+
+```
+
+
+```{r}
+#| message: false
+#| warning: false
+
+basi_time_fit %>% 
   emmeans(specs = ~ versuchsgruppe | timepoint) %>% 
   contrast(method = "pairwise", adjust = "none") %>% 
   as_tibble %>% 
@@ -210,8 +208,10 @@ lm(values ~ versuchsgruppe + timepoint + versuchsgruppe:timepoint, basi_time_tbl
 ```
 
 ```{r}
+#| message: false
+#| warning: false
 
-lm(values ~ versuchsgruppe + timepoint + versuchsgruppe:timepoint, basi_time_tbl) %>% 
+basi_time_fit %>% 
   emmeans(specs = ~ versuchsgruppe | timepoint) %>%
   cld(Letters = letters, adjust = "none") 
 
