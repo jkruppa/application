@@ -10,7 +10,7 @@ Wir wollen folgende R Pakete in diesem Kapitel nutzen.
 pacman::p_load(tidyverse, readxl, parameters,
                effectsize, magrittr, multcomp,
                multcompView, rcompanion, rstatix,
-               emmeans, see,
+               emmeans, see, performance,
                conflicted)
 ## resolve some conflicts with same function naming
 conflicts_prefer(dplyr::select)
@@ -35,12 +35,20 @@ basi_tbl <- read_excel("data/keimversuch_basilikum.xlsx") %>%
 ggplot(basi_tbl, aes(versuchsgruppe, frischmasse)) +
   theme_bw() +
   geom_point()
+```
 
+
+```{r}
 basi_tbl %>%
   group_by(versuchsgruppe) %>%
   shapiro_test(frischmasse)
 
+check_outliers(basi_tbl)
 
+```
+
+
+```{r}
 ## Wir nehmen an, dass es sich bei Frischmasse um einen annährend
 ## normalverteilten Endpunkt handelt.
 
