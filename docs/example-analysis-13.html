@@ -268,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p><em>Version vom May 05, 2023 um 20:36:29</em></p>
+<p><em>Version vom May 05, 2023 um 21:29:04</em></p>
 <p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, readxl, parameters,</span>
@@ -310,11 +310,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 3 Erde+Perlite       frischmasse     0.957 0.786 
 4 Erde+Perlite+Fließ frischmasse     0.977 0.918 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_outliers</span>(basi_tbl)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>basi_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(versuchsgruppe <span class="sc">==</span> <span class="st">"Erde+Fließ"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(frischmasse) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">check_outliers</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>OK: No outliers detected.
-- Based on the following method and threshold: mahalanobis (26.12).
-- For variables: t1, t2, t3, t4, frischmasse, trockenmasse, Bkl, Bgr</code></pre>
+- Based on the following method and threshold: mahalanobis (10.83).
+- For variable: frischmasse</code></pre>
 </div>
 </div>
 <div class="cell">

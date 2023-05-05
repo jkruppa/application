@@ -43,7 +43,11 @@ basi_tbl %>%
   group_by(versuchsgruppe) %>%
   shapiro_test(frischmasse)
 
-check_outliers(basi_tbl)
+
+basi_tbl %>% 
+  filter(versuchsgruppe == "Erde+Fließ") %>% 
+  select(frischmasse) %>% 
+  check_outliers()
 
 ```
 
