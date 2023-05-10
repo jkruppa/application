@@ -232,7 +232,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example-analysis-13.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608)</span></a>
+  <a href="./example-analysis-13.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-14.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-15.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Laser auf Erdbeeren</span></a>
   </div>
 </li>
       </ul>
@@ -264,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p><em>Version vom May 05, 2023 um 20:36:21</em></p>
+<p><em>Version vom Mai 10, 2023 um 14:11:38</em></p>
 <p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, readxl,</span>
@@ -281,7 +291,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>log_tbl</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 35,761 × 6
+<pre><code># A tibble: 35,761 x 6
    date_time           date       time       co2  temp  relh
    &lt;dttm&gt;              &lt;date&gt;     &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
  1 2022-11-21 12:30:00 2022-11-21 12:30:00   896  18.2  61.7
@@ -294,7 +304,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  8 2022-11-21 12:37:00 2022-11-21 12:37:00   986  19.4  71.8
  9 2022-11-21 12:38:00 2022-11-21 12:38:00   994  19.5  71.9
 10 2022-11-21 12:39:00 2022-11-21 12:39:00   986  19.7  72.2
-# ℹ 35,751 more rows</code></pre>
+# i 35,751 more rows</code></pre>
 </div>
 </div>
 <p>Wir immer müssen wir die Daten noch aus dem Wide-Format in das Long-Format überführen. Wir wollen dann auch die Outcomes nochmal anders benennen und machen die Umbenennung gleich bei der Erstellung der Faktoren. Dann sind wir auch schon fertig mit der Datenvorbereitung und können dann mit den Abbilungen beginnen.</p>

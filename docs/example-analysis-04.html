@@ -231,7 +231,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example-analysis-13.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608)</span></a>
+  <a href="./example-analysis-13.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-14.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-15.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Laser auf Erdbeeren</span></a>
   </div>
 </li>
       </ul>
@@ -263,7 +273,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p><em>Version vom May 05, 2023 um 20:36:02</em></p>
+<p><em>Version vom Mai 10, 2023 um 14:11:04</em></p>
 <p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, readxl, knitr,</span>
@@ -279,7 +289,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>amount)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There was 1 warning in `mutate()`.
-ℹ In argument: `across(where(is.numeric), round, 2)`.
+i In argument: `across(where(is.numeric), round, 2)`.
 Caused by warning:
 ! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
 Supply arguments directly to `.fns` through an anonymous function instead.
@@ -503,63 +513,63 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">head</span>(.x, <span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$ca
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  0.45
 2 Holzfasern_0  0.47
 
 $drymatter
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  11.2
 2 Holzfasern_0  11.5
 
 $fe
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  0.26
 2 Holzfasern_0  0.33
 
 $freshweight
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  95.3
 2 Holzfasern_0  86.2
 
 $height
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  22.2
 2 Holzfasern_0  23  
 
 $k
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  3.7 
 2 Holzfasern_0  3.66
 
 $mg
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  0.43
 2 Holzfasern_0  0.44
 
 $no3
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  3.28
 2 Holzfasern_0  3.24
 
 $no4
-# A tibble: 2 × 2
+# A tibble: 2 x 2
   variante     value
   &lt;fct&gt;        &lt;dbl&gt;
 1 Holzfasern_0  4.1 
@@ -575,7 +585,7 @@ $no4
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">multcompLetters</span>(.x)<span class="sc">$</span>Letters) <span class="sc">%&gt;%</span> </span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="at">.id =</span> <span class="st">"outcome"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 9 × 12
+<pre><code># A tibble: 9 x 12
   outcome     Holzfasern_0 Torf_30 Kompostiertes_10 Kompostiertes_30
   &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;            &lt;chr&gt;           
 1 ca          ab           ab      ab               cd              
@@ -587,7 +597,7 @@ $no4
 7 mg          ab           ab      a                a               
 8 no3         a            ab      ab               abcd            
 9 no4         a            b       bcdef            c               
-# ℹ 7 more variables: Kompostiertes_50 &lt;chr&gt;, Gehäckseltes_10 &lt;chr&gt;,
+# i 7 more variables: Kompostiertes_50 &lt;chr&gt;, Gehäckseltes_10 &lt;chr&gt;,
 #   Gehäckseltes_30 &lt;chr&gt;, Gehäckseltes_50 &lt;chr&gt;, Aufgefasertes_10 &lt;chr&gt;,
 #   Aufgefasertes_30 &lt;chr&gt;, Aufgefasertes_50 &lt;chr&gt;</code></pre>
 </div>

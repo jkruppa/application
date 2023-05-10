@@ -1,4 +1,4 @@
-# Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) {#sec-app-basilikum}
+# Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 1 {#sec-app-basilikum}
 
 *Version vom `r format(Sys.time(), '%B %d, %Y um %H:%M:%S')`*
 
