@@ -81,7 +81,7 @@ berry_tbl <- berry_lst %>%
 ggplot(berry_tbl, aes(wave, mean, color = E)) +
   theme_bw() +
   geom_line() +
-  theme(legend.position = "none")
+  theme(legend.position = "none") 
 ```
 
 
@@ -102,7 +102,7 @@ sugar_tbl <- read_excel("data/strawberry_sugar.xlsx") %>%
 #| warning: false
 berry_sugar_tbl <- left_join(berry_tbl, sugar_tbl,
                              by = c("E" = "E")) %>% 
-  filter(boniturnote %in% c(1, 3, 5)) %>% 
+  filter(boniturnote %in% c(1, 2, 3, 4, 5)) %>% 
   mutate(boniturnote = as_factor(boniturnote))
 ```
 
@@ -140,7 +140,8 @@ berry_sugar_tbl %>%
   theme_bw() +
   geom_point() +
   stat_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ wave)
+  facet_wrap(~ wave) +
+  scale_color_okabeito() 
 ```
 
 
@@ -186,16 +187,16 @@ rsquare_vec[15]
 #| label: fig-app-strawberry-03
 #| fig-align: center
 #| fig-height: 5
-#| fig-width: 5
+#| fig-width: 6
 #| fig-cap: "Korrelation zwischen den beiden Jahren der Messung."
 berry_sugar_tbl %>% 
   filter(wave == wave_vec[15]) %>% 
   ggplot(aes(x = mean, y = brix_einzelfrucht,
              color = boniturnote)) +
   theme_bw() +
-  geom_point() +
   geom_text(aes(label = E)) +
   stat_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ wave)
+  facet_wrap(~ wave) +
+  scale_color_okabeito() 
 ```
 
