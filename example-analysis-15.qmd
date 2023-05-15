@@ -21,18 +21,27 @@ conflicts_prefer(magrittr::set_names)
 ```
 
 
-![Vogelperspektive für unseren Versuch mit Pilzbefall. Leider finden wir nur den Block I und II auf dem Grün 1 sowie die Blöcke III und IV auf dem Grün 2.](images/strawberry_bonitur.jpg){#fig-app-exp-golf fig-align="center" width="80%"}
+![Vogelperspektive für unseren Versuch mit Pilzbefall. Leider finden wir nur den Block I und II auf dem Grün 1 sowie die Blöcke III und IV auf dem Grün 2.](images/strawberry_bonitur.jpg){#fig-app-exp-golf fig-align="center" width="100%"}
 
 ```{r}
-## laden der spektren
+#| message: false
+#| warning: false
 berry_files <- list.files("data/strawberry",
                           pattern = "^E", full.names = TRUE)
+```
 
 
-
+```{r}
+#| message: false
+#| warning: false
 berry_lst <- map(berry_files, read_table, 
                  skip = 2, col_names = FALSE, col_types = cols())
+```
 
+
+```{r}
+#| message: false
+#| warning: false
 berry_lst <- map(berry_files, function(x){
   tmp_tbl <- read_table(x, 
                         skip = 2, col_names = FALSE, col_types = cols()) 
@@ -43,8 +52,12 @@ berry_lst <- map(berry_files, function(x){
     set_names(c("wave", file_name)) 
   return(tmp_tbl)
 })
+```
 
 
+```{r}
+#| message: false
+#| warning: false
 berry_tbl <- berry_lst %>% 
   reduce(left_join, by = "wave") %>% 
   pivot_longer(cols = E_1.1._w1:last_col(),
@@ -53,57 +66,99 @@ berry_tbl <- berry_lst %>%
                names_to = c("E", "rep")) %>% 
   group_by(wave, E) %>% 
   summarise(mean = mean(values))
+```
 
 
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| label: fig-app-strawberry-01
+#| fig-align: center
+#| fig-height: 5
+#| fig-width: 5
+#| fig-cap: "Korrelation zwischen den beiden Jahren der Messung."
 ggplot(berry_tbl, aes(wave, mean, color = E)) +
   theme_bw() +
   geom_line() +
-  theme(legend.position = "none")
+  theme(legend.position = "none") 
+```
 
-## laden des zuckergehalts
 
+```{r}
+#| message: false
+#| warning: false
 sugar_tbl <- read_excel("data/strawberry_sugar.xlsx") %>% 
   clean_names() %>% 
   select(-brixwert, -brix_mittel_note, -messwiederholung,
          -g_zucker_l_saft_mittel_note, -oe_einzelfrucht) %>% 
   filter(!is.na(brix_einzelfrucht)) %>% 
   mutate(E = str_c("E_", boniturnote, ".", fruchtnummer))
+```
 
-## beide Datensätze zusammen
+
+```{r}
+#| message: false
+#| warning: false
 berry_sugar_tbl <- left_join(berry_tbl, sugar_tbl,
                              by = c("E" = "E")) %>% 
-  #filter(boniturnote %in% c(1, 5)) %>% 
+  filter(boniturnote %in% c(1, 2, 3, 4, 5)) %>% 
   mutate(boniturnote = as_factor(boniturnote))
+```
 
 
+
+```{r}
+#| message: false
+#| warning: false
 wave_vec <- berry_sugar_tbl %>% pull(wave) %>% unique()
+```
 
+Wir haben insgesamt `r length(wave_vec)` Wellenlängen.
+
+
+```{r}
+#| message: false
+#| warning: false
 wave_vec <- wave_vec[1:20]
+```
 
-length(wave_vec)
 
-berry_sugar_tbl %>% 
-  filter(wave == 841) %>% 
-  ggplot(aes(x = mean, y = g_zucker_l_saft, color = boniturnote)) +
-  theme_bw() +
-  geom_point() +
-  stat_smooth(method = "lm", se = FALSE) #+
- # facet_wrap(~ wave)
-
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| label: fig-app-strawberry-02
+#| fig-align: center
+#| fig-height: 5
+#| fig-width: 5
+#| fig-cap: "Korrelation zwischen den beiden Jahren der Messung."
 berry_sugar_tbl %>% 
   filter(wave == 231) %>% 
-  ggplot(aes(x = brix_einzelfrucht, y = mean)) +
+  ggplot(aes(x = brix_einzelfrucht, y = mean,
+             color = boniturnote)) +
   theme_bw() +
   geom_point() +
   stat_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ wave)
+  facet_wrap(~ wave) +
+  scale_color_okabeito() 
+```
 
+
+```{r}
+#| message: false
+#| warning: false
 berry_sugar_tbl %>% 
   filter(wave == 231) %$% 
   lm(mean ~ brix_einzelfrucht) %>% 
   glance() %>% 
   pull(r.squared)
+```
 
+
+```{r}
+#| message: false
+#| warning: false
 rsquare_vec <- map_dbl(wave_vec, function(x){
   rsquare <- berry_sugar_tbl %>% 
     filter(wave == x) %$% 
@@ -112,23 +167,36 @@ rsquare_vec <- map_dbl(wave_vec, function(x){
     pull(adj.r.squared)
   return(rsquare)
 }, .progress = TRUE) %>% 
-  set_names(wave_vec) 
+  set_names(wave_vec)
+```
 
+
+```{r}
+#| message: false
+#| warning: false
 which.max(rsquare_vec)
 
 rsquare_vec[15]
+```
 
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| label: fig-app-strawberry-03
+#| fig-align: center
+#| fig-height: 5
+#| fig-width: 6
+#| fig-cap: "Korrelation zwischen den beiden Jahren der Messung."
 berry_sugar_tbl %>% 
   filter(wave == wave_vec[15]) %>% 
   ggplot(aes(x = mean, y = brix_einzelfrucht,
              color = boniturnote)) +
   theme_bw() +
-  geom_point() +
   geom_text(aes(label = E)) +
   stat_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ wave)
-
-
-
+  facet_wrap(~ wave) +
+  scale_color_okabeito() 
 ```
 

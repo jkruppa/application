@@ -15,6 +15,8 @@ In diesem Abschnitt wollen wir einen einfaktoriellen Datensatz auswerten. Das he
 Also erstmal die Daten einlesen, dann die Varianten bilden und die Zahlen wieder auf eine angemessene Länge runden. Ich nehme da immer auf Zweikommastellen, aber das hat hier eher mit der Übersicht zu tun. Gerne kannst du da auch mehr Kommastellen zulassen.
 
 ```{r}
+#| message: false
+#| warning: false
 soil_tbl <- read_excel("data/soil_1fac_data.xlsx") %>% 
   mutate(variante = str_c(variante, "_", amount),
          variante = as_factor(variante),
@@ -22,7 +24,7 @@ soil_tbl <- read_excel("data/soil_1fac_data.xlsx") %>%
   select(-amount)
 ```
 
-In der @tbl-app-soil sehen wir nochmal einen Ausschnitt aus den Daten. Wir schmeißen `amount` aus den Daten, da die Spalte dann in der Variante aufgeht.
+In der @tbl-app-soil sehen wir nochmal einen Ausschnitt aus den Daten. Wir schmeißen `amount` aus den Daten, da die Spalte dann in der Variante aufgeht. Somit haben wir dann tatsächlich `r length(unique(soil_tbl$variante))` Gruppen in unser Behandlung `variante`. Wir nehmen das mal hier so hin, weil ich hier auch zeigen will, dass die Auswertung auch mit dieser Menge an Gruppen geht. Die andere Möglichkeit wäre, dass wir hier zwei Faktoren mit `variante` und `amount` vorliegen haben - was vermutlich auch wahrscheinlicher ist. Dann würden wir eine zweifaktorielle ANOVA rechnen.
 
 ```{r}
 #| echo: false

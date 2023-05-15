@@ -22,6 +22,9 @@ conflicts_prefer(effectsize::eta_squared)
 Es geht hier um das Modul [Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608)](https://www.hs-osnabrueck.de/module/44b0608/)
 
 ```{r}
+#| message: false
+#| warning: false
+
 gurke_raw_tbl <- read_excel("data/wachstum_gurke.xlsx") %>% 
   clean_names() %>% 
   mutate(versuchsgruppe = as_factor(versuchsgruppe),
@@ -43,6 +46,8 @@ gurke_dia_tbl <- gurke_raw_tbl %>%
 
 
 ```{r}
+#| message: false
+#| warning: false
 gurke_ernte_tbl <- gurke_len_tbl %>% 
   select(versuchsgruppe, erntegewicht)
 ```
@@ -65,8 +70,8 @@ ggplot(gurke_ernte_tbl, aes(versuchsgruppe, erntegewicht)) +
 
 
 ```{r}
-## Wir nehmen an, dass es sich bei Frischmasse um einen annährend
-## normalverteilten Endpunkt handelt.
+#| message: false
+#| warning: false
 
 fit <- lm(erntegewicht ~ versuchsgruppe, data = gurke_ernte_tbl)
 
@@ -80,13 +85,18 @@ fit %>%
 
 
 ```{r}
-## posthoc Test durchführen. 
+#| message: false
+#| warning: false
 gurke_ernte_tbl %$%
   pairwise.t.test(erntegewicht, versuchsgruppe,
                   pool.sd = TRUE, 
                   p.adjust.method = "none")
+```
 
 
+```{r}
+#| message: false
+#| warning: false
 gurke_ernte_tbl %$%
   pairwise.t.test(erntegewicht, versuchsgruppe,
                   pool.sd = TRUE, 
@@ -98,8 +108,8 @@ gurke_ernte_tbl %$%
 
 
 ```{r}
-## Barplot mit compact letter display und abspeichern
-
+#| message: false
+#| warning: false
 stat_tbl <- gurke_ernte_tbl %>% 
   group_by(versuchsgruppe) %>% 
   summarise(mean = mean(erntegewicht, na.rm = TRUE),
@@ -145,8 +155,8 @@ ggsave("img/barplot_erntegewicht.png",
 
 
 ```{r}
-## Zeitpunkte
-
+#| message: false
+#| warning: false
 gurke_time_len_tbl <- gurke_len_tbl %>% 
   select(-pfl, -erntegewicht) %>% 
   pivot_longer(cols = t1:t17,
@@ -228,14 +238,17 @@ ggplot(gurke_time_len_tbl, aes(time_num, length, color = versuchsgruppe)) +
 
 
 ```{r}
+#| message: false
+#| warning: false
 lm(length ~ versuchsgruppe + time + versuchsgruppe:time, gurke_time_len_tbl) %>% 
   anova()
 
-## barplots
 ```
 
 
 ```{r}
+#| message: false
+#| warning: false
 gurke_time_len_tbl %>% 
   filter(time_fct == "t14") %$%
   pairwise.t.test(length, versuchsgruppe,
@@ -248,6 +261,8 @@ gurke_time_len_tbl %>%
 
 
 ```{r}
+#| message: false
+#| warning: false
 stat_tbl <- gurke_time_len_tbl %>% 
   group_by(versuchsgruppe, time_fct) %>% 
   summarise(mean = mean(length, na.rm = TRUE),
@@ -258,6 +273,8 @@ stat_tbl <- gurke_time_len_tbl %>%
 
 
 ```{r}
+#| message: false
+#| warning: false
 p1 <- ggplot(stat_tbl, aes(x = time_fct, y = mean, 
                      fill = versuchsgruppe)) + 
   theme_bw() +
@@ -273,12 +290,16 @@ p1 <- ggplot(stat_tbl, aes(x = time_fct, y = mean,
 
 
 ```{r}
+#| message: false
+#| warning: false
 stat_t14_tbl <- stat_tbl %>% 
   filter(time_fct == "t14")
 ```
 
 
 ```{r}
+#| message: false
+#| warning: false
 p2 <- ggplot(stat_t14_tbl, aes(x = time_fct, y = mean, 
                        fill = versuchsgruppe)) + 
   theme_bw() +
@@ -317,34 +338,3 @@ ggsave("img/time_barplot.png",
        width = 8, height = 5)
 ```
 
-
-```{r}
-#| eval: false
-## Tageslängen
-
-day_length_vec <- gurke_tbl %>% 
-  filter(versuchsgruppe == "Tageslänge") %>% 
-  select(t1:t17) %>% 
-  as_vector()
-
-time_daylength_tbl <- tibble(time = str_c("t", 1:17),
-                             daylength = day_length_vec)
-
-gurke_time_tbl <- gurke_tbl %>% 
-  filter(versuchsgruppe != "Tageslänge") %>% 
-  select(-pfl, -erntegewicht) %>% 
-  pivot_longer(cols = t1:t17,
-               values_to = "gewicht",
-               names_to = "time") %>% 
-  left_join(time_daylength_tbl, by = "time")
-
-
-ggplot(gurke_time_tbl, aes(x = daylength, gewicht, color = versuchsgruppe)) +
-  theme_bw() +
-  geom_jitter(position=position_dodge(0.3), shape = 4) +
-  stat_summary(fun.data="mean_sdl", , fun.args = list(mult = 1), 
-               geom="pointrange", position=position_dodge(0.3))  +
-  stat_summary(fun = "mean", fun.min = "min", fun.max = "max", geom = "line",
-               position=position_dodge(0.3)) 
-
-```
