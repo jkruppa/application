@@ -91,8 +91,71 @@ gg_func <- function(data){
     theme(axis.text.x = element_text(angle = -45, hjust = 0))
 }
 
+```
+
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+gg_func <- function(data){
+  data %>% 
+    mutate(.group = str_replace_all(.group, "\\s", "")) %>% 
+    ggplot(aes(versuchsgruppe, emmean)) +
+    theme_minimal() +
+    labs(x = "", y = "") +
+    geom_bar(stat = "identity")  +
+    scale_x_discrete(expand = expansion(add = c(NA, 1))) +
+    geom_errorbar(aes(ymin = emmean - SE, ymax = emmean + SE), width = 0.2) +
+    geom_text(aes(label = .group, y = (emmean + SE) + (0.02 * (emmean + SE))),
+              vjust = 0) +
+    theme(axis.text.x = element_text(angle = -45, hjust = 0))
+}
+
+```
+
+[Plot math expression](https://stat.ethz.ch/R-manual/R-patched/library/grDevices/html/plotmath.html)
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-height: 5
+#| fig-width: 6
+#| label: fig-pois-03
+#| fig-cap: "Barplots der Mittelwerte und Standardfehler für die vier Outcomes."
+#| fig-subcap: 
+#|   - "zn_blanchiert"
+#|   - "zn_ungewaschen"
+#|   - "fe_blanchiert"
+#|   - "fe_ungewaschen"
+#| layout-ncol: 2 
+#| column: page
+
 emm_tbl %>% 
   mutate(gg = map(cld, gg_func)) %>% 
-  pluck("gg")
+  pluck("gg", 1) +
+  labs(x = expression(Eisendüngeform~und~-höhe~"[kg ha]"^-1),
+       y = expression(Zn-Gehalt~"["~mg%.%(100~g~FM)^-1~"]"))
 
+emm_tbl %>% 
+  mutate(gg = map(cld, gg_func)) %>% 
+  pluck("gg", 2) +
+  labs(x = expression(Eisendüngeform~und~-höhe~"[kg ha]"^-1),
+       y = expression(Zn-Gehalt~"["~mg%.%(kg~TM)^-1~"]"))
+
+emm_tbl %>% 
+  mutate(gg = map(cld, gg_func)) %>% 
+  pluck("gg", 3) +
+  labs(x = expression(Eisendüngeform~und~-höhe~"[kg ha]"^-1),
+       y = expression(Fe-Gehalt~"["~mg%.%(100~g~FM)^-1~"]"))
+
+emm_tbl %>% 
+  mutate(gg = map(cld, gg_func)) %>% 
+  pluck("gg", 4) +
+  labs(x = expression(Eisendüngeform~und~-höhe~"[kg ha]"^-1),
+       y = expression(Fe-Gehalt~"["~mg%.%(kg~TM)^-1~"]"))
 ```

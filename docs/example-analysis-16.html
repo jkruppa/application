@@ -260,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -279,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><em>Version vom July 11, 2023 um 16:09:45</em></p>
+<p><em>Version vom July 13, 2023 um 09:55:09</em></p>
 <p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, readxl, parameters,</span>
@@ -307,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"rsp"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="daten-auswerten" class="level2" data-number="16.2">
+<section id="daten-auswerten" class="level2 page-columns page-full" data-number="16.2">
 <h2 data-number="16.2" class="anchored" data-anchor-id="daten-auswerten"><span class="header-section-number">16.2</span> Daten auswerten</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nested_tbl <span class="ot">&lt;-</span> data_tbl <span class="sc">%&gt;%</span> </span>
@@ -447,37 +447,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> emmean <span class="sc">-</span> SE, <span class="at">ymax =</span> emmean <span class="sc">+</span> SE), <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> .group, <span class="at">y =</span> (emmean <span class="sc">+</span> SE) <span class="sc">+</span> (<span class="fl">0.05</span> <span class="sc">*</span> (emmean <span class="sc">+</span> SE)))) <span class="sc">+</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="sc">-</span><span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">0</span>))</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="sc">%&gt;%</span> </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gg =</span> <span class="fu">map</span>(cld, gg_func)) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"gg"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]</code></pre>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output-display">
-<p><img src="example-analysis-16_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><a href="https://stat.ethz.ch/R-manual/R-patched/library/grDevices/html/plotmath.html">Plot math expression</a></p>
+<div class="page-columns page-full">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gg =</span> <span class="fu">map</span>(cld, gg_func)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"gg"</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(Eisendüngeform<span class="sc">~</span>und<span class="sc">~-</span>höhe<span class="sc">~</span><span class="st">"[kg ha]"</span><span class="sc">^-</span><span class="dv">1</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(Zn<span class="sc">-</span>Gehalt<span class="sc">~</span><span class="st">"["</span><span class="sc">~</span>mg<span class="sc">%.%</span>(<span class="dv">100</span><span class="sc">~</span>g<span class="sc">~</span>FM)<span class="sc">^-</span><span class="dv">1</span><span class="sc">~</span><span class="st">"]"</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gg =</span> <span class="fu">map</span>(cld, gg_func)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"gg"</span>, <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(Eisendüngeform<span class="sc">~</span>und<span class="sc">~-</span>höhe<span class="sc">~</span><span class="st">"[kg ha]"</span><span class="sc">^-</span><span class="dv">1</span>),</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(Zn<span class="sc">-</span>Gehalt<span class="sc">~</span><span class="st">"["</span><span class="sc">~</span>mg<span class="sc">%.%</span>(kg<span class="sc">~</span>TM)<span class="sc">^-</span><span class="dv">1</span><span class="sc">~</span><span class="st">"]"</span>))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gg =</span> <span class="fu">map</span>(cld, gg_func)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"gg"</span>, <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(Eisendüngeform<span class="sc">~</span>und<span class="sc">~-</span>höhe<span class="sc">~</span><span class="st">"[kg ha]"</span><span class="sc">^-</span><span class="dv">1</span>),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(Fe<span class="sc">-</span>Gehalt<span class="sc">~</span><span class="st">"["</span><span class="sc">~</span>mg<span class="sc">%.%</span>(<span class="dv">100</span><span class="sc">~</span>g<span class="sc">~</span>FM)<span class="sc">^-</span><span class="dv">1</span><span class="sc">~</span><span class="st">"]"</span>))</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gg =</span> <span class="fu">map</span>(cld, gg_func)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"gg"</span>, <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(Eisendüngeform<span class="sc">~</span>und<span class="sc">~-</span>höhe<span class="sc">~</span><span class="st">"[kg ha]"</span><span class="sc">^-</span><span class="dv">1</span>),</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(Fe<span class="sc">-</span>Gehalt<span class="sc">~</span><span class="st">"["</span><span class="sc">~</span>mg<span class="sc">%.%</span>(kg<span class="sc">~</span>TM)<span class="sc">^-</span><span class="dv">1</span><span class="sc">~</span><span class="st">"]"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-pois-03" class="cell column-page quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-pois-03-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-16_files/figure-html/fig-pois-03-1.png" class="img-fluid figure-img" data-ref-parent="fig-pois-03" width="576"></p>
+<figcaption class="figure-caption">(a) zn_blanchiert</figcaption>
+</figure>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[2]]</code></pre>
 </div>
-<div class="cell-output-display">
-<p><img src="example-analysis-16_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-pois-03-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-16_files/figure-html/fig-pois-03-2.png" class="img-fluid figure-img" data-ref-parent="fig-pois-03" width="576"></p>
+<figcaption class="figure-caption">(b) zn_ungewaschen</figcaption>
+</figure>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[3]]</code></pre>
 </div>
-<div class="cell-output-display">
-<p><img src="example-analysis-16_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[4]]</code></pre>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-pois-03-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-16_files/figure-html/fig-pois-03-3.png" class="img-fluid figure-img" data-ref-parent="fig-pois-03" width="576"></p>
+<figcaption class="figure-caption">(c) fe_blanchiert</figcaption>
+</figure>
 </div>
-<div class="cell-output-display">
-<p><img src="example-analysis-16_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-pois-03-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-16_files/figure-html/fig-pois-03-4.png" class="img-fluid figure-img" data-ref-parent="fig-pois-03" width="576"></p>
+<figcaption class="figure-caption">(d) fe_ungewaschen</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;16.1— Barplots der Mittelwerte und Standardfehler für die vier Outcomes.</figcaption><p></p>
+</figure>
 </div>
 </div>
 
