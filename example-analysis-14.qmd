@@ -242,7 +242,6 @@ ggplot(gurke_time_len_tbl, aes(time_num, length, color = versuchsgruppe)) +
 #| warning: false
 lm(length ~ versuchsgruppe + time + versuchsgruppe:time, gurke_time_len_tbl) %>% 
   anova()
-
 ```
 
 
