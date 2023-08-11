@@ -1,0 +1,296 @@
+# Complete randomized design {#sec-app-crd}
+
+*Version vom `r format(Sys.time(), '%B %d, %Y um %H:%M:%S')`*
+
+Wir wollen folgende R Pakete in diesem Kapitel nutzen.
+
+```{r echo = TRUE}
+#| message: false
+#| warning: false
+pacman::p_load(tidyverse, readxl, parameters,
+               effectsize, magrittr, multcomp,
+               multcompView, rcompanion, rstatix,
+               emmeans, see, performance, fs,
+               janitor, broom, scales, knitr,
+               conflicted)
+## resolve some conflicts with same function naming
+conflicts_prefer(dplyr::select)
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(effectsize::eta_squared)
+conflicts_prefer(magrittr::set_names)
+```
+
+## Randomized complete block design (RCBD) {#sec-rcbd}
+
+Das randomisierte, vollständige Blockdesign (eng. *randomized complete block design*) ist das Design, wenn es darum geht für verschiedene Räume die Varianz zu adjustieren bzw. zu modellieren. Was meinen wir mit Räumen? Wir meinen damit verschiedene Ställe, verschiedene Felder oder aber verschiedene Tische. Wir nennen diese zusätzlichen Beobachtungsräume auch Block.
+
+
+
+Wichtig ist zu unterschieden, wir pro Block nur einmal ein Level der Behandlung vorliegen haben. Dann hätten wir nämlich nur einen Topf mit Behandlung pro Block wie in @fig-design-table-block dargestellt. Damit haben wir den Block als Wiederholung. Oder wir haben ein *Complete randomized design* in Blöcken wiederholen vorliegen. Dann haben wir nämlich pro Block mehrere Wiederholungen der Behandlung wie in @fig-design-table-block-rep veranschaulicht. Wir schauen uns erstmal den ersten Fall an. Das heist im Prinzip, dass unser Block die Wiederholung ist.
+
+Hier ein paar Beispiele in Prosa, wie so ein *Randomized complete block design* konstruiert sein könnte.
+
+*Wir haben drei Tische und auf jeden der Tische steht zufällig vier ein Töpfe mit je einer Behandlung*
+
+*Wir haben drei Ställe und in jedem Stall werden vier Buchten mit jeweils einer Behandlung genutzt.*
+
+*Wir haben drei Felder mit jeweils vier Parzellen die zufällig mit jeweils einer der Behandlungen versehen werden.*
+
+Wir können natürlich auch auf den Tischen mehrere Wiederholungen einer Behandlung haben. Dann wird der Datensatz nur größer, aber die Auswertung unterschiedet sich nicht. Wir haben dann mehr Beobachtungen pro Block und Behandlung.
+
+### Visualisierung
+
+In der @fig-design-rcbd sehen wir eine Realisierung des *Randomized complete block design*. Wir haben insgesamt drei Blöcke vorliegen mit Block I, Block II und Block III. In jedem Block haben wir die Behandlungen $A$, $B$, $C$ und $D$ zufällig randomisiert. In jedem Block haben wir genau einmal ein Level der Behandlung vorliegen.
+
+![Visualisierung des *complete randomized design* mit einer Behandlung und vier Behandlungsleveln.](images/experimental-design-rcbd.png){#fig-design-rcbd fig-align="center" width="70%"}
+
+### Daten
+
+Im Folgenden generieren wir uns die Daten für das *Randomized complete block design*. Wir wissen, dass in jedem Block die Behandlung genau einmal vorkommt. Um diese Datenstruktur mit zwei Faktoren nachzubauen, können wir die Funktion `expand_grid()` nutzen. Wir definieren zuerst, dass wir vier Behandlungslevel wollen und für jedes Behandlungslevel dann die drei Level des Blocks. Hier muss ich auch immer wieder rumspielen und probieren, bis ich die Daten dann zu dem Design passend habe. Wir erstellen uns so das Objekt `factor_tbl`.
+
+```{r}
+set.seed(20221001)
+factor_tbl <- expand_grid(trt = 1:4, block = 1:3) %>% 
+  mutate(trt = factor(trt, labels = c("A", "B", "C", "D")),
+         block = factor(block, labels = as.roman(1:3))) 
+
+factor_tbl
+```
+
+Wir sehen, dass jede Behandlung in allen drei Level des Blocks hat. Das entspricht unser @fig-design-rcbd und somit können wir uns darum kümmern, den Leveln der Behandlung und des Blocks einen Effekt zuzuweisen. Dafür brauchen wir die Modellmatrix, die beschreibt, wie sich für *jede* Beobachtung die Effekte zum Outcome `rsp` aufsummieren. Nicht jede Beobachtung ist in jedem Block in jeder Behandlung vertreten. Genau genommen hat jede Beobachtung nur eine einzige Behandlung/Block-Kombintation. Wir sehen diese Kombination dann in der Modellmatrix.
+
+```{r}
+model_mat <- factor_tbl %>% 
+  model_matrix(~ trt + block) %>% 
+  as.matrix()
+
+model_mat
+```
+
+Wir sehen in der Modellmarix in jeder Zeile eine zukünftige Beobachtung. In den Spalten wird angegeben zu welchen Faktorleveln die Beobachtung gehört. Dabei bedeutet eine `1` ein Ja und eine `0` ein Nein. Die Beobachtung in der Zeile 5 wird zu Behandlungslevel $B$ und Block $II$ gehören.
+
+Wir legen jetzt folgende Effekte für die einzelnen Behandlungslevel fest. Für den Intercept und damit auch für die Behandlung $A$ auf $\beta_{0} = \beta_{A} = 20$. Das Behandlunsglevel $B$ wird auf $\beta_{B} = 15$, die Behandlung $C$ auf $\beta_{C} = 10$ sowie die Behandlung $D$ auf $\beta_{D} = 5$ gesetzt. Um die Sachlage zu vereinfachen setzen wir die Effekte der Blöcke auf $\beta_{0} = \beta_{I} = 0$ sowie $\beta_{II} = 0$ und $\beta_{III} = 0$. Wir haben also faktisch keinen Effekt der Blöcke. Es ist egal welchen Tisch wir benutzen, die Effekte der Behandlung sind immer die Gleichen. Wenn wir die Daten so bauen würden, dann erhalten wir die Spalte `rsp_eff` in dem Datensatz `rcbd_tbl`. Wir haben keine Varianz. Deshalb müssen wir noch die Residuen mit $\epsilon \sim \mathcal{N}(0, 2)$ auf die Werte in der Spalte `rsp_eff` addieren. Wir erhalten die Spalte `rsp` für die Auswertung.
+
+```{r}
+rcbd_tbl <- factor_tbl %>% 
+  mutate(rsp_eff = as.numeric(model_mat %*% c(20, 15, 10, 5, 0, 0)),
+         rsp = rsp_eff + rnorm(n(), 0, 2))
+
+rcbd_tbl
+```
+
+In @tbl-rcbd-3 sehen wir nochmal den Zusammenhang zwischen den generierten Daten und den entsprechenden berechneten Mittelwerten je Behandlungsgruppe. Wir berechnen den Mittelwert auf der Spalte `rsp_eff`. Wir sehen, dass wir die voreingestellten Mittelwerte in den Daten widerfinden.
+
+```{r}
+#| message: false
+#| echo: false
+#| tbl-cap: Vergleich der Mittlwerte aus den Daten und den voreingestellten Effekten für die Generierung der Daten.
+#| label: tbl-rcbd-3
+
+rcbd_tbl %>% 
+  group_by(trt) %>% 
+  summarise(mean = mean(rsp_eff)) %>% 
+  mutate(diff = c(0, diff(mean)),
+         sum = cumsum(diff)) %>% 
+  mutate(across(where(is.numeric), round, 2)) %>% 
+  select(trt, mean, sum) %>% 
+  mutate(across(where(is.numeric), round),
+         Beta = c(20, 15, 10, 5)) %>% 
+  set_names(c("Factor trt", "Mean of level", "Difference to level A", "Beta")) %>% 
+  kable(align = "c", "pipe")
+```
+
+Abschließend wollen wir uns die generierten Daten nochmal als einen Dotplot anschauen. Wir wollen dafür einen Dotplot nutzen, da wir mit drei Beobachtungen pro Level der Behandlung keinen sinnvollen Boxplot zeichnen können.
+
+```{r}
+#| echo: true
+#| warning: false
+#| label: fig-boxplot-rcbd
+#| fig-align: center
+#| fig-height: 5
+#| fig-width: 6
+#| fig-cap: "Dotplot der Level der Behandlungen aufgeteilt für die Level des Blocks."
+
+ggplot(rcbd_tbl, aes(trt, rsp, fill = block)) +
+  theme_bw() +
+  geom_dotplot(binaxis = "y", stackdir = "center", 
+               position = position_dodge(width = 0.4)) +
+  ylim(15, 40) +
+  scale_fill_okabeito() +
+  labs(fill = "Block", x = "Behandlung", y = "Outcome")
+```
+
+Wir können die Daten aus dem Datensatz `rcbd_tbl` jetzt für die Varianzanalyse und Mittelwertsvergleich nutzen.
+
+### Modellierung
+
+Im Folgenden wollen wir die Daten modellieren. Das heist wir wollen eine Linie durch eine multidimensionale Punktewolke zeichnen. Daher auch lineares Modell oder eben durch die Funktion `lm()` in R für *linear model*. Wir nutzen das Paket `parameters` und die Funktion `model_parameters()` um uns die Parameter des Modells auszugeben. Wir könnten auch die Funktion `tidy()` nutzen, aber wir erhalten durch die Funktion `model_parameters()` etwas mehr Informationen und bessere Spaltenüberschriften.
+
+Wir bauen das Modell in folgender Form. Wir haben ein numerisches Outcome $y$ sowie einen Faktor $f_1$ sowie einem Faktor für den Block $b_1$.
+
+$$
+y \sim f_1 + b_1
+$$
+
+Nun können wir das abstrakte Modell in die Daten übersetzen und erhalten folgendes Modell.
+
+$$
+rsp \sim trt + block
+$$
+
+Das heist, unsere numerische Variable `rsp` hängt ab von unserer faktoriellen Variable `trt` und der faktoriellen Blockvariable `block`. Wir müssen immer wissen, wie die Spaltennamen in unserem Datensatz `crd_tbl` lauten sonst kann R die Spalten nicht finden.
+
+```{r}
+fit_rcbd <- lm(rsp ~ trt + block, rcbd_tbl)
+
+fit_rcbd %>%  model_parameters()
+```
+
+Wir sehen, dass wir die Koeffizienten, die wir vorher eingestellt haben, auch hier wiederfinden. Alle Steigungen der Behandlungslevel sind signifikant. Das hilft uns aber noch nicht so richtig weiter. Wir werden gleich das Modell in einer zweifaktoriellen ANOVA und einem Mittelwertsvergleich anschauen. Vorher wollen wir einmal statistisch Testen, ob die Varianzen homogens sind. Wir können die Varianzen aber nicht über das volle Modell testen, da wir nur *eine* Beobachtung per Behandlung/Block-Kombintation vorliegen haben.
+
+```{r}
+#| eval: false
+fit_rcbd %>% check_homogeneity()
+```
+
+`Error in bartlett.test.default(x = mf[[1L]], g = mf[[2L]]) :  there must be at least 2 observations in each group`
+
+Daher schauen wir uns nur die Varianzen für die Behandlung an und nehmen an, dass die Varanzen über die Blöcke homogen sind. Wir können nur einen Faktor testen und deshalb nehmen wir den für uns wichtigeren Faktor die Behandlung.
+
+```{r}
+lm(rsp ~ trt, rcbd_tbl) %>% check_homogeneity()
+```
+
+Abschließend schauen wir nochmal auf die Normalverteilung der Residuen.
+
+```{r}
+fit_rcbd %>% check_normality()
+```
+
+In der @fig-emmeans-rcbd-qq sehen wir den QQ-Plot und die Verteilung der Residuen im Densityplot. Auch die Visualisierung zeigt keine Aufälligkeiten. Wir sehen, dass die Residuen einer Normalverteilung folgen.
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: true
+#| fig-align: center
+#| fig-height: 5
+#| fig-width: 6
+#| fig-cap: QQ-Plot und Densityplot der Residuen aus dem lineare Modell.
+#| label: fig-emmeans-rcbd-qq
+
+check_model(fit_rcbd, check = c("qq", "normality"))
+```
+
+Wir können jetzt eine Varianzanalyse und dann eine Mittelwertsvergleich durchführen. Achtung, wir können uns hier auch etwas in die Ecke testen. Wenn wir nur lange genug neue Daten generieren, werden wir irgendwann auch einen Datensatz finden, der die Varianzhomogenität und die Normalverteilung ablehnt. Besonders in dem Fall, dass wir wenige Blöcke haben. Das liegt in der Theorie des statistischen Testens sowie der kleinen Fallzahl verborgen. Deshalb können wir im Zweifel gerne einmal deine Vortests in dem R Tutorium oder in einer statistischen Beratung diskutieren.
+
+### Varianzanalyse und Mittelwertsvergleich
+
+Als erstes Rechnen wir eine zweifaktroielle ANOVA, da unser Modell zwei Faktoren hat. In R müssen wir dazu nur das Modell `fit_rcbd` in die Funktion `anova()` pipen. Wir erhalten dann die Ergebnisse aus der ANOVA mit der Funktion `model_parameters()` aus dem Paket `parameters` besser aufgearbeitet wieder. Die Mittelwertsunterschiede der Level der Behandlung haben wir bewusst sehr hoch angesetzt, so dass wir auf jeden Fall eine signifikante ANOVA erhalten sollen.
+
+```{r}
+res_anova <- fit_rcbd %>% 
+  anova() 
+
+res_anova %>% model_parameters()
+```
+
+Als Ergebnis haben wir einen signifikanten Faktor Behandlung `trt` sowie einen nicht signifikanten Faktor Block `block`. Wir können die Signifkanz an dem $p$-Wert bestimmen. Liegt der $p$-Wert unter dem Signifikanzniveau von $\alpha$ gleich 5% so können wir die Nullhypothese ablehnen. Wir haben dann mindestens einen signifikanten paarweisen Mittelwertsunterschied vorliegen.
+
+Schauen wir uns nun noch den Anteil der erklärten Varianz an. Wir nutzen dafür den Effektschätzer $\eta^2$.
+
+```{r}
+res_anova %>% eta_squared(partial = FALSE)
+```
+
+Wir sehen, dass durch den Faktor `trt` mit 92% der Varianz erklärt werden. Der Faktor Block erklärt nur ca. 2% der Varianz. Beides war so zu erwarten, denn wir haben ja auch den Datensatz in dieser Form gebaut. Die Behandlung hat einen starken Effekt und der Block hat gar keinen Effekt.
+
+Schauen wir nun auf den Mittelwertsvergleich. Wir nutzen dafür die Funktion `emmeans()` aus dem R Paket `emmeans`. Wichtig ist hier, dass wir uns jetzt die Vergleiche der Gruppen bzw. Level der Behandlung anschauen wollen.
+
+```{r}
+res_rcbd <- fit_rcbd %>% 
+  emmeans(~ trt) 
+```
+
+Als erstes nutzen wir die Ausagbe der Funktion `emmeans` um uns das *compact letter display* wiedergeben zu lassen. Wir wollen wieder die Ausgaben runden und nutzen die Adjustierung der $p$-Werte für multiple Vergleiche nach Bonferroni. Nochmal als Erinnerung, das *compact letter display* gibt uns keine $p$-Werte wieder sondern wir Entscheiden anhand der vergebenen Buchstaben und deren Gleichheit über ein signifikantes Ergebnis oder ein nicht signifikantes Ergebnis.
+
+```{r}
+res_rcbd_cld <- res_rcbd %>% 
+  cld(adjust = "bonferroni", Letters = letters) %>% 
+  tidy() %>% 
+  select(trt, estimate, conf.low, conf.high, .group) %>% 
+  mutate(across(where(is.numeric), round, 2))
+
+res_rcbd_cld 
+```
+
+An dem *compact letter display* sehen wir, dass sich alle Mittelwerte der Level der Behandlungen signifikant unterscheiden. In @fig-cld-rcbd sehen wir die Daten zusammen mit dem *compact letter display* in einer Abbildung. Wir ändern hier das `geom_point()` zu `geom_jitter()` um ein Overplotting zu vermeiden. So können wir alle Beobachtungen als Punkte erkennen.
+
+```{r}
+#| message: false
+#| echo: true
+#| fig-align: center
+#| fig-height: 5
+#| fig-width: 6
+#| fig-cap: Scatterplot der Behandlungsgruppen zusammen mit den 95% Konfidenzintervall und dem *compact letter display*.
+#| label: fig-cld-rcbd
+
+ggplot() +
+  theme_bw() +
+  geom_jitter(data = rcbd_tbl, aes(x = trt, y = rsp, fill = trt),
+              width = 0.05) +
+  geom_text(data = res_rcbd_cld, 
+            aes(x = trt , y = estimate, label = .group),
+            position = position_nudge(x = 0.2), color = "red") +
+  geom_errorbar(data = res_rcbd_cld,
+                aes(ymin = conf.low, ymax = conf.high, x = trt),
+                color = "red", width = 0.1,
+                position = position_nudge(x = 0.1)) +
+  geom_point(data = res_rcbd_cld, 
+             aes(x = trt , y = estimate),
+             position = position_nudge(x = 0.1), color = "red") +
+  theme(legend.position = "none") +
+  labs(x = "Behandlung", y = "Gewicht [kg/ha]",
+       caption = "Schwarze Punkte stellen Rohdaten dar.
+       Rote Punkte und Fehlerbalken stellen bereinigte Mittelwerte mit 95% Konfidenzgrenzen pro Behandlung dar.
+       Mittelwerte, mit einem gemeinsamen Buchstaben, sind nicht signifikant unterschiedlich.")
+
+```
+
+Häufig wollen wir nicht nur das *compact letter display* sehen sondern auch die dazugehörigen $p$-Werte und die entsprechenden 95% Konfidenzintervalle. Wir berechnen im Folgenden alle paarweisen Vergleiche bzw. Kontraste und lassen uns die adjustierten sowie formatierten $p$-Werte ausgeben. Wir runden wieder die Ausgabe.
+
+```{r}
+res_rcbd_tbl <- res_rcbd %>% 
+  contrast(method = "pairwise") %>% 
+  tidy(conf.int = TRUE) %>% 
+  mutate(p.value = pvalue(adj.p.value),
+         across(where(is.numeric), round, 2)) %>% 
+  select(contrast, estimate, p.value,
+         conf.low, conf.high) 
+
+res_rcbd_tbl
+```
+
+Auch hier passen die $p$-Werte zu dem *compact letter display*. Alle Vergleiche sind signifikant. Das haben wir noch dem *compact letter display* auch so erwartet. Auch sehen wir das gleiche Ergebnis in @fig-emmeans-rcbd-ci für die 95% Konfidenzintervalle. Wir betrachten Mittelwertsunterschiede und kein Konfidenzintervall beinhaltet die Null somit sind alle Konfidenzintervalle signifikant.
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: true
+#| fig-align: center
+#| fig-height: 4
+#| fig-width: 6
+#| fig-cap: Abbildung der 95% Konfidenzintervallefür alle paarweisen Vergleiche der Behandlungsgruppen.
+#| label: fig-emmeans-rcbd-ci
+
+ggplot(res_rcbd_tbl, aes(contrast, y=estimate, ymin=conf.low, ymax=conf.high)) +
+  geom_hline(yintercept=0, linetype="11", colour="grey60") +
+  geom_errorbar(width=0.1) + 
+  geom_point() +
+  coord_flip() +
+  theme_bw()  +
+  labs(x = "Vergleich", y = "Mittelwertsunterschied des Gewichtes [kg/ha]",
+       caption = "Schwarze Punkte stellen die bereinigten Mittelwertsunterschiede mit 95% Konfidenzgrenzen dar.
+       Enthält ein 95% Konfidenzintervalle die 0 ist es nicht signifikant unterschiedlich.")
+```
+

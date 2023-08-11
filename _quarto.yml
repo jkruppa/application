@@ -34,6 +34,8 @@ book:
       - example-analysis-14.qmd
       - example-analysis-15.qmd
       - example-analysis-16.qmd 
+      - example-analysis-17.qmd
+      - example-analysis-18.qmd
       
 bibliography: references.bib
 lang: de 
