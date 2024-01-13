@@ -10,9 +10,14 @@ crossref:
   title-delim: —     # (default is ":")
 
 book:
-  title: "Beispielhafte Auswertungen"
+  title: "Spielwiese Bio Data Science"
   author: "Prof. Dr. Jochen Kruppa"
-  date: "11. July 2023"
+  date: "13. January 2024"
+  page-footer:
+    left: |
+      Spielwiese Bio Data Science wurde von Jochen Kruppa-Scheetz geschrieben. 
+    right: |
+      Dieses Buch wurde mit <a href="https://quarto.org/">Quarto</a> erstellt.
   chapters:
     - index.qmd
     - part: example-analysis-preface.qmd

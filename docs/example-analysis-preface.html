@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Beispielhafte Auswertungen - Beispielhafte Auswertungen</title>
+<title>Spielwiese Bio Data Science - Beispielhafte Auswertungen</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,10 +71,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -123,7 +125,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Beispielhafte Auswertungen</a> 
+      <a href="./">Spielwiese Bio Data Science</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Dunkelmodus umschalten"><i class="bi"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -250,12 +255,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Complete randomized design</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-18.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Complete randomized design</span></span></a>
-  </div>
-</li>
       </ul>
   </li>
     </ul>
@@ -286,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><em>Version vom January 13, 2024 um 15:03:01</em></p>
+<p><em>Version vom January 13, 2024 um 16:39:06</em></p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -318,21 +317,21 @@ Beispielhafte Auswertungen per Video
 </div>
 <p>Worum geht es in diesen Kapiteln? Ich rechne hier fröhlich Dinge und präsentiere dann die Ergebnisse. Das heißt, du findest hier beispielhafte Auswertungen, die eventuell auch deine Problemstellung betreffen. Da <em>ich selber</em> meist keine Ahnung von der Biologie hinter den Experimenten habe, musst du mir nachsehen, dass ich hier nie zu einem echten biologischen Schluss oder Auswertung komme.</p>
 <ul>
-<li>In <a href="#sec-app-example-iso"><span class="quarto-unresolved-ref">sec-app-example-iso</span></a> schauen wir uns einmal die Erstellung eines Isoplethendiagramms für Münster &amp; Osnabrück aus den frei verfügbaren Daten des Deutschen Wetterdienstes an.</li>
-<li>In <a href="#sec-app-example-number-groups"><span class="quarto-unresolved-ref">sec-app-example-number-groups</span></a> rechnen wir einmal ein simples Beispiel für Zähldaten in zwei Gruppen. Wir haben hier nicht wiederholt gezählt, sondern nur jeweils einmal an einer Stelle.</li>
-<li>In <a href="#sec-app-example-anova-inter"><span class="quarto-unresolved-ref">sec-app-example-anova-inter</span></a> rechnen wir nochmal eine zweifaktorielle ANOVA mit Interaktionsterm durch. Wir kriegen dann unser <em>Compact letter display</em> wie auch die Konfidenzintervalle wieder.</li>
-<li>In <a href="#sec-mult-map-ght"><span class="quarto-unresolved-ref">sec-mult-map-ght</span></a> rechnen wir einen Games Howell Test für normalverteilte Daten mit Varianzheterogenität. Hier hauen wir ein wenig auf die Pauke und rechnen alles in wenigen Zeilen mit der Funktion <code>map()</code>. War eine spaßige Auswerung für mich, da ich hier mal wieder programmieren üben konnte.</li>
-<li>In <a href="#sec-root-quality"><span class="quarto-unresolved-ref">sec-root-quality</span></a> schauen wir uns ein größeres Beispiel für die Analyse von Wurzelbonituren an. Im Prinzip geht das natürlich auch alles für jede andere Bonitur. Wenn du eine andere Bonitur hast, kannst du natürlich auch den Weg der Analyse gehen.</li>
-<li>In <a href="#sec-cutting"><span class="quarto-unresolved-ref">sec-cutting</span></a> haben wir ein etwas komplexeres Beispiel für vier Outcomes, die an acht Terminen gemessen wurden. Wir sehen hier einmal, wie die Daten eingelesen werden und ein Korrelationsplot über die vier Outcomes erstellt wird.</li>
-<li>In <a href="#sec-tukeyHSD"><span class="quarto-unresolved-ref">sec-tukeyHSD</span></a> schauen wir uns den Tukey Test für paaweise Vergleiche einmal an. Wir nutzen hier die schnelle Variante mit der Funktion <code>aov()</code>. Für das <em>Compact letter display</em> müssen wir uns dann ein wenig strecken, aber es geht dann auch.</li>
-<li>In <a href="#sec-plowing-data"><span class="quarto-unresolved-ref">sec-plowing-data</span></a> haben wir nochmal ein schönes Beispiel für eine Analyse mit mehreren Faktoren und verschiedenen Outcomes. Wir haben also einen Blumenstrauß an Daten, die wir sortieren und auswerten müssen. Da ich selber keine Ahnung vom Pflügen habe, gehen wir die Sache distanziert durch.</li>
-<li>In <a href="#sec-app-mixed-cutting"><span class="quarto-unresolved-ref">sec-app-mixed-cutting</span></a> schauen wir uns ein lineares gemischtes Modell an. Das heißt, wir wollen einen Gruppenvergleich rechnen und dabei die verschiedenen Zeitpunkte mit berücksichtigen. Anstatt also jeden Zeitpunkt einzeln, rechnen wir alle Zeitpunkte zusammen.</li>
-<li>In <a href="#sec-app-spinach-metal"><span class="quarto-unresolved-ref">sec-app-spinach-metal</span></a> wollen wir uns die Konzentration von drei Spurenelementen als Outcome in Blättern und Stielen der Spinatpflanze anschauen. Wir haben hierfür dann die Konzentration von Fe, Cd und Zn gemessen. Insgesamt gab es sieben verschiedene Behandlungsformen.</li>
-<li>In <a href="#sec-app-logger"><span class="quarto-unresolved-ref">sec-app-logger</span></a> schauen wir uns die Daten eines automatischen Log-Gerätes einmal an. Wir haben die Daten von über 35000 Messungen in über knapp zwei Wochen erhoben. Wir wollen jetzt diese Daten auf verschiedene Art und Weise visualisieren und die Ergebnisse der Plots vergleichen.</li>
-<li>In <a href="#sec-app-golf-green"><span class="quarto-unresolved-ref">sec-app-golf-green</span></a> betrachten wir das Wachstum von Pilzen auf zwei Grasflächen und vier Blöcken. Insgesamt wurden fünfzehn Behandlungen auf den Rasen aufgebracht, was natürlich zu einer gewaltigen Anzahl an Vergleichen führt.</li>
-<li>In <a href="#sec-app-basilikum"><span class="quarto-unresolved-ref">sec-app-basilikum</span></a> Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 1</li>
-<li>In <a href="#sec-app-gurke"><span class="quarto-unresolved-ref">sec-app-gurke</span></a> Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 2</li>
-<li>In <a href="#sec-app-strawberry"><span class="quarto-unresolved-ref">sec-app-strawberry</span></a> Projektkurs im Master MLP</li>
+<li>In <a href="example-analysis-01.html"><span>Kapitel&nbsp;1</span></a> schauen wir uns einmal die Erstellung eines Isoplethendiagramms für Münster &amp; Osnabrück aus den frei verfügbaren Daten des Deutschen Wetterdienstes an.</li>
+<li>In <a href="example-analysis-02.html"><span>Kapitel&nbsp;2</span></a> rechnen wir einmal ein simples Beispiel für Zähldaten in zwei Gruppen. Wir haben hier nicht wiederholt gezählt, sondern nur jeweils einmal an einer Stelle.</li>
+<li>In <a href="example-analysis-03.html"><span>Kapitel&nbsp;3</span></a> rechnen wir nochmal eine zweifaktorielle ANOVA mit Interaktionsterm durch. Wir kriegen dann unser <em>Compact letter display</em> wie auch die Konfidenzintervalle wieder.</li>
+<li>In <a href="example-analysis-04.html"><span>Kapitel&nbsp;4</span></a> rechnen wir einen Games Howell Test für normalverteilte Daten mit Varianzheterogenität. Hier hauen wir ein wenig auf die Pauke und rechnen alles in wenigen Zeilen mit der Funktion <code>map()</code>. War eine spaßige Auswerung für mich, da ich hier mal wieder programmieren üben konnte.</li>
+<li>In <a href="example-analysis-05.html"><span>Kapitel&nbsp;5</span></a> schauen wir uns ein größeres Beispiel für die Analyse von Wurzelbonituren an. Im Prinzip geht das natürlich auch alles für jede andere Bonitur. Wenn du eine andere Bonitur hast, kannst du natürlich auch den Weg der Analyse gehen.</li>
+<li>In <a href="example-analysis-06.html"><span>Kapitel&nbsp;6</span></a> haben wir ein etwas komplexeres Beispiel für vier Outcomes, die an acht Terminen gemessen wurden. Wir sehen hier einmal, wie die Daten eingelesen werden und ein Korrelationsplot über die vier Outcomes erstellt wird.</li>
+<li>In <a href="example-analysis-07.html"><span>Kapitel&nbsp;7</span></a> schauen wir uns den Tukey Test für paaweise Vergleiche einmal an. Wir nutzen hier die schnelle Variante mit der Funktion <code>aov()</code>. Für das <em>Compact letter display</em> müssen wir uns dann ein wenig strecken, aber es geht dann auch.</li>
+<li>In <a href="example-analysis-08.html"><span>Kapitel&nbsp;8</span></a> haben wir nochmal ein schönes Beispiel für eine Analyse mit mehreren Faktoren und verschiedenen Outcomes. Wir haben also einen Blumenstrauß an Daten, die wir sortieren und auswerten müssen. Da ich selber keine Ahnung vom Pflügen habe, gehen wir die Sache distanziert durch.</li>
+<li>In <a href="example-analysis-09.html"><span>Kapitel&nbsp;9</span></a> schauen wir uns ein lineares gemischtes Modell an. Das heißt, wir wollen einen Gruppenvergleich rechnen und dabei die verschiedenen Zeitpunkte mit berücksichtigen. Anstatt also jeden Zeitpunkt einzeln, rechnen wir alle Zeitpunkte zusammen.</li>
+<li>In <a href="example-analysis-10.html"><span>Kapitel&nbsp;10</span></a> wollen wir uns die Konzentration von drei Spurenelementen als Outcome in Blättern und Stielen der Spinatpflanze anschauen. Wir haben hierfür dann die Konzentration von Fe, Cd und Zn gemessen. Insgesamt gab es sieben verschiedene Behandlungsformen.</li>
+<li>In <a href="example-analysis-11.html"><span>Kapitel&nbsp;11</span></a> schauen wir uns die Daten eines automatischen Log-Gerätes einmal an. Wir haben die Daten von über 35000 Messungen in über knapp zwei Wochen erhoben. Wir wollen jetzt diese Daten auf verschiedene Art und Weise visualisieren und die Ergebnisse der Plots vergleichen.</li>
+<li>In <a href="example-analysis-12.html"><span>Kapitel&nbsp;12</span></a> betrachten wir das Wachstum von Pilzen auf zwei Grasflächen und vier Blöcken. Insgesamt wurden fünfzehn Behandlungen auf den Rasen aufgebracht, was natürlich zu einer gewaltigen Anzahl an Vergleichen führt.</li>
+<li>In <a href="example-analysis-13.html"><span>Kapitel&nbsp;13</span></a> Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 1</li>
+<li>In <a href="example-analysis-14.html"><span>Kapitel&nbsp;14</span></a> Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 2</li>
+<li>In <a href="example-analysis-15.html"><span>Kapitel&nbsp;15</span></a> Projektkurs im Master MLP</li>
 </ul>
 
 
@@ -358,6 +357,121 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -512,25 +626,90 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
+      // Handle positioning of the toggle
+      window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
           }
-        });
+        };
+      }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
       }
   const findCites = (el) => {
     const parentEl = el.parentElement;
@@ -584,6 +763,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Spielwiese Bio Data Science wurde von Jochen Kruppa-Scheetz geschrieben.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Dieses Buch wurde mit <a href="https://quarto.org/">Quarto</a> erstellt.</div>
+  </div>
+</footer>
 
 
 
