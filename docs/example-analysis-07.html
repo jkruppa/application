@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Spielwiese Bio Data Science - 7&nbsp; Einen TukeyHSD Test rechnen</title>
+<title>Spielwiese Bio Data Science - 7&nbsp; Eisen und Zink in Salat</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./example-analysis-08.html" rel="next">
 <link href="./example-analysis-06.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -98,8 +97,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -112,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./example-analysis-preface.html">Beispielhafte Auswertungen</a></li><li class="breadcrumb-item"><a href="./example-analysis-07.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Einen TukeyHSD Test rechnen</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./example-analysis-07.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Eisen und Zink in Salat</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -146,133 +143,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Willkommen</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="./example-analysis-preface.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Beispielhafte Auswertungen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./example-analysis-01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Isoplethendiagramm für Münster &amp; Osnabrück</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Wachstum nach Rückschnitt mit Messwiederholung</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./example-analysis-02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analyse von Anzahlen in zwei Gruppen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Einen TukeyHSD Test rechnen</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./example-analysis-03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Auswertung zweifaktorielle ANOVA mit Interaktion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Spurenelemente in Spinatblättern und Stielen</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./example-analysis-04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Multiples Testen mit Games Howell Test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 1</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./example-analysis-05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wurzelqualität in einem zweifaktoriellen Design</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 2</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./example-analysis-06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Wachstum nach Rückschnitt mit Messwiederholung</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Laser auf Erdbeeren</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./example-analysis-07.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Einen TukeyHSD Test rechnen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Eisen und Zink in Salat</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Auswertung von Pflugdaten mit <code>ggplot</code> Templates</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-09.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Auswertung mit Messwiederholungen</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Spurenelemente in Spinatblättern und Stielen</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Daten eines automatischen Loggers</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-12.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Pilze auf dem Rasen</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-13.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 1</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-14.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Laser auf Erdbeeren</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-16.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Eisen und Zink in Salat</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example-analysis-17.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Complete randomized design</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#daten-einlesen" id="toc-daten-einlesen" class="nav-link active" data-scroll-target="#daten-einlesen"><span class="header-section-number">7.1</span> Daten einlesen</a></li>
+  <li><a href="#daten-auswerten" id="toc-daten-auswerten" class="nav-link" data-scroll-target="#daten-auswerten"><span class="header-section-number">7.2</span> Daten auswerten</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-tukeyHSD" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Einen TukeyHSD Test rechnen</span></span></h1>
+<h1 class="title"><span id="sec-app-fe-zn" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Eisen und Zink in Salat</span></span></h1>
 </div>
 
 
@@ -287,56 +220,257 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><em>Version vom January 13, 2024 um 16:39:27</em></p>
-<div class="callout callout-style-default callout-tip callout-titled">
+<p><em>Letzte Änderung am 13. January 2024 um 17:46:55</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Beispielhafte Auswertungen per Video
+Genutzte R Pakete
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Du findest auf YouTube <a href="https://youtu.be/3X38OlrDyQo">Spielewiese in R - Teil 03.0 - ANOVA zusammen mit TukeyHSD</a> die Auswertung einmal als Video. Ich werde zwar alles nochmal hier als Text aufschreiben, aber manchmal ist das Sehen und Hören dann einfacher.</p>
-</div>
-</div>
-<p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, readxl, </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               multcompView)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, readxl, parameters,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               effectsize, magrittr, multcomp,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               multcompView, rcompanion, rstatix,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               emmeans, see, performance, fs,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               janitor, broom, scales, knitr,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               conflicted)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">## resolve some conflicts with same function naming</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>select)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(effectsize<span class="sc">::</span>eta_squared)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(magrittr<span class="sc">::</span>set_names)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In diesem sehr kurzen Beispiel wollen wir uns einem den Tukey Test anschauen. Eigentlich ist es der Tukey HSD Test für <em>Tukey Honest Significant Differences</em>. Die von dieser Funktion zurückgegebenen <span class="math inline">\(p\)</span>-Werte und 95% Konfidenzintervalle basieren auf der t-Test Verteilung. Wir nehmen also ein normalverteiltes Outcome <span class="math inline">\(y\)</span> sowie eine homogene Varianz an.</p>
-<p>Die auf diese Weise konstruierten 95% Konfidenzintervalle gelten nur für balancierte Designs, bei denen in jedem Level des Faktors die gleiche Anzahl von Beobachtungen gemacht wird. Die Funktion <code>TukeyHSD()</code> enthält eine Anpassung für den Stichprobenumfang, die sinnvolle 95% Konfidenzintervalle für leicht unbalancierte Designs erzeugt. Ja, und da geht es schon wieder los. Was heißt sinnvoll? Oder andersherum, was ist eine leichte Abweichung? Deshalb mag ich persönlich nicht die Funktion <code>TukeyHSD()</code> und ziehe das R Paket <code>emmeans</code> vor. Du siehst auch in den anderen Beispielen immer die Anwendung von <code>emmeans</code>.</p>
-<p>Aber gut, hier soll es ja um den Tukey Test gehen. Also wir nehmen uns einmal ein simples Beispiel mit verschiedenen Bodenarten und dann wollen wir als Outcome <span class="math inline">\(y\)</span> die Pflanzenhöhe miteinander vergleichen.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>soil_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/soil_1fac_data.xlsx"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variante =</span> <span class="fu">as_factor</span>(variante)) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variante, height)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Die Funktion <code>TukeyHSD()</code> ist alt. Deshalb kann die Funktion nur den Modellfit aus der Funktion <code>aov()</code> verarbeiten. Die Funktion <code>aov()</code> wiederum ist eigentlich nur eine Funktion, die die beiden Funktionen <code>anova()</code> und <code>lm()</code> in ungünstiger Art und Weise kombiniert. Aber gut, geht eben nicht anders.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>aov_fit <span class="ot">&lt;-</span> <span class="fu">aov</span>(height <span class="sc">~</span> variante, <span class="at">data =</span> soil_tbl)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Dann können wir den Modellfit in die Funktion <code>TukeyHSD()</code> stecken und benutzen. Wir kriegen eine etwas seltsame Ausgabe, aber wir wollen auch hier dann weiter zu dem <em>compact letter display</em>.</p>
+<section id="daten-einlesen" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="daten-einlesen"><span class="header-section-number">7.1</span> Daten einlesen</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tukey_obj <span class="ot">&lt;-</span> aov_fit <span class="sc">%&gt;%</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">TukeyHSD</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_tbl <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">"data/fe_zn_salad.csv"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fill</span>(eisendungeform) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">eisendungeform =</span> <span class="fu">str_replace_all</span>(eisendungeform, <span class="st">"\u0096 7 "</span>, <span class="st">""</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">versuchsgruppe =</span> <span class="fu">str_c</span>(eisendungeform, <span class="st">"_"</span>, eisendungung)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> zn_blanchiert<span class="sc">:</span>fe_ungewaschen,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"outcome"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"rsp"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Das <em>compact letter display</em> können wir über die Funktion <code>multcompLetters()</code> erstellen. Wir müssen dafür die <span class="math inline">\(p\)</span>-Werte extrahieren und dann an die Funktion weiterleiten. Hier ist wichtig, dass wir nur adjustierte <span class="math inline">\(p\)</span>-Werte wiederbekommen. Wenn du unadjustierte <span class="math inline">\(p\)</span>-Werte möchtest, dann musst du nochmal in die Funktion <code>emmeans()</code> schauen.</p>
+</section>
+<section id="daten-auswerten" class="level2 page-columns page-full" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="daten-auswerten"><span class="header-section-number">7.2</span> Daten auswerten</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tukey_obj <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"variante"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  magrittr<span class="sc">::</span><span class="fu">extract</span>( , <span class="st">"p adj"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multcompLetters</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nested_tbl <span class="ot">&lt;-</span> data_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(versuchsgruppe, outcome, rsp) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(outcome) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>aov_res <span class="ot">&lt;-</span> nested_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(rsp <span class="sc">~</span> versuchsgruppe, <span class="at">data =</span> .x))) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">anova =</span> <span class="fu">map</span>(model, anova)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">parameter =</span> <span class="fu">map</span>(anova, model_parameters)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(outcome, parameter) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(parameter) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p =</span> <span class="fu">pvalue</span>(p)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(parameter <span class="sc">!=</span> <span class="st">"Residuals"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(outcome, parameter, p)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>aov_res <span class="sc">%&gt;%</span> </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">align =</span> <span class="st">"c"</span>, <span class="st">"pipe"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;">outcome</th>
+<th style="text-align: center;">parameter</th>
+<th style="text-align: center;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">zn_blanchiert</td>
+<td style="text-align: center;">versuchsgruppe</td>
+<td style="text-align: center;">0.538</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">zn_ungewaschen</td>
+<td style="text-align: center;">versuchsgruppe</td>
+<td style="text-align: center;">0.634</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fe_blanchiert</td>
+<td style="text-align: center;">versuchsgruppe</td>
+<td style="text-align: center;">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">fe_ungewaschen</td>
+<td style="text-align: center;">versuchsgruppe</td>
+<td style="text-align: center;">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="ot">&lt;-</span> nested_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(rsp <span class="sc">~</span> versuchsgruppe, <span class="at">data =</span> .x))) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">emm =</span> <span class="fu">map</span>(model, emmeans, <span class="sc">~</span>versuchsgruppe)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">contrast =</span> <span class="fu">map</span>(emm, contrast, <span class="at">method =</span> <span class="st">"pairwise"</span>, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">adjust =</span> <span class="st">"none"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cld =</span> <span class="fu">map</span>(emm, cld, <span class="at">Letters =</span> letters, <span class="at">adjust =</span> <span class="st">"none"</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">contrast =</span> <span class="fu">map</span>(contrast, as_tibble)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(contrast) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(outcome, contrast, p.value) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">pvalue</span>(p.value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         Torf Kompostiertes  Gehäckseltes Aufgefasertes    Holzfasern 
-         "ab"          "ab"           "a"          "ab"           "b" </code></pre>
+<pre><code># A tibble: 144 × 3
+# Groups:   outcome [4]
+   outcome       contrast                        p.value
+   &lt;chr&gt;         &lt;chr&gt;                           &lt;chr&gt;  
+ 1 zn_blanchiert (Fe-EDDHA_0.2) - (Fe-EDDHA_0.3) 0.836  
+ 2 zn_blanchiert (Fe-EDDHA_0.2) - (Fe-EDDHA_0.4) 0.118  
+ 3 zn_blanchiert (Fe-EDDHA_0.2) - (Fe-EDDHA_0.6) 0.357  
+ 4 zn_blanchiert (Fe-EDDHA_0.2) - FeSO4 H2O_0.2  0.682  
+ 5 zn_blanchiert (Fe-EDDHA_0.2) - FeSO4 H2O_0.3  0.573  
+ 6 zn_blanchiert (Fe-EDDHA_0.2) - FeSO4 H2O_0.4  0.878  
+ 7 zn_blanchiert (Fe-EDDHA_0.2) - FeSO4 H2O_0.6  0.492  
+ 8 zn_blanchiert (Fe-EDDHA_0.2) - Kontrolle_0    0.168  
+ 9 zn_blanchiert (Fe-EDDHA_0.3) - (Fe-EDDHA_0.4) 0.171  
+10 zn_blanchiert (Fe-EDDHA_0.3) - (Fe-EDDHA_0.6) 0.474  
+# ℹ 134 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cld =</span> <span class="fu">map</span>(cld, arrange, versuchsgruppe)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(cld) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(outcome, versuchsgruppe, .group) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="cn">Inf</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 36 × 3
+# Groups:   outcome [4]
+   outcome        versuchsgruppe .group  
+   &lt;chr&gt;          &lt;fct&gt;          &lt;chr&gt;   
+ 1 zn_blanchiert  Fe-EDDHA_0.2   " a"    
+ 2 zn_blanchiert  Fe-EDDHA_0.3   " a"    
+ 3 zn_blanchiert  Fe-EDDHA_0.4   " a"    
+ 4 zn_blanchiert  Fe-EDDHA_0.6   " a"    
+ 5 zn_blanchiert  FeSO4 H2O_0.2  " a"    
+ 6 zn_blanchiert  FeSO4 H2O_0.3  " a"    
+ 7 zn_blanchiert  FeSO4 H2O_0.4  " a"    
+ 8 zn_blanchiert  FeSO4 H2O_0.6  " a"    
+ 9 zn_blanchiert  Kontrolle_0    " a"    
+10 zn_ungewaschen Fe-EDDHA_0.2   " a"    
+11 zn_ungewaschen Fe-EDDHA_0.3   " a"    
+12 zn_ungewaschen Fe-EDDHA_0.4   " a"    
+13 zn_ungewaschen Fe-EDDHA_0.6   " a"    
+14 zn_ungewaschen FeSO4 H2O_0.2  " a"    
+15 zn_ungewaschen FeSO4 H2O_0.3  " a"    
+16 zn_ungewaschen FeSO4 H2O_0.4  " a"    
+17 zn_ungewaschen FeSO4 H2O_0.6  " a"    
+18 zn_ungewaschen Kontrolle_0    " a"    
+19 fe_blanchiert  Fe-EDDHA_0.2   "  bc  "
+20 fe_blanchiert  Fe-EDDHA_0.3   "  bc  "
+21 fe_blanchiert  Fe-EDDHA_0.4   "   cd "
+22 fe_blanchiert  Fe-EDDHA_0.6   "    d "
+23 fe_blanchiert  FeSO4 H2O_0.2  " ab   "
+24 fe_blanchiert  FeSO4 H2O_0.3  "    d "
+25 fe_blanchiert  FeSO4 H2O_0.4  "    d "
+26 fe_blanchiert  FeSO4 H2O_0.6  "     e"
+27 fe_blanchiert  Kontrolle_0    " a    "
+28 fe_ungewaschen Fe-EDDHA_0.2   "  b   "
+29 fe_ungewaschen Fe-EDDHA_0.3   "  bc  "
+30 fe_ungewaschen Fe-EDDHA_0.4   "   cd "
+31 fe_ungewaschen Fe-EDDHA_0.6   "    d "
+32 fe_ungewaschen FeSO4 H2O_0.2  "  b   "
+33 fe_ungewaschen FeSO4 H2O_0.3  "  bc  "
+34 fe_ungewaschen FeSO4 H2O_0.4  "  bc  "
+35 fe_ungewaschen FeSO4 H2O_0.6  "     e"
+36 fe_ungewaschen Kontrolle_0    " a    "</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gg_func <span class="ot">&lt;-</span> <span class="cf">function</span>(data){</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">.group =</span> <span class="fu">str_replace_all</span>(.group, <span class="st">"</span><span class="sc">\\</span><span class="st">s"</span>, <span class="st">""</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(versuchsgruppe, emmean)) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>)  <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> emmean <span class="sc">-</span> SE, <span class="at">ymax =</span> emmean <span class="sc">+</span> SE), <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> .group, <span class="at">y =</span> (emmean <span class="sc">+</span> SE) <span class="sc">+</span> (<span class="fl">0.05</span> <span class="sc">*</span> (emmean <span class="sc">+</span> SE)))) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="sc">-</span><span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">0</span>))</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><a href="https://stat.ethz.ch/R-manual/R-patched/library/grDevices/html/plotmath.html">Plot math expression</a></p>
+<div class="page-columns page-full">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gg =</span> <span class="fu">map</span>(cld, gg_func)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"gg"</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(Eisendüngeform<span class="sc">~</span>und<span class="sc">~-</span>höhe<span class="sc">~</span><span class="st">"[kg ha]"</span><span class="sc">^-</span><span class="dv">1</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(Zn<span class="sc">-</span>Gehalt<span class="sc">~</span><span class="st">"["</span><span class="sc">~</span>mg<span class="sc">%.%</span>(<span class="dv">100</span><span class="sc">~</span>g<span class="sc">~</span>FM)<span class="sc">^-</span><span class="dv">1</span><span class="sc">~</span><span class="st">"]"</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gg =</span> <span class="fu">map</span>(cld, gg_func)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"gg"</span>, <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(Eisendüngeform<span class="sc">~</span>und<span class="sc">~-</span>höhe<span class="sc">~</span><span class="st">"[kg ha]"</span><span class="sc">^-</span><span class="dv">1</span>),</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(Zn<span class="sc">-</span>Gehalt<span class="sc">~</span><span class="st">"["</span><span class="sc">~</span>mg<span class="sc">%.%</span>(kg<span class="sc">~</span>TM)<span class="sc">^-</span><span class="dv">1</span><span class="sc">~</span><span class="st">"]"</span>))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gg =</span> <span class="fu">map</span>(cld, gg_func)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"gg"</span>, <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(Eisendüngeform<span class="sc">~</span>und<span class="sc">~-</span>höhe<span class="sc">~</span><span class="st">"[kg ha]"</span><span class="sc">^-</span><span class="dv">1</span>),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(Fe<span class="sc">-</span>Gehalt<span class="sc">~</span><span class="st">"["</span><span class="sc">~</span>mg<span class="sc">%.%</span>(<span class="dv">100</span><span class="sc">~</span>g<span class="sc">~</span>FM)<span class="sc">^-</span><span class="dv">1</span><span class="sc">~</span><span class="st">"]"</span>))</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>emm_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gg =</span> <span class="fu">map</span>(cld, gg_func)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"gg"</span>, <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(Eisendüngeform<span class="sc">~</span>und<span class="sc">~-</span>höhe<span class="sc">~</span><span class="st">"[kg ha]"</span><span class="sc">^-</span><span class="dv">1</span>),</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(Fe<span class="sc">-</span>Gehalt<span class="sc">~</span><span class="st">"["</span><span class="sc">~</span>mg<span class="sc">%.%</span>(kg<span class="sc">~</span>TM)<span class="sc">^-</span><span class="dv">1</span><span class="sc">~</span><span class="st">"]"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-pois-03" class="cell column-page quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-pois-03-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-07_files/figure-html/fig-pois-03-1.png" class="img-fluid figure-img" data-ref-parent="fig-pois-03" width="576"></p>
+<figcaption class="figure-caption">(a) zn_blanchiert</figcaption>
+</figure>
 </div>
 </div>
-<p>Mehr zum <em>compact letter display</em> und der Interpretation kannst du im Kapitel zu <a href="#sec-posthoc">Multiple Vergleiche oder Post-hoc Tests</a> nachlesen. Dort findest du auch eine Alternative zu dem Tukey Test.</p>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-pois-03-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-07_files/figure-html/fig-pois-03-2.png" class="img-fluid figure-img" data-ref-parent="fig-pois-03" width="576"></p>
+<figcaption class="figure-caption">(b) zn_ungewaschen</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-pois-03-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-07_files/figure-html/fig-pois-03-3.png" class="img-fluid figure-img" data-ref-parent="fig-pois-03" width="576"></p>
+<figcaption class="figure-caption">(c) fe_blanchiert</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-pois-03-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example-analysis-07_files/figure-html/fig-pois-03-4.png" class="img-fluid figure-img" data-ref-parent="fig-pois-03" width="576"></p>
+<figcaption class="figure-caption">(d) fe_ungewaschen</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;7.1— Barplots der Mittelwerte und Standardfehler für die vier Outcomes.</figcaption><p></p>
+</figure>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -755,13 +889,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./example-analysis-06.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Wachstum nach Rückschnitt mit Messwiederholung</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Laser auf Erdbeeren</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./example-analysis-08.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Auswertung von Pflugdaten mit <code>ggplot</code> Templates</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

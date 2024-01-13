@@ -1,264 +1,237 @@
-# Auswertung zweifaktorielle ANOVA mit Interaktion {#sec-app-example-anova-inter}
+# Spurenelemente in Spinatblättern und Stielen {#sec-app-spinach-metal}
 
-*Version vom `r format(Sys.time(), '%B %d, %Y um %H:%M:%S')`*
+*Letzte Änderung am `r format(fs::file_info("example-analysis-03.qmd")$modification_time, '%d. %B %Y um %H:%M:%S')`*
 
-Wir wollen folgende R Pakete in diesem Kapitel nutzen.
+{{< video https://youtu.be/3X38OlrDyQo >}}
 
+::: callout-note
+## Genutzte R Pakete
 ```{r echo = TRUE}
 #| message: false
-pacman::p_load(tidyverse, magrittr, see, readxl, knitr,
-               modelsummary, parameters, multcomp,
-               multcompView, emmeans, 
+pacman::p_load(tidyverse, magrittr, readxl, see, janitor,
+               effectsize, emmeans, multcomp, psych,
+               parameters, scales,
+               #psych, parameters, effectsize, emmeans,
+               #multcomp, 
                conflicted)
 ## resolve some conflicts with same function naming
 conflict_prefer("select", "dplyr")
+conflict_prefer("filter", "dplyr")
 ```
-
-Hier kommt jetzt ein schönes Beispiel für eine Auswertung von einem dreifaktoriellen Design mit einer ANOVA. Passenderweise haben wir auch einen Interaktionsterm vorliegen. Unser dreifaktoriellen Design ist auch kein echtes dreifaktorielles Design. Wir müssen uns hier entscheiden, welcher der zwei Blockfaktoren nun unsere Wiederholung sein soll. Aber schreiben wir erstmal unser Modell auf, bevor wir das Modell mit Inhalt füllen.
-
-$$
-y \sim  f_1 + b_1 + b_2
-$$
-
-In unserem Beispiel schauen wir uns das Pflanzenwachstum `growth` in einer Klimakammer mit verschiedenen Belichtungsstufen `light_intensity` sowie der Position der Pflanze in der Lichtkammer. Die Pflanze hat eine Position im `rack` und dann im `layer`. So ergibt sich dann für uns folgendes ausgeschriebenes Modell.
-
-$$
-growth \sim light\_intensity + layer + rack
-$$
-
-In dieser Form wird unser Modell aber leider nicht funktionieren. Wir hätten dann keine Wiederholungen mehr. Jede Pflanze würe dann exakt durch eine Faktorkombination beschrieben. Wir sehen gleich das Problem visualisiert. Vorher müssen wir uns aber einmal die Daten einlesen und eine Menge Faktoren erschaffen. Achtung, das Erschaffen der Faktoren ist hier sehr wichtig! Im Orginaldatensatz stehen nur Zahlen für die Faktoren. Wir kriegen dann ein echtes Problem.
-
-```{r}
-light_tbl <- read_excel("data/light_intensity_data.xlsx") %>% 
-  mutate(rack = factor(rack, labels = c("left", "middle", "right")),
-         layer = factor(layer, labels = c("1st", "2nd", "3rd")),
-         light_intensity = factor(light_intensity, labels = c("low", "mid", "high")),
-         growth = as.numeric(growth))
-```
-
-In der @tbl-app-light sehen wir nochmal einen Ausschnitt aus den Daten.
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| label: tbl-app-light
-#| tbl-cap: Auszug aus dem Daten zu der Lichtintensität.
-
-light_raw_tbl <- light_tbl %>% 
-  mutate(rack = as.character(rack),
-         layer = as.character(layer),
-         light_intensity = as.character(light_intensity))
-
-rbind(head(light_raw_tbl),
-      rep("...", times = ncol(light_raw_tbl)),
-      tail(light_raw_tbl)) %>% 
-  kable(align = "c", "pipe")
-```
-
-Nachdem wir die Daten eingelesen haben, schauen wir uns den Sachverhalt einmal für die drei Faktoren über die Level der einzelnen Faktoren an. Wir nutzen dafür die Funktion `datasummary_crosstab()` aus dem R Paket `modelsummary`. Wir können uns hier die Anzahl der Beobachtungen je Faktorlevelkombination einmal anschauen.
-
-```{r}
-datasummary_crosstab(light_intensity ~ layer * rack, data = light_tbl,
-                     statistic = NULL)
-```
-
-Wir sehen eine Menge Nullen. Das heißt, dass diese Faktorlevelkombinationen keine Beobachtungen haben. Dann können wir auch über diese Kombinationen keine Aussage treffen. Wenn wir *entweder* `rack` oder `layer` entfernen, sieht die Sache schon besser aus. Wir haben jetzt alle Faktorlevelkombinationen belegt. Wir müssen uns dann nur noch entscheiden, welchen Faktor wir ins Modell nehmen wollen.
-
-```{r}
-#| layout-ncol: 2
-
-datasummary_crosstab(light_intensity ~ layer, data = light_tbl,
-                     statistic = NULL)
-
-datasummary_crosstab(light_intensity ~ rack, data = light_tbl,
-                     statistic = NULL)
-```
-
-::: column-margin
-Das R Paket [modelsummary](https://vincentarelbundock.github.io/modelsummary/articles/datasummary.html) bietet hier eine sehr große Auswahl an tollen Funktionen an um seine Daten übersichtlich zu gestalten.
 :::
 
-Für die Entscheidung welcher der beiden Faktoren `rack` oder `layer` mit ins Modekll soll, schauen wir uns einmal die Boxplots für die jeweiligen Fakoten an. In @fig-app-anova-interaction-1 sehen wir einmal die Boxplots aufgeteilt nach `rack`.
+In der folgenden Datenanalyse schauen wir uns die Konzentrationen von den Spurenelementen Fe, Cd und Zn in Spinat an. Dabei haben wir zum einen in den Blätter und zum anderen in den Stielen gemessen. Daher haben wir insgesamt drei Outcomes an zwei Orten und somit sechs Kombinationen auszuwerten. Wir haben uns darüber hinaus noch sieben Behandlungen in je vier Blöcken als Wiederholung angeschaut. Laden wir also einmal die Daten.
 
 ```{r}
-#| message: false
-#| warning: false
+spinach_tbl <- read_excel("data/spinach_metal_data.xlsx") %>% 
+  mutate(trt = as_factor(trt),
+         sample = as_factor(sample),
+         block = as_factor(block))
+```
+
+Wir haben die Daten im Wide-Format vorliegen, daher müssen wir die Daten über die Funktion `pivot_longer()` noch in das Long-Format umwandeln. Zum einen brauchen wir das Long-Format für unsere Abbildungen und zum anderen dann auch für unsere Analysen.
+
+```{r}
+spinach_plot_tbl <- spinach_tbl %>% 
+  pivot_longer(cols = fe:zn,
+               names_to = "outcome",
+               values_to = "rsp") %>% 
+  mutate(outcome = as_factor(outcome))
+
+spinach_plot_tbl %>% 
+  head
+```
+
+Wir sehen, dass wir für jede Outcome/Sample Kombination ein zweifaktorielles Modell für Behandlung und Block rechnen müssen. Schauen wir uns zuerst wie immer einmal die @fig-app-exp-spinach-01 in `ggplot()` an und machen dann mit der Auswertung weiter.
+
+```{r}
 #| echo: true
+#| message: false
+#| warning: false
+#| label: fig-app-exp-spinach-01
 #| fig-align: center
-#| fig-height: 4
+#| fig-height: 5
 #| fig-width: 6
-#| fig-cap: "Boxplots des Pflanzenwachstums aufgeteilt nach `rack`."
-#| label: fig-app-anova-interaction-1
+#| fig-cap: "Abbildung der drei Outcomes in den zwei Samples für die sieben Behandlungen in jeweils vier Blöcken."
 
-ggplot(light_tbl, aes(light_intensity, growth, fill = rack)) +
-  theme_bw() +
-  geom_boxplot() +
-  scale_fill_okabeito()
+ggplot(spinach_plot_tbl, aes(trt, rsp, shape = block, color = trt)) +
+  theme_minimal() +
+  geom_jitter() +
+  facet_wrap(~ outcome*sample, scales = "free_y", ncol = 2) +
+  labs(x = "Behandlung", y = "Gemessenes Outcome",
+       shape = "Block", color = "Behandlung") +
+  scale_color_okabeito()
 ```
 
-Und wir sehen schon, da stimmt was nicht. Die Annahme der ANOVA ist, dass sich der Trend im ersten Faktorlevel für alle im Faktor über die anderen Faktoren gleicht. Das liest sich kryptisch, aber verdeutlichen wir es mal. Im Level `low` steigen alle Level des Faktors `rack` an. Wenn *keine* Interaktion vorliegen würde, dann müssten dieses Muster in dem Level `mid` und `high` ebenfalls annährend zu beobachten sein. Tut es aber nicht. Wir haben eine Interaktion zwischen `light_intensity` und `rack` visuell bestätigt.
+Da wir nur eine Beobachtung je Block/Behandlung Kombination haben, können wir später keine Interaktion rechnen. Wir bräiuchten dafür Wiederholungen auf der Ebene der Blöcke. Also nicht nur eine Pflanze pro Block und Behandlung. Im Folgenden gibt es einmal die umständliche Copy&Paste Variante und einmal die etwas komplexere Lösung über `map()` und `nest()`.
+
+### Eisen (Fe) und Blatt
+
+Machen wir es uns erstmal einfach. Wir müssen ja für jede der sechs Outcome/Sample Kombinationen eine ANOVA rechnen, dann rechnen wir einen multiplen Vergleich und lassen uns das *Compact letter display* wiedergeben. Das machen wir jetzt alles einmal für die Kombination Eisen und Blatt.
+
+Also brauchen wir als erstes unseren Datensatz mit nur dem Outcome gleich `fe` und das Sample gleich `leaf`. Das Selektieren machen wir dann über die Funktion `filter()`.
 
 ```{r}
-#| message: false
-#| warning: false
-#| echo: true
-#| fig-align: center
-#| fig-height: 4
-#| fig-width: 6
-#| fig-cap: "Boxplots des Pflanzenwachstums aufgeteilt nach `layer`."
-#| label: fig-app-anova-interaction-2
-
-ggplot(light_tbl, aes(light_intensity, growth, fill = layer)) +
-  theme_bw() +
-  geom_boxplot()  +
-  scale_fill_okabeito()
+fe_leaf_tbl <- spinach_plot_tbl %>% 
+  filter(outcome == "fe" & sample == "leaf")
 ```
 
-Dieses wirre Muster sehen wir dann auch in @fig-app-anova-interaction-2. Hier passen die Trends des Faktors `layer` über die Faktorlevel `low`, `mid` und `high` auch wieder nicht. Schauen wir uns jetzt nochmal die ganze Sache aufgeteilt nach `rack` und `layer` an. Vielelicht werden wir dann etwas schlauer oder das Problem wird noch klarer.
+Dan müssen wir das lineare Modell schätzen. Das Schätzen der Koeffizienten übernimmt wie immer die Funktion `lm()`. Wir nehmen hier an, dass unsere Konzentrationen ungefähr normalverteilt sind. Wir können den Interaktionsterm `trt:block` nicht mit ins Modell nehmen, da wir nur eine Beobachtung je Behandlung/Block Kombination haben.
 
 ```{r}
-#| message: false
-#| warning: false
-#| echo: true
-#| fig-align: center
-#| fig-height: 4
-#| fig-width: 6
-#| fig-cap: "Boxplots des Pflanzenwachstums aufgeteilt nach `rack` und `layer`."
-#| label: fig-app-anova-interaction-3
-
-ggplot(light_tbl, aes(light_intensity, growth, fill = rack)) +
-  theme_bw() +
-  geom_boxplot() +
-  facet_wrap(~ layer)  +
-  scale_fill_okabeito()
+fe_leaf_fit <- lm(rsp ~ trt + block, data = fe_leaf_tbl)
 ```
 
-Jetzt sehen wir etwas mehr. Im `1st` Level liegen alle `rack`-Level auf einer Ebene. Ebenso liegen alle `rack`-Level auf einer Ebene im `2n` Level. Das ganze Problem der Interaktion entsteht im `3rd` Level. Hier ging etwas drunter und drüber im Pflanzenwachstum. Wir wissen jetzt, dass das dritte Layer anscheinend defekt war oder irgendwas dort mit den Racks nicht gestimmt hat.
-
-Wir könnten jetzt das dritte Layer aus der Analyse werfen. Das wäre aber nur eine Möglichkeit. Wenn wir das tuen würden, dann würde wir auch die Interaktion los werden. Das wollen wir hier aber nicht, wir ziehen jetzt die Analyse einmal mit der Interaktion durch. Dafür bauen wir uns jetzt das lineare Modell und schauen uns einmal die ANOVA an.
+Jetzt können wir die ANOVA rechnen und schauen was wir da haben.
 
 ```{r}
-#| warning: false
-#| message: false
-
-fit_1 <- lm(growth ~ light_intensity + layer + light_intensity:layer, 
-            data = light_tbl)
-fit_1 %>% model_parameters()
+fe_leaf_fit %>% anova()
 ```
 
-Erstmal sehen wir an den Modellparameters, dass hier wieder etwas nicht stimmt. Wir würden erwarten, dass der Effekt des Layers immer gleich ist. Hier ist der Effekt von dem `2nd` Layer zu dem `3rd` Layer fast dreimal so stark. Und eigentlich sollten die Layer den gleichen Effekt haben. Nämlich eigentlich keinen oder einen Effekt weit unter dem von der Lichtintensität. Das Layer ist eine technische Komponente.
+Wir haben einen ganz schwachen signifikanten Effekt des Blocks und einen starken signifikanten Effekt der Behandlung. Der Effekt des Blocks ist nicht so schön, wir würden eigentlich erwarten, dass der Block keinen Effekt hat. Wir haben ja die Zuordnung der Behandlungen zu den Blöcken zufällig durchgeführt. Da sollte also eigentlich kein Effekt des Blocks auftreten. Schauen wir nochmal wie stark die Effekte sind in dem wir uns das $\eta^2$ berechnen.
 
 ```{r}
-#| warning: false
-#| message: false
-
-fit_1 %>% anova() %>% model_parameters()
+fe_leaf_fit %>% eta_squared()
 ```
 
-Wir sehen die visuelle Interaktion auch in der ANOVA Ausgabe als hoch signifikanten Term `light_intensity:layer` mit dem $p$-Wert $<0.001$. Im Anschluss rechnen wir jetzt die paarweisen Vergleiche mit der Funktion `emmeans()`. Mit dem `|` geben wir an, dass wir die paarweisen Vergleiche für die Level von `light_intensity` getrennt für die Level vom `layer` rechnen wollen. Wenn du *keine* Adjustierung des $\alpha$-Niveaus für die multiplen Vergleiche möchtest, dann wähle einfach die Option `adjust = "none"`. Wir nutzen dann die Ausgabe nicht direkt sondern werden noch die Ausgabe etwas aufhübschen.
+Der Effekt der behandlung it auf jeden Fall größer als der Effelt des Blocks. Gut 86% der Vrainz wird durch die Behandlung erklärt, dass passt dann soweit.
+
+Wir rechnen jetzt mit der Funktion `emmeans()` weiter und berücksichtigen dabei die unterschiedlichen Mittelwerte der Blöcke für die einzelnen Behandlungen.
 
 ```{r}
-comp_1_obj <- fit_1 %>% 
-  emmeans(specs = ~ light_intensity | layer) %>% 
+fe_leaf_emm <- fe_leaf_fit %>% 
+  emmeans(~ trt)
+```
+
+Jetzt können wir un die paarweisen Vergleich über die Funktion `contrast()` wiedergeben lassen. Wir sehen, dass wir einiges an signifikanten Ergebnissen vorliegen haben. Du kannst die Ausgabe in ein Tibble mit `as_tibble()` umwandeln und dir dann mit der Funktion `print(n = 21)` alle Zeilen ausgeben lassen.
+
+```{r}
+fe_leaf_emm %>% 
   contrast(method = "pairwise", adjust = "bonferroni") 
 ```
 
-In dem Objekt `comp_1_obj` sind eine Menge Informationen enthalten. Ich kürze mir immer die Informationen und sortiere nochmal die Ergebnisse. Wir erhalten dann eine saubere Wiedergabe.
+Schauen wir uns für diesen Vergleich dann noch das *Compact letter display* an. Bitte beachte, dass du dir mit der Funktion `arrange()` immer die Reihenfolge der Behandlungen ausgeben lassen kannst. Sonst ist die Ausgabe nach der Spalte `.group` sortiert und nicht nach den Behandlungen. Wenn die Buchstaben nicht gleich sind, dann unterscheiden sich die Behandlungen.
 
 ```{r}
-comp_1_obj %>% 
-  summary %>% 
-  as_tibble %>% 
-  select(contrast, layer, p.value) %>% 
-  mutate(p.value = format.pval(p.value, eps = 0.001, digits = 2))
+fe_leaf_emm %>%
+  cld(Letters = letters, adjust = "none") %>% 
+  arrange(trt)
 ```
 
-Nach der Adjustierung für die multiplen Vergleiche haben wir nur noch einen Effekt in dem `3rd` Layer. Sonst haben die Lichtintensitäten keinen Einfluss auf die Wuchshöhe der Pflanzen. Da wir wissen, dass das `3rd` Layer auch das defekte Layer war, sehen wir hier schon, dass wir keinen wirklichen Effekt durch das Licht vorliegen haben. Alles was wir gefunden haben, ist eben ein defektes `3rd` Layer.
-
-Die 95% Konfidenzintervalle erhalten wir mit der Funktion `confint()`. Die Ergebnisse sind natürlich die gleichen. Wir sehen wieder keinen Unterschied zwischen den Lichtintensitäten außer in dem `3rd` Layer.
+Auch hier schauen wir uns einmal die Korrelation zwischen den Outcomes in der @fig-app-exp-spinach-02 an. Wir sehen in der @fig-app-exp-spinach-02-1 die Korrelation zwischen den beiden Outcomes Fe und Zn zusammen in den Blättern und den Stielen. Wir würden meinen, dass wir eine positive Korrelation vorliegen haben. Wir sehen, dass mit mehr Zn auch mehr Fe auftritt. Was uns aber etwas stutzig werden lässt, sind die beiden Punktewolken in der linken unteren Abbildung. Daher einmal schnell aufgetrennt für die Blätter in @fig-app-exp-spinach-02-2 und für die Stiele in @fig-app-exp-spinach-02-3. Wir sehen, dass wir nichts sehen. Denn getrennt für die Blätter und Stiele haben wir dann keine Korrelation mehr für die beiden Outcomes vorliegen.
 
 ```{r}
-ci_obj <- comp_1_obj %>% 
-  confint() %>% 
-  as_tibble() %>% 
-  select(contrast, layer, estimate, conf.low = lower.CL, conf.high = upper.CL) 
-
-ci_obj
-```
-
-In der @fig-app-anova-interaction-4 sehen wir dann die berechneten 95% Konfidenzintervalle nochmal visualisiert. Wenn wir einen Effekt haben, dann im `3rd` Layer. In den restlichen 95% Konfidenzintervallen ist die Null mit enthalten, wir können also die Nullhypothese auf Gleichheit des Gruppenvergleiches nicht ablehnen.
-
-```{r}
+#| echo: true
 #| message: false
 #| warning: false
-#| echo: true
+#| label: fig-app-exp-spinach-02
 #| fig-align: center
-#| fig-height: 4
+#| fig-height: 5
 #| fig-width: 6
-#| fig-cap: "Die 95% Konfidenzintervalle für die paarweisen Vergleiche aufgeteilt `layer`."
-#| label: fig-app-anova-interaction-4
+#| fig-cap: "Korrelation und Verteilung zwischen den Outcomes Fe und Zn."
+#| fig-subcap: 
+#|   - "Blätter und Stiele."
+#|   - "Nur Blätter."
+#|   - "Nur Stiele."
+#| layout-nrow: 1
+#| column: page
 
-ggplot(ci_obj, aes(contrast, y=estimate, ymin=conf.low, ymax=conf.high,
-                   color = layer, group = layer)) +
-  geom_hline(yintercept=0, linetype="11", colour="grey60") +
-  geom_errorbar(width=0.1, position = position_dodge(0.5)) + 
-  geom_point(position = position_dodge(0.5)) +
-  scale_color_okabeito() +
-  coord_flip() +
-  theme_classic()
+spinach_tbl %>% 
+  select(fe, zn) %>% 
+  pairs.panels(smooth = TRUE, density = TRUE, method = "kendall", lm = TRUE, 
+               cor = TRUE, ellipses = FALSE, stars = TRUE) 
+
+spinach_tbl %>% 
+  filter(sample == "leaf") %>% 
+  select(fe, zn) %>% 
+  pairs.panels(smooth = TRUE, density = TRUE, method = "kendall", lm = TRUE, 
+               cor = TRUE, ellipses = FALSE, stars = TRUE)    
+
+spinach_tbl %>% 
+  filter(sample == "stem") %>% 
+  select(fe, zn) %>% 
+  pairs.panels(smooth = TRUE, density = TRUE, method = "kendall", lm = TRUE, 
+               cor = TRUE, ellipses = FALSE, stars = TRUE) 
 ```
 
-Neben der Darstellung mit 95% Konfidenzintervallen ist auch die Darstellung mit dem *compact letter display* sehr beliebt. Wir nutzen dafür dann die Funktion `cld()`. Wir adjustieren uns wieder die Vergleiche nach Bonferroni. Im Weiteren trenne wir die Vergleiche auch wieder nach den Leveln für den Faktor `layer` auf.
+### Und alles aufeinmal...
+
+Nun gut, jetzt haben wir unsere Analyse für das Blatt und den Eisengehalt gerechnet. Wir müssten jetzt die Analyse nochmal für alle anderen fünf Kombinationen durchführen. Das würde einiges an Zeit kosten und auch sehr viel Copy&Paste Aufwand. Kann man machen, aber wir können die Analyse auch in einem Rutsch durchführen. Dafür nutzen wir die Funktion `nest()` und dann anschließend die Funktion `map()` um auf den genesteten Daten die Analysen zu rechnen.
+
+Im ersten Schritt müssen wir unsere Daten gruppieren. Wir haben dann die sechs Kombinationen aus Outcome und Sample vorliegen. Dann nesten wir den Datensatz in sechs Zeilen. Wir klappen sozusagen die Daten für jede der sechs Kombinationen zusammen. Alles fällt dann in eine Zelle zusammen.
 
 ```{r}
-cld_obj <- fit_1 %>% 
-  emmeans(specs = ~ light_intensity | layer)  %>%
-  cld(Letters = letters, adjust = "bonferroni") 
-
-cld_obj
+spinach_nest_tbl <- spinach_plot_tbl %>% 
+  group_by(sample, outcome) %>% 
+  nest() 
 ```
 
-Wir sehen wieder, dass wir nur in dem `3rd` Layer Buchstabenunterschiede haben. Daher haben wir auch nur im `3rd` Layer signifikante Ergebnisse. Wichtig ist, dass wir die Buchstaben nur pro Level des Layers vergleichen können, aber auf keinen Fall über die Layer hinweg. Das geht dann leider nicht. Die Ausgabe der Funktion `emmeans()` schlägt noch andere Darstellungsformen für die Vergleiche vor, du kannst gerne einmal die Funktionen `pairs()`, `pwpp()` oder `pwpm()` ausprobieren und schauen, ob dir die Visualisierung mehr sagt. Im [Kapitel 31 - Multiple Vergleiche oder Post-hoc Tests](https://jkruppa.github.io/stat-tests-posthoc.html) gehe ich nochmal auf die verschiedene Darstellungsformen in `emmeans` ein.
-
-Wenn wir das *compact letter display* mit deinem Barplot verbinden wollen, müssen wir uns etwas strecken. Zuerst sortieren wir die Ausgabe von `cld_obj` wieder in die korrekte Reihenfolge der Faktorenlevel. Dann können wir die Spalte `.group` direkt in `ggplot()` verwenden.
+Schauen wir uns den genesteten Datensatz einmal an. Wir sehen, dass wir die gesamten Daten in der Spalte `data` zusammengefaltet haben. Wir haben also sechs Tibbles mit den Daten der jeweiligen Outcome/Sample Kombinationen in der Spalte `data` vorliegen.
 
 ```{r}
-cld_sort_obj <- cld_obj %>% 
-  as_tibble() %>% 
-  select(light_intensity, layer, .group) %>% 
-  arrange(layer, light_intensity)
+spinach_nest_tbl 
 ```
 
-In @fig-app-anova-interaction-5 sehen wir die Ausgabe des Barplots für die Daten und dann an die Balken geschrieben das *compact letter display*. Wichtig ist hier, dass die Buchstaben immer nur für *ein* Layer gelten. Wir können wegen der Interaktion nicht die Layer untereinander mit den Buchstaben vergleichen. Wir sehen wiederum, dass wir keine relevanten signifikanten Ergebnisse aus dem Experiment mitnehmen können.
+Wir können jetzt auf den Tibbles in der Spalte `data` weiter rechnen. Wir nutzen für das Weiterrechnen die Funktion `map()`, die in jeder Zeile der Spalte `.data` die gleiche Funktion ausführt. Unser Ergebnis speichern wir dann in einer neuen Spalte und dafür nutzen wir die Funktion `mutate()`.
+
+Konkret erstellen wir uns jetzt eine neue Spalte `model` in der das lineare Modell der Funktion `lm()` abliegt.
 
 ```{r}
-#| message: false
-#| warning: false
-#| echo: true
-#| fig-align: center
-#| fig-height: 4
-#| fig-width: 6
-#| fig-cap: "Barplots für die Mittelwerte mit den entsprechenden Standardabweichungen und dem *compact letter display* für die paarweisen Vergleiche. Achtung die *letter* gelten nur in einem Level des Layers."
-#| label: fig-app-anova-interaction-5
-
-
-stat_tbl <- light_tbl %>% 
-  group_by(light_intensity, layer) %>% 
-  summarise(mean = mean(growth),
-            sd = sd(growth))
-
-ggplot(stat_tbl, aes(x = layer, y = mean, group = light_intensity, 
-                     fill = light_intensity)) +
-  geom_bar(stat = "identity", position = position_dodge()) +
-  geom_errorbar(aes(ymin = mean-sd, ymax = mean+sd),
-                width = 0.2, position = position_dodge(0.9)) +
-  annotate("text", 
-           x = c(0.7, 1, 1.3, 1.7, 2, 2.3, 2.7, 3, 3.3), 
-           y = c(22, 21, 23, 24, 20, 23, 39, 25, 9), 
-           label = pluck(cld_sort_obj, ".group")) +
-  theme_bw() +
-  labs(fill = "Behandlung")  +
-  scale_fill_okabeito()
-
+spinach_model_tbl <- spinach_nest_tbl %>%
+  mutate(model = map(data, ~lm(rsp ~ trt + block, data = .x))) 
 ```
+
+Im weiteren Schritt rechnen wir jetzt auf der Spalte `model` eine ANOVA und lassen uns dann die schönere Ausgabe über die Funktion `model_parameters()` wiedergeben. Der wichtigste Tiel ist die Funktion `unnest()` die uns die Zellen mit den ANOVA Ergebnissen dann wieder ausklappt. Der Rest ist dann noch filtern und anpassen. Ich möchte das die Ausgabe reduziert ist und die p-Werte sollen auch schön formatiert werden.
+
+```{r}
+spinach_model_tbl %>% 
+  mutate(anova = map(model, anova)) %>% 
+  mutate(parameter = map(anova, model_parameters)) %>% 
+  select(sample, outcome, parameter) %>% 
+  unnest(parameter) %>% 
+  filter(Parameter != "Residuals") %>% 
+  select(sample, outcome, Parameter, p) %>% 
+  mutate(p = pvalue(p))
+```
+
+Auch können wir un die $\eta^2$ für die Modelle berechnen lassen. Die Funktion `unnest()` klappt uns dann die Ergebnisse wieder aus. Dann müssen wir noch etwas aufräumen und schon haben wir für alle Kombinationen dann den Anteil der erklärten Varianz.
+
+```{r}
+spinach_model_tbl %>%  
+  mutate(eta = map(model, eta_squared)) %>% 
+  unnest(eta) %>% 
+  clean_names() %>% 
+  select(sample, outcome, eta2_partial) 
+```
+
+Im letzten Schritt bauen wir uns die Spalten für die Funktion `emmeans()`, dann die Kontraste und das *Compact letter display*. Hier nutzen wir die Schreibweise `map(<Spalte>, <Funktion>, <Optionen>)`. Daher definieren wir erst welche Spalte `map()` bearbeiten soll. Dann die Funktion die `map()` nutzen soll und anschließend die Optionen für die Funktion. Wir können hier auch mehrere Optionen nacheinander angeben.
+
+```{r}
+spinach_emm_tbl <- spinach_model_tbl %>%  
+  mutate(emm = map(model, emmeans, ~trt)) %>% 
+  mutate(contrast = map(emm, contrast, method = "pairwise", 
+                        adjust = "none")) %>% 
+  mutate(cld = map(emm, cld, Letters = letters, adjust = "none"))
+```
+
+Jetzt lassen wir uns die Spalte `contrast` wiedergeben. Wir müssen aber vorher die Spalte noch in ein Tibble umwandeln. Dann wollen wir noch die p-Werte schöner haben. Wichtig ist auch immer, dass wir über die Funktion `select()` die für uns wichtigen Spalten auswählen.
+
+```{r}
+spinach_emm_tbl %>% 
+  mutate(contrast = map(contrast, as_tibble)) %>% 
+  unnest(contrast) %>% 
+  select(sample, outcome, contrast, p.value) %>% 
+  mutate(p.value = pvalue(p.value))
+```
+
+Nachdem wir uns die Kontraste für die paarweisen Vergleiche wiedergeben haben lassen, wollen wir jetzt noch die ganzen *Compact letter displays* haben. Auch hier nutzen wir dann die Funktion `unnest()` und wolle dann nicht alle Spalten haben.
+
+```{r}
+spinach_emm_tbl %>% 
+  mutate(cld = map(cld, arrange, trt)) %>% 
+  unnest(cld) %>% 
+  select(sample, outcome, trt, .group) %>% 
+  print(n = 15)
+```
+
+Mit der Option `print(n = 15)` kannst du dir die ersten fünfzehn Zeilen ausgeben lassen. du musst also schauen, wie viele Zeilen dein Tibble hat und dann kannst du dir das ganze Tibble über die Funktion `print()` ausgeben lassen. Ich nutze immer diese Art der Ausgabe mit `print()` da es sicherer ist, als sich immer den ganzen Datensatz wiedergeben zu lassen. Mit sicherer meine ich, dass ich mir nicht die ganze R Console mit der Ausgabe zubaue.

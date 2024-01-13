@@ -11,7 +11,7 @@ crossref:
 
 book:
   title: "Spielwiese Bio Data Science"
-  author: "Prof. Dr. Jochen Kruppa"
+  author: "Prof. Dr. Jochen Kruppa-Scheetz"
   date: "13. January 2024"
   page-footer:
     left: |
@@ -20,25 +20,13 @@ book:
       Dieses Buch wurde mit <a href="https://quarto.org/">Quarto</a> erstellt.
   chapters:
     - index.qmd
-    - part: example-analysis-preface.qmd
-      chapters:
-      - example-analysis-01.qmd
-      - example-analysis-02.qmd
-      - example-analysis-03.qmd
-      - example-analysis-04.qmd
-      - example-analysis-05.qmd
-      - example-analysis-06.qmd
-      - example-analysis-07.qmd
-      - example-analysis-08.qmd
-      - example-analysis-09.qmd
-      - example-analysis-10.qmd
-      - example-analysis-11.qmd
-      - example-analysis-12.qmd
-      - example-analysis-13.qmd
-      - example-analysis-14.qmd
-      - example-analysis-15.qmd
-      - example-analysis-16.qmd 
-      - example-analysis-17.qmd
+    - example-analysis-01.qmd
+    - example-analysis-02.qmd
+    - example-analysis-03.qmd
+    - example-analysis-04.qmd
+    - example-analysis-05.qmd
+    - example-analysis-06.qmd
+    - example-analysis-07.qmd
 
 bibliography: references.bib
 lang: de 

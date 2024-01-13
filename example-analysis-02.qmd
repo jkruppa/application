@@ -1,65 +1,52 @@
-# Analyse von Anzahlen in zwei Gruppen {#sec-app-example-number-groups}
+# Einen TukeyHSD Test rechnen {#sec-tukeyHSD}
 
-*Version vom `r format(Sys.time(), '%B %d, %Y um %H:%M:%S')`*
+*Letzte Änderung am `r format(fs::file_info("example-analysis-02.qmd")$modification_time, '%d. %B %Y um %H:%M:%S')`*
 
-Wir wollen folgende R Pakete in diesem Kapitel nutzen.
+{{< video https://youtu.be/3X38OlrDyQo >}}
+
+::: callout-note
+## Genutzte R Pakete
 
 ```{r echo = TRUE}
 #| message: false
-pacman::p_load(tidyverse, magrittr, effectsize, see)
+pacman::p_load(tidyverse, magrittr, readxl, 
+               multcompView)
 ```
 
+:::
 
+In diesem sehr kurzen Beispiel wollen wir uns einem den Tukey Test anschauen. Eigentlich ist es der Tukey HSD Test für *Tukey Honest Significant Differences*. Die von dieser Funktion zurückgegebenen $p$-Werte und 95% Konfidenzintervalle basieren auf der t-Test Verteilung. Wir nehmen also ein normalverteiltes Outcome $y$ sowie eine homogene Varianz an.
 
-In dieser sehr simplen Analyse haben wir zwei Gruppen vorliegen. Die Gruppe 1 ist hat zwei Level oder Behandlungen abgekürzt mit I und II. Die Gruppe 2 hat insgesamt vier Level oder eben Behandlungen, die wir mit A, B, C und D bezeichnen. Wir haben jetzt für die jeweiligen Kombinationen auf dem Feld etwas *gezählt*. Wir haben also für jede dieser Kombinationen nur eine Zahl. Es ergbit sich somit die folgende Matrix an Zahlen.
+Die auf diese Weise konstruierten 95% Konfidenzintervalle gelten nur für balancierte Designs, bei denen in jedem Level des Faktors die gleiche Anzahl von Beobachtungen gemacht wird. Die Funktion `TukeyHSD()` enthält eine Anpassung für den Stichprobenumfang, die sinnvolle 95% Konfidenzintervalle für leicht unbalancierte Designs erzeugt. Ja, und da geht es schon wieder los. Was heißt sinnvoll? Oder andersherum, was ist eine leichte Abweichung? Deshalb mag ich persönlich nicht die Funktion `TukeyHSD()` und ziehe das R Paket `emmeans` vor. Du siehst auch in den anderen Beispielen immer die Anwendung von `emmeans`.
+
+Aber gut, hier soll es ja um den Tukey Test gehen. Also wir nehmen uns einmal ein simples Beispiel mit verschiedenen Bodenarten und dann wollen wir als Outcome $y$ die Pflanzenhöhe miteinander vergleichen.
 
 ```{r}
-rel_mat <- matrix(c(45, 14, 4, 0,
-                    25, 32, 5, 1), nrow = 2, byrow = TRUE,
-                  dimnames = list(c("I", "II"), c("A", "B", "C", "D")))
-rel_mat
+soil_tbl <- read_excel("data/soil_1fac_data.xlsx") %>% 
+  mutate(variante = as_factor(variante)) %>% 
+  select(variante, height)
 ```
 
-Nun können wir den $\mathcal{X}^2$-Test nutzen, um zu testen, ob die Zahlen in der Matrix bzw. auf unseren Feld gelcihverteilt sind. Die Nullhypothese lautet, dass es keinen Zusammenhang zwischen der Gruppe 1 und der Gruppe 2 auf dem Feld gibt. Die Zahlen sind also rein zufällig in dieser Anordnung.
+Die Funktion `TukeyHSD()` ist alt. Deshalb kann die Funktion nur den Modellfit aus der Funktion `aov()` verarbeiten. Die Funktion `aov()` wiederum ist eigentlich nur eine Funktion, die die beiden Funktionen `anova()` und `lm()` in ungünstiger Art und Weise kombiniert. Aber gut, geht eben nicht anders.
 
 ```{r}
-#| warning: false
-chisq.test(rel_mat)
+aov_fit <- aov(height ~ variante, data = soil_tbl)
 ```
 
-Wir erhalten einen sehr kleinen $p$-Wert mit $0.003$. Wir können daher die Nullhypothese ablehnen, da der $p$-Wert kleiner ist als das Signifikanzniveau $\alpha$ mit 5%. Wir haben ein signifikantes Ergebnis. Wir können von einen Zusamenhang zwischen den beiden Gruppen ausgehen.
-
-Mit Cramers V können wir auch noch die Effektstärke für einen $\mathcal{X}^2$-Test berechnen.
+Dann können wir den Modellfit in die Funktion `TukeyHSD()` stecken und benutzen. Wir kriegen eine etwas seltsame Ausgabe, aber wir wollen auch hier dann weiter zu dem *compact letter display*.
 
 ```{r}
-cramers_v(rel_mat) 
+tukey_obj <- aov_fit %>% 
+  TukeyHSD()
 ```
 
-Der Effekt ist mit $0.33$ nicht besonders stark. Du kannst Cramers V wie die Korrelation interpretieren. Ein V von 0 bedeutet keinen Zusammenhang und ein V von 1 einen maximalen Zusammenhang. Wir wollen uns die Daten dann nochmal in einer Abbidlung anschauen. Dafür müssen wir die Matrix erstmal in einen Datensatz umwandeln und die Gruppen zu Faktoren machen.
+Das *compact letter display* können wir über die Funktion `multcompLetters()` erstellen. Wir müssen dafür die $p$-Werte extrahieren und dann an die Funktion weiterleiten. Hier ist wichtig, dass wir nur adjustierte $p$-Werte wiederbekommen. Wenn du unadjustierte $p$-Werte möchtest, dann musst du nochmal in die Funktion `emmeans()` schauen.
 
 ```{r}
-plot_tbl <- rel_mat %>% 
-  as_tibble(rownames = "group1") %>% 
-  gather(A:D, key = "group2", value = "value") %>% 
-  mutate(group1 = as_factor(group1),
-         group2 = as_factor(group2))
+tukey_obj %>% 
+  pluck("variante") %>% 
+  magrittr::extract( , "p adj") %>% 
+  multcompLetters()
 ```
 
-In @fig-app-count-1 sehen wir die Matrix der Zähldaten für die beiden Gruppen nochmal visualisiert. Beim betrachten fällt auf, dass die beiden Level C und D kaum Zähldaten enthalten. Hier wäre zu überlegen die beiden Level aus der Analyse herauszunehmen und einen klassischen $\mathcal{X}^2$-Test auf einer 2x2 Kreuztabelle zu rechnen.
-
-```{r}
-#| message: false
-#| warning: false
-#| echo: true
-#| fig-align: center
-#| fig-height: 4
-#| fig-width: 6
-#| fig-cap: Barplot der Zähldaten aus der Matrix. 
-#| label: fig-app-count-1
-
-ggplot(plot_tbl, aes(x = group2, y = value, fill = group1)) +
-  theme_bw() +
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(x = "Gruppe 2", y = "Anzahl", fill = "Gruppe 1") +
-  scale_fill_okabeito() 
-```
+Mehr zum *compact letter display* und der Interpretation kannst du im Kapitel zu [Multiple Vergleiche oder Post-hoc Tests](#sec-posthoc) nachlesen. Dort findest du auch eine Alternative zu dem Tukey Test.

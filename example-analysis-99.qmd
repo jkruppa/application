@@ -1,1 +1,12 @@
+# Template example {#sec-app-example-99}
 
+*Letzte Änderung am `r format(fs::file_info("example-analysis-99.qmd")$modification_time, '%d. %B %Y um %H:%M:%S')`*
+
+::: callout-note
+## Genutzte R Pakete
+
+```{r echo = TRUE}
+#| message: false
+pacman::p_load(tidyverse, magrittr)
+```
+:::
