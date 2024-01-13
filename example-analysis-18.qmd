@@ -61,7 +61,7 @@ Wir sehen, dass jede Behandlung in allen drei Level des Blocks hat. Das entspric
 
 ```{r}
 model_mat <- factor_tbl %>% 
-  model_matrix(~ trt + block) %>% 
+  model.matrix(~ trt + block) %>% 
   as.matrix()
 
 model_mat

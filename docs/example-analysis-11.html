@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -91,7 +91,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
     "search-detached-cancel-button-title": "Abbrechen",
-    "search-submit-button-title": "Abschicken"
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
   }
 }</script>
 
@@ -112,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./example-analysis-preface.html">Beispielhafte Auswertungen</a></li><li class="breadcrumb-item"><a href="./example-analysis-11.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Daten eines automatischen Loggers</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -245,6 +246,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Eisen und Zink in Salat</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-17.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Complete randomized design</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-18.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Complete randomized design</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -275,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><em>Version vom July 11, 2023 um 14:16:38</em></p>
+<p><em>Version vom January 13, 2024 um 15:03:32</em></p>
 <p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, readxl,</span>
@@ -317,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">outcome =</span> <span class="fu">factor</span>(outcome, </span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"CO2"</span>, <span class="st">"Temperatur"</span>, <span class="st">"Rel. Luftfeuchtigkeit"</span>))) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In <a href="#fig-app-log-01">Abbildung&nbsp;<span>11.1</span></a> sehen wir alle Messdaten aufgetragen. Die Zeit für den Plot ist relativ überschaubar und wir erhalten das Ergebnis in wenigen Augenblicken. Daher spricht eigentlich nichts für diese Darstellung über alle Messdaten. Wir sehen, dass die Temperatur am Anfang höher war, als im späteren Verlauf. Auch haben wir einen Peak an CO<span class="math inline">\(_2\)</span> um den 29. November sowie ein paar Tage später. Die Luftfeuchte zeigt im Laufe der Messungen eine immer höhere Variabilität.</p>
+<p>In <a href="#fig-app-log-01">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-app-log-01</span></a> sehen wir alle Messdaten aufgetragen. Die Zeit für den Plot ist relativ überschaubar und wir erhalten das Ergebnis in wenigen Augenblicken. Daher spricht eigentlich nichts für diese Darstellung über alle Messdaten. Wir sehen, dass die Temperatur am Anfang höher war, als im späteren Verlauf. Auch haben wir einen Peak an CO<span class="math inline">\(_2\)</span> um den 29. November sowie ein paar Tage später. Die Luftfeuchte zeigt im Laufe der Messungen eine immer höhere Variabilität.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(log_plot_tbl, <span class="fu">aes</span>(date_time, rsp, <span class="at">color =</span> outcome)) <span class="sc">+</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
@@ -344,7 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">median =</span> <span class="fu">median</span>(rsp),</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(rsp))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In der <a href="#fig-app-log-02">Abbildung&nbsp;<span>11.2</span></a> plotten wir uns einmal die Mittelwerte für jeden Tag und die entsprechende Standardabweichung als schattierte Fläche. Hier sehen wir sehr schön den Abfall der Luftfeuchte sowie die eher konstante Temperatur ab dem 24. November. Auch wird der Peak in der CO<span class="math inline">\(_2\)</span> Konzentration etwas ausgeglichen. Wir sehen den Effekt aber immer noch gut.</p>
+<p>In der <a href="#fig-app-log-02">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-app-log-02</span></a> plotten wir uns einmal die Mittelwerte für jeden Tag und die entsprechende Standardabweichung als schattierte Fläche. Hier sehen wir sehr schön den Abfall der Luftfeuchte sowie die eher konstante Temperatur ab dem 24. November. Auch wird der Peak in der CO<span class="math inline">\(_2\)</span> Konzentration etwas ausgeglichen. Wir sehen den Effekt aber immer noch gut.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(log_plot_sum_tbl, <span class="fu">aes</span>(date, mean)) <span class="sc">+</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
@@ -371,7 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>log_plot_filter_tbl <span class="ot">&lt;-</span> log_plot_tbl <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"06:00:00"</span>, <span class="st">"12:00:00"</span>, <span class="st">"18:00:00"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In <a href="#fig-app-log-03">Abbildung&nbsp;<span>11.3</span></a> sehen wir die Verläufe für die Messzeitpunkte um 6 Uhr, 12 Uhr und dann 18 Uhr. Spannender weise fällt um 12 Uhr die Luftfeuchtigkeit am 9. Dezember. Auch sind die Werte etwas anders für jede Uhrzeit. Da ich mich hier nicht auskenne, was wo und wie gemessen wurde, lassen wir das hier mal so stehen.</p>
+<p>In <a href="#fig-app-log-03">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-app-log-03</span></a> sehen wir die Verläufe für die Messzeitpunkte um 6 Uhr, 12 Uhr und dann 18 Uhr. Spannender weise fällt um 12 Uhr die Luftfeuchtigkeit am 9. Dezember. Auch sind die Werte etwas anders für jede Uhrzeit. Da ich mich hier nicht auskenne, was wo und wie gemessen wurde, lassen wir das hier mal so stehen.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(log_plot_filter_tbl, <span class="fu">aes</span>(date, rsp, <span class="at">color =</span> time)) <span class="sc">+</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>

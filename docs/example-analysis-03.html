@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -91,7 +91,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
     "search-detached-cancel-button-title": "Abbrechen",
-    "search-submit-button-title": "Abschicken"
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
   }
 }</script>
 
@@ -115,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./example-analysis-preface.html">Beispielhafte Auswertungen</a></li><li class="breadcrumb-item"><a href="./example-analysis-03.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Auswertung zweifaktorielle ANOVA mit Interaktion</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -248,6 +249,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Eisen und Zink in Salat</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-17.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Complete randomized design</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-18.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Complete randomized design</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -278,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><em>Version vom July 11, 2023 um 14:16:12</em></p>
+<p><em>Version vom January 13, 2024 um 15:03:08</em></p>
 <p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, see, readxl, knitr,</span>
@@ -304,7 +317,7 @@ growth \sim light\_intensity + layer + rack
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">light_intensity =</span> <span class="fu">factor</span>(light_intensity, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"mid"</span>, <span class="st">"high"</span>)),</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">growth =</span> <span class="fu">as.numeric</span>(growth))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In der <a href="#tbl-app-light">Tabelle&nbsp;<span>3.1</span></a> sehen wir nochmal einen Ausschnitt aus den Daten.</p>
+<p>In der <a href="#tbl-app-light">Tabelle&nbsp;<span class="quarto-unresolved-ref">tbl-app-light</span></a> sehen wir nochmal einen Ausschnitt aus den Daten.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-app-light" class="anchored">
@@ -577,7 +590,7 @@ growth \sim light\_intensity + layer + rack
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>Das R Paket <a href="https://vincentarelbundock.github.io/modelsummary/articles/datasummary.html">modelsummary</a> bietet hier eine sehr große Auswahl an tollen Funktionen an um seine Daten übersichtlich zu gestalten.</p>
-</div></div><p>Für die Entscheidung welcher der beiden Faktoren <code>rack</code> oder <code>layer</code> mit ins Modekll soll, schauen wir uns einmal die Boxplots für die jeweiligen Fakoten an. In <a href="#fig-app-anova-interaction-1">Abbildung&nbsp;<span>3.1</span></a> sehen wir einmal die Boxplots aufgeteilt nach <code>rack</code>.</p>
+</div></div><p>Für die Entscheidung welcher der beiden Faktoren <code>rack</code> oder <code>layer</code> mit ins Modekll soll, schauen wir uns einmal die Boxplots für die jeweiligen Fakoten an. In <a href="#fig-app-anova-interaction-1">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-app-anova-interaction-1</span></a> sehen wir einmal die Boxplots aufgeteilt nach <code>rack</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(light_tbl, <span class="fu">aes</span>(light_intensity, growth, <span class="at">fill =</span> rack)) <span class="sc">+</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
@@ -607,7 +620,7 @@ growth \sim light\_intensity + layer + rack
 </div>
 </div>
 </div>
-<p>Dieses wirre Muster sehen wir dann auch in <a href="#fig-app-anova-interaction-2">Abbildung&nbsp;<span>3.2</span></a>. Hier passen die Trends des Faktors <code>layer</code> über die Faktorlevel <code>low</code>, <code>mid</code> und <code>high</code> auch wieder nicht. Schauen wir uns jetzt nochmal die ganze Sache aufgeteilt nach <code>rack</code> und <code>layer</code> an. Vielelicht werden wir dann etwas schlauer oder das Problem wird noch klarer.</p>
+<p>Dieses wirre Muster sehen wir dann auch in <a href="#fig-app-anova-interaction-2">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-app-anova-interaction-2</span></a>. Hier passen die Trends des Faktors <code>layer</code> über die Faktorlevel <code>low</code>, <code>mid</code> und <code>high</code> auch wieder nicht. Schauen wir uns jetzt nochmal die ganze Sache aufgeteilt nach <code>rack</code> und <code>layer</code> an. Vielelicht werden wir dann etwas schlauer oder das Problem wird noch klarer.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(light_tbl, <span class="fu">aes</span>(light_intensity, growth, <span class="at">fill =</span> rack)) <span class="sc">+</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
@@ -709,7 +722,7 @@ Anova Table (Type 1 tests)</code></pre>
 9 mid - high 3rd     14.0       4.18     23.9 </code></pre>
 </div>
 </div>
-<p>In der <a href="#fig-app-anova-interaction-4">Abbildung&nbsp;<span>3.4</span></a> sehen wir dann die berechneten 95% Konfidenzintervalle nochmal visualisiert. Wenn wir einen Effekt haben, dann im <code>3rd</code> Layer. In den restlichen 95% Konfidenzintervallen ist die Null mit enthalten, wir können also die Nullhypothese auf Gleichheit des Gruppenvergleiches nicht ablehnen.</p>
+<p>In der <a href="#fig-app-anova-interaction-4">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-app-anova-interaction-4</span></a> sehen wir dann die berechneten 95% Konfidenzintervalle nochmal visualisiert. Wenn wir einen Effekt haben, dann im <code>3rd</code> Layer. In den restlichen 95% Konfidenzintervallen ist die Null mit enthalten, wir können also die Nullhypothese auf Gleichheit des Gruppenvergleiches nicht ablehnen.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ci_obj, <span class="fu">aes</span>(contrast, <span class="at">y=</span>estimate, <span class="at">ymin=</span>conf.low, <span class="at">ymax=</span>conf.high,</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> layer, <span class="at">group =</span> layer)) <span class="sc">+</span></span>
@@ -771,7 +784,7 @@ NOTE: If two or more means share the same grouping symbol,
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(light_intensity, layer, .group) <span class="sc">%&gt;%</span> </span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(layer, light_intensity)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In <a href="#fig-app-anova-interaction-5">Abbildung&nbsp;<span>3.5</span></a> sehen wir die Ausgabe des Barplots für die Daten und dann an die Balken geschrieben das <em>compact letter display</em>. Wichtig ist hier, dass die Buchstaben immer nur für <em>ein</em> Layer gelten. Wir können wegen der Interaktion nicht die Layer untereinander mit den Buchstaben vergleichen. Wir sehen wiederum, dass wir keine relevanten signifikanten Ergebnisse aus dem Experiment mitnehmen können.</p>
+<p>In <a href="#fig-app-anova-interaction-5">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-app-anova-interaction-5</span></a> sehen wir die Ausgabe des Barplots für die Daten und dann an die Balken geschrieben das <em>compact letter display</em>. Wichtig ist hier, dass die Buchstaben immer nur für <em>ein</em> Layer gelten. Wir können wegen der Interaktion nicht die Layer untereinander mit den Buchstaben vergleichen. Wir sehen wiederum, dass wir keine relevanten signifikanten Ergebnisse aus dem Experiment mitnehmen können.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>stat_tbl <span class="ot">&lt;-</span> light_tbl <span class="sc">%&gt;%</span> </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(light_intensity, layer) <span class="sc">%&gt;%</span> </span>

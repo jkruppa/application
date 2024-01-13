@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -91,7 +91,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
     "search-detached-cancel-button-title": "Abbrechen",
-    "search-submit-button-title": "Abschicken"
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
   }
 }</script>
 
@@ -112,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./example-analysis-preface.html">Beispielhafte Auswertungen</a></li><li class="breadcrumb-item"><a href="./example-analysis-12.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Pilze auf dem Rasen</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -245,6 +246,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Eisen und Zink in Salat</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-17.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Complete randomized design</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-18.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Complete randomized design</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -275,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><em>Version vom July 11, 2023 um 14:16:43</em></p>
+<p><em>Version vom January 13, 2024 um 15:03:36</em></p>
 <p>Wir wollen folgende R Pakete in diesem Kapitel nutzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, readxl, janitor,</span>
@@ -286,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"select"</span>, <span class="st">"dplyr"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"filter"</span>, <span class="st">"dplyr"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Im Folgenden wollen wir uns einen Datensatz mit einem etwas missglückten Design anschauen. In der <a href="example-analysis-15.html#fig-app-exp-golf">Abbildung&nbsp;<span>15.1</span></a> sehen wir das Design einmal aus der Vogelperspektive. Wir haben auf zwei Grüns jweils zwei Blöcke angelegt. Leider finden wir nur Block I und II auf dem Grün 1 sowie die Blöcke III und IV auf dem Grün 2. Zwar haben wir dann unsere fünfzehn Behandlungen sauber auf jedem der beiden Grüns randomisiert, aber die ungüntige Blockeinteilung wird uns noch etwas Kopfzerbrechen bereiten.</p>
+<p>Im Folgenden wollen wir uns einen Datensatz mit einem etwas missglückten Design anschauen. In der <a href="#fig-app-exp-golf">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-app-exp-golf</span></a> sehen wir das Design einmal aus der Vogelperspektive. Wir haben auf zwei Grüns jweils zwei Blöcke angelegt. Leider finden wir nur Block I und II auf dem Grün 1 sowie die Blöcke III und IV auf dem Grün 2. Zwar haben wir dann unsere fünfzehn Behandlungen sauber auf jedem der beiden Grüns randomisiert, aber die ungüntige Blockeinteilung wird uns noch etwas Kopfzerbrechen bereiten.</p>
 <div id="fig-app-exp-golf" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/app_golf_green.png" class="img-fluid figure-img" style="width:80.0%"></p>
@@ -301,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">trt =</span> <span class="fu">as_factor</span>(trt),</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">golfgreen =</span> <span class="fu">as_factor</span>(golfgreen)) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Schauen wir uns einmal die Korrelation zwischen den AUDPC-Werten für die beiden Jahre an. In der Hoffnung, dass wenn wir immer die gleiche Position gemessen haben, gleiche Bedingungen in beiden Jahren hatten. In <a href="#fig-app-exp-golf-01">Abbildung&nbsp;<span>12.2</span></a> sehen wir die Korrelation einmal abgebildet. Zwar ist der Korrelation signifikant aber auch nicht sehr hoch. Das ist jetzt nicht so toll, da wir ja eigentlich hoffen würden, den gleichen Pilzbefall in beiden Jahren zu haben.</p>
+<p>Schauen wir uns einmal die Korrelation zwischen den AUDPC-Werten für die beiden Jahre an. In der Hoffnung, dass wenn wir immer die gleiche Position gemessen haben, gleiche Bedingungen in beiden Jahren hatten. In <a href="#fig-app-exp-golf-01">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-app-exp-golf-01</span></a> sehen wir die Korrelation einmal abgebildet. Zwar ist der Korrelation signifikant aber auch nicht sehr hoch. Das ist jetzt nicht so toll, da wir ja eigentlich hoffen würden, den gleichen Pilzbefall in beiden Jahren zu haben.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>golf_tbl <span class="sc">%&gt;%</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(audpc_2020, audpc_2021) <span class="sc">%&gt;%</span> </span>
@@ -325,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"audpc"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>prefix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In der <a href="#fig-app-exp-golf-02">Abbildung&nbsp;<span>12.3</span></a> schauen wir uns auf zwei Arten einmal die Daten an. Zwar macht es nicht so viel Sinn die Behandlungen untereinander mit einer Linie zu verbinden, aber ich will hier nochmal schauen, wie verschieden die Jahre 2020 und 2021 sind. Hier verstärkt sich nochmal das Bild aus der Korrelationsanalyse. Die beiden Jahre sind sehr unterschiedlich, ich rechne die Analyse daher für die Jahre getrennt.</p>
+<p>In der <a href="#fig-app-exp-golf-02">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-app-exp-golf-02</span></a> schauen wir uns auf zwei Arten einmal die Daten an. Zwar macht es nicht so viel Sinn die Behandlungen untereinander mit einer Linie zu verbinden, aber ich will hier nochmal schauen, wie verschieden die Jahre 2020 und 2021 sind. Hier verstärkt sich nochmal das Bild aus der Korrelationsanalyse. Die beiden Jahre sind sehr unterschiedlich, ich rechne die Analyse daher für die Jahre getrennt.</p>
 <div class="page-columns page-full">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(golf_tbl, <span class="fu">aes</span>(trt, audpc, <span class="at">group =</span> block, <span class="at">shape =</span> block<span class="sc">:</span>golfgreen,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> golfgreen)) <span class="sc">+</span></span>

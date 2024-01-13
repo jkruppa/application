@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -91,7 +91,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
     "search-detached-cancel-button-title": "Abbrechen",
-    "search-submit-button-title": "Abschicken"
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
   }
 }</script>
 
@@ -110,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./example-analysis-preface.html">Beispielhafte Auswertungen</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -243,6 +244,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Eisen und Zink in Salat</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-17.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Complete randomized design</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example-analysis-18.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Complete randomized design</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -273,7 +286,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><em>Version vom July 11, 2023 um 14:16:04</em></p>
+<p><em>Version vom January 13, 2024 um 15:03:01</em></p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -305,21 +318,21 @@ Beispielhafte Auswertungen per Video
 </div>
 <p>Worum geht es in diesen Kapiteln? Ich rechne hier fröhlich Dinge und präsentiere dann die Ergebnisse. Das heißt, du findest hier beispielhafte Auswertungen, die eventuell auch deine Problemstellung betreffen. Da <em>ich selber</em> meist keine Ahnung von der Biologie hinter den Experimenten habe, musst du mir nachsehen, dass ich hier nie zu einem echten biologischen Schluss oder Auswertung komme.</p>
 <ul>
-<li>In <a href="example-analysis-01.html"><span>Kapitel&nbsp;1</span></a> schauen wir uns einmal die Erstellung eines Isoplethendiagramms für Münster &amp; Osnabrück aus den frei verfügbaren Daten des Deutschen Wetterdienstes an.</li>
-<li>In <a href="example-analysis-02.html"><span>Kapitel&nbsp;2</span></a> rechnen wir einmal ein simples Beispiel für Zähldaten in zwei Gruppen. Wir haben hier nicht wiederholt gezählt, sondern nur jeweils einmal an einer Stelle.</li>
-<li>In <a href="example-analysis-03.html"><span>Kapitel&nbsp;3</span></a> rechnen wir nochmal eine zweifaktorielle ANOVA mit Interaktionsterm durch. Wir kriegen dann unser <em>Compact letter display</em> wie auch die Konfidenzintervalle wieder.</li>
-<li>In <a href="example-analysis-04.html"><span>Kapitel&nbsp;4</span></a> rechnen wir einen Games Howell Test für normalverteilte Daten mit Varianzheterogenität. Hier hauen wir ein wenig auf die Pauke und rechnen alles in wenigen Zeilen mit der Funktion <code>map()</code>. War eine spaßige Auswerung für mich, da ich hier mal wieder programmieren üben konnte.</li>
-<li>In <a href="example-analysis-05.html"><span>Kapitel&nbsp;5</span></a> schauen wir uns ein größeres Beispiel für die Analyse von Wurzelbonituren an. Im Prinzip geht das natürlich auch alles für jede andere Bonitur. Wenn du eine andere Bonitur hast, kannst du natürlich auch den Weg der Analyse gehen.</li>
-<li>In <a href="example-analysis-06.html"><span>Kapitel&nbsp;6</span></a> haben wir ein etwas komplexeres Beispiel für vier Outcomes, die an acht Terminen gemessen wurden. Wir sehen hier einmal, wie die Daten eingelesen werden und ein Korrelationsplot über die vier Outcomes erstellt wird.</li>
-<li>In <a href="example-analysis-07.html"><span>Kapitel&nbsp;7</span></a> schauen wir uns den Tukey Test für paaweise Vergleiche einmal an. Wir nutzen hier die schnelle Variante mit der Funktion <code>aov()</code>. Für das <em>Compact letter display</em> müssen wir uns dann ein wenig strecken, aber es geht dann auch.</li>
-<li>In <a href="example-analysis-08.html"><span>Kapitel&nbsp;8</span></a> haben wir nochmal ein schönes Beispiel für eine Analyse mit mehreren Faktoren und verschiedenen Outcomes. Wir haben also einen Blumenstrauß an Daten, die wir sortieren und auswerten müssen. Da ich selber keine Ahnung vom Pflügen habe, gehen wir die Sache distanziert durch.</li>
-<li>In <a href="example-analysis-09.html"><span>Kapitel&nbsp;9</span></a> schauen wir uns ein lineares gemischtes Modell an. Das heißt, wir wollen einen Gruppenvergleich rechnen und dabei die verschiedenen Zeitpunkte mit berücksichtigen. Anstatt also jeden Zeitpunkt einzeln, rechnen wir alle Zeitpunkte zusammen.</li>
-<li>In <a href="example-analysis-10.html"><span>Kapitel&nbsp;10</span></a> wollen wir uns die Konzentration von drei Spurenelementen als Outcome in Blättern und Stielen der Spinatpflanze anschauen. Wir haben hierfür dann die Konzentration von Fe, Cd und Zn gemessen. Insgesamt gab es sieben verschiedene Behandlungsformen.</li>
-<li>In <a href="example-analysis-11.html"><span>Kapitel&nbsp;11</span></a> schauen wir uns die Daten eines automatischen Log-Gerätes einmal an. Wir haben die Daten von über 35000 Messungen in über knapp zwei Wochen erhoben. Wir wollen jetzt diese Daten auf verschiedene Art und Weise visualisieren und die Ergebnisse der Plots vergleichen.</li>
-<li>In <a href="example-analysis-12.html"><span>Kapitel&nbsp;12</span></a> betrachten wir das Wachstum von Pilzen auf zwei Grasflächen und vier Blöcken. Insgesamt wurden fünfzehn Behandlungen auf den Rasen aufgebracht, was natürlich zu einer gewaltigen Anzahl an Vergleichen führt.</li>
-<li>In <a href="example-analysis-13.html"><span>Kapitel&nbsp;13</span></a> Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 1</li>
-<li>In <a href="example-analysis-14.html"><span>Kapitel&nbsp;14</span></a> Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 2</li>
-<li>In <a href="example-analysis-15.html"><span>Kapitel&nbsp;15</span></a> Projektkurs im Master MLP</li>
+<li>In <a href="#sec-app-example-iso"><span class="quarto-unresolved-ref">sec-app-example-iso</span></a> schauen wir uns einmal die Erstellung eines Isoplethendiagramms für Münster &amp; Osnabrück aus den frei verfügbaren Daten des Deutschen Wetterdienstes an.</li>
+<li>In <a href="#sec-app-example-number-groups"><span class="quarto-unresolved-ref">sec-app-example-number-groups</span></a> rechnen wir einmal ein simples Beispiel für Zähldaten in zwei Gruppen. Wir haben hier nicht wiederholt gezählt, sondern nur jeweils einmal an einer Stelle.</li>
+<li>In <a href="#sec-app-example-anova-inter"><span class="quarto-unresolved-ref">sec-app-example-anova-inter</span></a> rechnen wir nochmal eine zweifaktorielle ANOVA mit Interaktionsterm durch. Wir kriegen dann unser <em>Compact letter display</em> wie auch die Konfidenzintervalle wieder.</li>
+<li>In <a href="#sec-mult-map-ght"><span class="quarto-unresolved-ref">sec-mult-map-ght</span></a> rechnen wir einen Games Howell Test für normalverteilte Daten mit Varianzheterogenität. Hier hauen wir ein wenig auf die Pauke und rechnen alles in wenigen Zeilen mit der Funktion <code>map()</code>. War eine spaßige Auswerung für mich, da ich hier mal wieder programmieren üben konnte.</li>
+<li>In <a href="#sec-root-quality"><span class="quarto-unresolved-ref">sec-root-quality</span></a> schauen wir uns ein größeres Beispiel für die Analyse von Wurzelbonituren an. Im Prinzip geht das natürlich auch alles für jede andere Bonitur. Wenn du eine andere Bonitur hast, kannst du natürlich auch den Weg der Analyse gehen.</li>
+<li>In <a href="#sec-cutting"><span class="quarto-unresolved-ref">sec-cutting</span></a> haben wir ein etwas komplexeres Beispiel für vier Outcomes, die an acht Terminen gemessen wurden. Wir sehen hier einmal, wie die Daten eingelesen werden und ein Korrelationsplot über die vier Outcomes erstellt wird.</li>
+<li>In <a href="#sec-tukeyHSD"><span class="quarto-unresolved-ref">sec-tukeyHSD</span></a> schauen wir uns den Tukey Test für paaweise Vergleiche einmal an. Wir nutzen hier die schnelle Variante mit der Funktion <code>aov()</code>. Für das <em>Compact letter display</em> müssen wir uns dann ein wenig strecken, aber es geht dann auch.</li>
+<li>In <a href="#sec-plowing-data"><span class="quarto-unresolved-ref">sec-plowing-data</span></a> haben wir nochmal ein schönes Beispiel für eine Analyse mit mehreren Faktoren und verschiedenen Outcomes. Wir haben also einen Blumenstrauß an Daten, die wir sortieren und auswerten müssen. Da ich selber keine Ahnung vom Pflügen habe, gehen wir die Sache distanziert durch.</li>
+<li>In <a href="#sec-app-mixed-cutting"><span class="quarto-unresolved-ref">sec-app-mixed-cutting</span></a> schauen wir uns ein lineares gemischtes Modell an. Das heißt, wir wollen einen Gruppenvergleich rechnen und dabei die verschiedenen Zeitpunkte mit berücksichtigen. Anstatt also jeden Zeitpunkt einzeln, rechnen wir alle Zeitpunkte zusammen.</li>
+<li>In <a href="#sec-app-spinach-metal"><span class="quarto-unresolved-ref">sec-app-spinach-metal</span></a> wollen wir uns die Konzentration von drei Spurenelementen als Outcome in Blättern und Stielen der Spinatpflanze anschauen. Wir haben hierfür dann die Konzentration von Fe, Cd und Zn gemessen. Insgesamt gab es sieben verschiedene Behandlungsformen.</li>
+<li>In <a href="#sec-app-logger"><span class="quarto-unresolved-ref">sec-app-logger</span></a> schauen wir uns die Daten eines automatischen Log-Gerätes einmal an. Wir haben die Daten von über 35000 Messungen in über knapp zwei Wochen erhoben. Wir wollen jetzt diese Daten auf verschiedene Art und Weise visualisieren und die Ergebnisse der Plots vergleichen.</li>
+<li>In <a href="#sec-app-golf-green"><span class="quarto-unresolved-ref">sec-app-golf-green</span></a> betrachten wir das Wachstum von Pilzen auf zwei Grasflächen und vier Blöcken. Insgesamt wurden fünfzehn Behandlungen auf den Rasen aufgebracht, was natürlich zu einer gewaltigen Anzahl an Vergleichen führt.</li>
+<li>In <a href="#sec-app-basilikum"><span class="quarto-unresolved-ref">sec-app-basilikum</span></a> Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 1</li>
+<li>In <a href="#sec-app-gurke"><span class="quarto-unresolved-ref">sec-app-gurke</span></a> Steuerung der vegetativen Entwicklung krautiger Pflanzen (44B0608) - Teil 2</li>
+<li>In <a href="#sec-app-strawberry"><span class="quarto-unresolved-ref">sec-app-strawberry</span></a> Projektkurs im Master MLP</li>
 </ul>
 
 

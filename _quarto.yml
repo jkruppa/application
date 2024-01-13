@@ -13,7 +13,6 @@ book:
   title: "Beispielhafte Auswertungen"
   author: "Prof. Dr. Jochen Kruppa"
   date: "11. July 2023"
-  cover-image: cover.png
   chapters:
     - index.qmd
     - part: example-analysis-preface.qmd
@@ -35,15 +34,19 @@ book:
       - example-analysis-15.qmd
       - example-analysis-16.qmd 
       - example-analysis-17.qmd
-      - example-analysis-18.qmd
-      
+
 bibliography: references.bib
 lang: de 
 
 format:
-  html:
-    theme: cosmo
-#  pdf:
-#    documentclass: scrreprt
+  html: 
+    theme:
+      light: pulse
+      dark: superhero
+    cover-image: cover2024.png
+    favicon: cover2024.jpg
+    code-annotations: hover
+    mermaid:
+      theme: neutral
 
 
